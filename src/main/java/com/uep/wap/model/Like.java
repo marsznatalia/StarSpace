@@ -3,8 +3,8 @@ package com.uep.wap.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="students")
-public class Student{
+@Table(name="likes")
+public class Like {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name ="id")
@@ -13,7 +13,7 @@ public class Student{
     private String name;
     @Column(name ="points")
     private Integer points;
-    public Student(){
+    public Like(){
 
     }
     public void setId(long id){
@@ -40,7 +40,7 @@ public class Student{
         this.points = points;
     }
 
-    public Student(String name, Integer points){
+    public Like(String name, Integer points){
 
     }
 }
