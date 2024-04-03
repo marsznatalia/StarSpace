@@ -5,6 +5,7 @@ import javax.persistence.*;
 import java.util.List;
 
 
+//TODO: User, Chat(usersInChat as List), Message, Chart, Post, Comment, Reaction, Like
 @Entity
 @Table(name="users")
 public class User {
@@ -18,20 +19,25 @@ public class User {
     private String email;
     @Column(name ="password")
     private String password;
-    //@Column(name ="friends")
-    //private List<User> friends;
 
-
-    @OneToOne(mappedBy = "userProfile", cascade = CascadeType.ALL)
-    private UserProfile userProfile;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Theme theme;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Like> likes;
+    //TODO: friends jako lista userów
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> posts;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Comment> comments;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Like> likes;
+    //
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Chat> chat;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private UserProfile userProfile;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Newsletter newsletter;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Theme theme;
 
     public User(){
 

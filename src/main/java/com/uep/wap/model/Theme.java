@@ -11,17 +11,19 @@ public class Theme {
     private long id;
     @Column(name ="color")
     private boolean color;
-    public Theme(){
-
-    }
-    public Theme(long id, boolean color) {
-        this.id = id;
-        this.color = color;
-    }
-
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    public Theme(){
+
+    }
+
+    public Theme(long id, boolean color, User user) {
+        this.id = id;
+        this.color = color;
+        this.user = user;
+    }
 
     public long getId() {
         return id;
@@ -39,7 +41,13 @@ public class Theme {
         this.color = color;
     }
 
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 }
 
 
