@@ -4,33 +4,33 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name="newsletters")
+@Table(name = "newsletters")
 public class Newsletter {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private long id;
-    @Column(name ="title")
+    @Column(name = "title")
     private String title;
     @OneToMany(mappedBy = "newsletter", cascade = CascadeType.ALL)
-    private List<News> news;
+    private List<News> newsList;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "newsletter_user",
             joinColumns =
-                    { @JoinColumn(name = "newsletter_id", referencedColumnName = "id") },
+                    {@JoinColumn(name = "newsletter_id", referencedColumnName = "id")},
             inverseJoinColumns =
-                    { @JoinColumn(name = "user_id", referencedColumnName = "id") })
+                    {@JoinColumn(name = "user_id", referencedColumnName = "id")})
     private User user;
 
-    public Newsletter(){
+    public Newsletter() {
 
     }
 
-    public Newsletter(long id, String title, List<News> news, User user) {
+    public Newsletter(long id, String title, List<News> newsList, User user) {
         this.id = id;
         this.title = title;
-        this.news = news;
+        this.newsList = newsList;
         this.user = user;
     }
 
@@ -50,12 +50,12 @@ public class Newsletter {
         this.title = title;
     }
 
-    public List<News> getNews() {
-        return news;
+    public List<News> getNewsList() {
+        return newsList;
     }
 
-    public void setNews(List<News> news) {
-        this.news = news;
+    public void setNewsList(List<News> newsList) {
+        this.newsList = newsList;
     }
 
     public User getUser() {

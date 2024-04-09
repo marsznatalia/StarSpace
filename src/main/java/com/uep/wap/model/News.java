@@ -6,17 +6,17 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name="news")
+@Table(name = "news")
 public class News {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private long id;
-    @Column(name ="title")
+    @Column(name = "title")
     private String title;
-    @Column(name ="content")
+    @Column(name = "content")
     private String content;
-    @Column(name="datePosted")
+    @Column(name = "datePosted")
     private Date datePosted;
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
@@ -28,7 +28,7 @@ public class News {
     @JoinColumn(name = "newsletter_id")
     private Newsletter newsletter;
 
-    public News(){
+    public News() {
 
     }
 
@@ -40,6 +40,7 @@ public class News {
         this.author = author;
         this.newsletter = newsletter;
     }
+
 
     public Date getDatePosted() {
         return datePosted;

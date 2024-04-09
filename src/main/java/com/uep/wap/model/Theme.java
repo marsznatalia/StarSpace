@@ -3,19 +3,20 @@ package com.uep.wap.model;
 import javax.persistence.*;
 
 @Entity
-@Table(name="themes")
+@Table(name = "themes")
 public class Theme {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private long id;
-    @Column(name ="color")
+    @Column(name = "color") //Light theme to true, dark theme to false
     private boolean color;
+
     @OneToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Theme(){
+    public Theme() {
 
     }
 

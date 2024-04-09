@@ -5,16 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="userProfiles")
+@Table(name = "userProfiles")
 public class UserProfile {
     @Id
     @Column(name = "user_id")
     private Long id;
-    @Column(name ="bio")
+    @Column(name = "bio")
     private String bio;
-    @Column(name ="profilePicture")
+    @Column(name = "profilePicture")
     private Object profilePicture;
-    @Column(name ="status")
+    @Column(name = "status")
     private Integer status;
 
     @OneToOne
@@ -27,7 +27,7 @@ public class UserProfile {
     @Column(name = "links", nullable = false)
     private List<String> links = new ArrayList<>();
 
-    public UserProfile(){
+    public UserProfile() {
 
     }
 
