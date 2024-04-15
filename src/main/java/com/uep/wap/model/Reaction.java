@@ -3,9 +3,6 @@ package com.uep.wap.model;
 import javax.persistence.*;
 import java.util.List;
 
-//TODO: postId i commentId jako przechodnie id
-//TODO: wygenerować konstruktor, gettery/settery
-
 @Entity
 @Table(name = "reactions")
 public class Reaction {
@@ -26,6 +23,13 @@ public class Reaction {
 
     public Reaction() {
 
+    }
+
+    public Reaction(long id, Post post, Comment comment, List<Like> likeList) {
+        this.id = id;
+        this.post = post;
+        this.comment = comment;
+        this.likeList = likeList;
     }
 
     public long getId() {
