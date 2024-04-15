@@ -6,7 +6,7 @@ import java.util.Date;
 import java.util.List;
 
 @Entity
-@Table(name = "students")
+@Table(name = "comments")
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,6 +40,18 @@ public class Comment {
 
     public Comment() {
 
+    }
+
+    public Comment(long id, String content, User author, Date datePosted, List<Like> likes, Post post, List<Reaction> reactionList, Comment parent, List<Comment> children) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+        this.datePosted = datePosted;
+        this.likes = likes;
+        this.post = post;
+        this.reactionList = reactionList;
+        this.parent = parent;
+        this.children = children;
     }
 
     public long getId() {

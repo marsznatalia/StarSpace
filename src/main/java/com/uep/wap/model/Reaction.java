@@ -28,6 +28,13 @@ public class Reaction {
 
     }
 
+    public Reaction(long id, Post post, Comment comment, List<Like> likeList) {
+        this.id = id;
+        this.post = post;
+        this.comment = comment;
+        this.likeList = likeList;
+    }
+
     public long getId() {
         return id;
     }

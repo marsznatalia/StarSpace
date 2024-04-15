@@ -20,6 +20,12 @@ public class Like {
 
     }
 
+    public Like(User user, Boolean addressedTo, Reaction reaction) {
+        this.user = user;
+        this.addressedTo = addressedTo;
+        this.reaction = reaction;
+    }
+
     public User getUser() {
         return user;
     }
