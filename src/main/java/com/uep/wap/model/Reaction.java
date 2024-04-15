@@ -3,9 +3,6 @@ package com.uep.wap.model;
 import javax.persistence.*;
 import java.util.List;
 
-//TODO: postId i commentId jako przechodnie id
-//TODO: wygenerować konstruktor, gettery/settery
-
 @Entity
 @Table(name = "reactions")
 public class Reaction {

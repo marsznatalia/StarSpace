@@ -14,7 +14,6 @@ public class Like {
     @ManyToOne
     @JoinColumn(name = "reaction_id")
     private Reaction reaction;
-    //TODO: w kodzie powyżej trzeba jakoś połączyć Reaction.java z Like.java, ale mamy dwa id, ponieważ to tabela przechodna; następnie wygenerować constructor i gettery/settery
 
     public Like() {
 
