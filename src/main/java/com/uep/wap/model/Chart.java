@@ -82,6 +82,8 @@ public class Chart {
     public void setUser(User user) {
         this.user = user;
     }
+
+
 }
 
 
