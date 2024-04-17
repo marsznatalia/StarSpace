@@ -11,11 +11,11 @@ public class Reaction {
     private long id;
     @ManyToOne
     @JoinColumn(name = "post_id")
-    private Post postID;
+    private Post post;
 
     @ManyToOne
     @JoinColumn(name = "comment_id")
-    private Comment commentID;
+    private Comment comment;
 
     @OneToMany(mappedBy = "reaction", cascade = CascadeType.ALL)
     private List<Like> likeList;
@@ -25,10 +25,10 @@ public class Reaction {
 
     }
 
-    public Reaction(long id, Post postID, Comment commentID, List<Like> likeList) {
+    public Reaction(long id, Post post, Comment comment, List<Like> likeList) {
         this.id = id;
-        this.postID = postID;
-        this.commentID = commentID;
+        this.post = post;
+        this.comment= comment;
         this.likeList = likeList;
     }
 
@@ -41,19 +41,19 @@ public class Reaction {
     }
 
     public Post getPostID() {
-        return postID;
+        return post;
     }
 
     public void setPostID(Post post) {
-        this.postID = post;
+        this.post = post;
     }
 
     public Comment getCommentID() {
-        return commentID;
+        return comment;
     }
 
     public void setCommentID(Comment comment) {
-        this.commentID = comment;
+        this.comment = comment;
     }
 
     public List<Like> getLikeList() {
