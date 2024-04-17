@@ -14,44 +14,46 @@ public class Comment {
     private long id;
     @Column(name = "content")
     private String content;
-    @Column(name = "author")
-    private User author;
     @Column(name = "datePosted")
     private Date datePosted;
 
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id")) //bazuje na przykladzie userProfile
-    @Column(name = "likes", nullable = false)
-    private List<Like> likes = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<Reaction> reactionList;
-
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Comment parent;
 
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private List<Reaction> reactionList;
+
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
     private List<Comment> children;
+
+    @ElementCollection(targetClass = Like.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id"))
+    @Column(name = "likes", nullable = false)
+    private List<Like> likes = new ArrayList<>();
 
     public Comment() {
 
     }
 
-    public Comment(long id, String content, User author, Date datePosted, List<Like> likes, Post post, List<Reaction> reactionList, Comment parent, List<Comment> children) {
+    public Comment(long id, String content, Date datePosted, User author, Post post, Comment parent, List<Reaction> reactionList, List<Comment> children, List<Like> likes) {
         this.id = id;
         this.content = content;
-        this.author = author;
         this.datePosted = datePosted;
-        this.likes = likes;
+        this.author = author;
         this.post = post;
-        this.reactionList = reactionList;
         this.parent = parent;
+        this.reactionList = reactionList;
         this.children = children;
+        this.likes = likes;
     }
 
     public long getId() {
@@ -70,14 +72,6 @@ public class Comment {
         this.content = content;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public Date getDatePosted() {
         return datePosted;
     }
@@ -86,12 +80,12 @@ public class Comment {
         this.datePosted = datePosted;
     }
 
-    public List<Like> getLikes() {
-        return likes;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 
     public Post getPost() {
@@ -102,14 +96,6 @@ public class Comment {
         this.post = post;
     }
 
-    public List<Reaction> getReactionList() {
-        return reactionList;
-    }
-
-    public void setReactionList(List<Reaction> reactionList) {
-        this.reactionList = reactionList;
-    }
-
     public Comment getParent() {
         return parent;
     }
@@ -118,12 +104,28 @@ public class Comment {
         this.parent = parent;
     }
 
+    public List<Reaction> getReactionList() {
+        return reactionList;
+    }
+
+    public void setReactionList(List<Reaction> reactionList) {
+        this.reactionList = reactionList;
+    }
+
     public List<Comment> getChildren() {
         return children;
     }
 
     public void setChildren(List<Comment> children) {
         this.children = children;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 }
 

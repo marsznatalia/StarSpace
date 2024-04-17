@@ -9,12 +9,16 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "whoSent")
-    private User whoSent;
-    @Column(name = "whoReceived")
-    private User whoReceived;
     @Column(name = "content")
     private String content;
+
+    @ManyToOne
+    @JoinColumn(name = "sender_id")
+    private User whoSent;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver_id")
+    private User whoReceived;
 
     @ManyToOne
     @JoinColumn(name = "chat_id")
@@ -23,11 +27,11 @@ public class Message {
     public Message() {
     }
 
-    public Message(long id, User whoSent, User whoReceived, String content, Chat chat) {
+    public Message(long id, String content, User whoSent, User whoReceived, Chat chat) {
         this.id = id;
+        this.content = content;
         this.whoSent = whoSent;
         this.whoReceived = whoReceived;
-        this.content = content;
         this.chat = chat;
     }
 
@@ -37,6 +41,14 @@ public class Message {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 
     public User getWhoSent() {
@@ -53,14 +65,6 @@ public class Message {
 
     public void setWhoReceived(User whoReceived) {
         this.whoReceived = whoReceived;
-    }
-
-    public String getContent() {
-        return content;
-    }
-
-    public void setContent(String content) {
-        this.content = content;
     }
 
     public Chat getChat() {

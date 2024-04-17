@@ -19,35 +19,26 @@ public class News {
     @Column(name = "datePosted")
     private Date datePosted;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "authors", joinColumns = @JoinColumn(name = "news_id"))
-    @Column(name = "author", nullable = false)
-    private List<String> author = new ArrayList<>();
-
     @ManyToOne(optional = false)
     @JoinColumn(name = "newsletter_id")
     private Newsletter newsletter;
+
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "authors", joinColumns = @JoinColumn(name = "news_id"))
+    @Column(name = "author", nullable = false)
+    private List<String> author = new ArrayList<>();
 
     public News() {
 
     }
 
-    public News(long id, String title, String content, Date datePosted, List<String> author, Newsletter newsletter) {
+    public News(long id, String title, String content, Date datePosted, Newsletter newsletter, List<String> author) {
         this.id = id;
         this.title = title;
         this.content = content;
         this.datePosted = datePosted;
-        this.author = author;
         this.newsletter = newsletter;
-    }
-
-
-    public Date getDatePosted() {
-        return datePosted;
-    }
-
-    public void setDatePosted(Date datePosted) {
-        this.datePosted = datePosted;
+        this.author = author;
     }
 
     public long getId() {
@@ -74,12 +65,12 @@ public class News {
         this.content = content;
     }
 
-    public List<String> getAuthor() {
-        return author;
+    public Date getDatePosted() {
+        return datePosted;
     }
 
-    public void setAuthor(List<String> author) {
-        this.author = author;
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
     }
 
     public Newsletter getNewsletter() {
@@ -88,6 +79,14 @@ public class News {
 
     public void setNewsletter(Newsletter newsletter) {
         this.newsletter = newsletter;
+    }
+
+    public List<String> getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(List<String> author) {
+        this.author = author;
     }
 }
 

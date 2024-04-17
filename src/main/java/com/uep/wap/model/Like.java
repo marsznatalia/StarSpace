@@ -5,11 +5,16 @@ import javax.persistence.*;
 @Entity
 @Table(name = "likes")
 public class Like {
-
-    @Column(name = "user")
-    private User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    private long id;
     @Column(name = "addressedTo")
     private Boolean addressedTo;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
     @JoinColumn(name = "reaction_id")
@@ -19,18 +24,19 @@ public class Like {
 
     }
 
-    public Like(User user, Boolean addressedTo, Reaction reaction) {
-        this.user = user;
+    public Like(long id, Boolean addressedTo, User user, Reaction reaction) {
+        this.id = id;
         this.addressedTo = addressedTo;
+        this.user = user;
         this.reaction = reaction;
     }
 
-    public User getUser() {
-        return user;
+    public long getId() {
+        return id;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Boolean getAddressedTo() {
@@ -39,6 +45,14 @@ public class Like {
 
     public void setAddressedTo(Boolean addressedTo) {
         this.addressedTo = addressedTo;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Reaction getReaction() {
