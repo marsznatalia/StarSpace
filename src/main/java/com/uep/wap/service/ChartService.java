@@ -11,17 +11,17 @@ public class ChartService {
 
     @Autowired
     private ChartRepository chartRepository;
-
-    public void addChart(ChartDTO chartDTO) {
-        Chart chart = new Chart();
-        chart.setName(chartDTO.getName());
-        chart.setPoints(chartDTO.getPoints());
-        chartRepository.save(chart);
-        System.out.println("Charts added!");
-    }
-
-    public Iterable<Student> getAllCharts() {
-        return chartRepository.findAll();
-    }
+//
+//    public void addChart(ChartDTO chartDTO) {
+//        Chart chart = new Chart();
+//        chart.setName(chartDTO.getName());
+//        chart.setPoints(chartDTO.getPoints());
+//        chartRepository.save(chart);
+//        System.out.println("Charts added!");
+//    }
+//
+//    public Iterable<Student> getAllCharts() {
+//        return chartRepository.findAll();
+//    }
 
 }
