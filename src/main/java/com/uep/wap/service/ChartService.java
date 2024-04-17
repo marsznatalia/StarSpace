@@ -14,13 +14,12 @@ public class ChartService {
 
     public void addChart(ChartDTO chartDTO) {
         Chart chart = new Chart();
-        chart.setName(chartDTO.getName());
-        chart.setPoints(chartDTO.getPoints());
+        chart.setTitle(chartDTO.getTitle());
         chartRepository.save(chart);
         System.out.println("Charts added!");
     }
 
-    public Iterable<Student> getAllCharts() {
+    public Iterable<Chart> getAllCharts() {
         return chartRepository.findAll();
     }
 

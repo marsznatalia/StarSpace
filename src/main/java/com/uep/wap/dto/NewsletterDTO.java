@@ -1,6 +1,6 @@
 package com.uep.wap.dto;
 
-public class ChartDTO {
+public class NewsletterDTO {
 
     private String title;
 

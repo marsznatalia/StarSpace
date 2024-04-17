@@ -12,16 +12,15 @@ public class ChatService {
     @Autowired
     private ChatRepository chatRepository;
 
-    public void addStudent(ChatDTO chatDTO) {
-        Student student = new Student();
-        student.setName(studentDTO.getName());
-        student.setPoints(studentDTO.getPoints());
-        studentRepository.save(student);
-        System.out.println("Students added!");
+    public void addChat(ChatDTO chatDTO) {
+        Chat chat = new Chat();
+        chat.setChatName(chatDTO.getChatName());
+        chatRepository.save(chat);
+        System.out.println("Chats added!");
     }
 
-    public Iterable<Student> getAllStudents() {
-        return studentRepository.findAll();
+    public Iterable<Chat> getAllChats() {
+        return chatRepository.findAll();
     }
 
 }
