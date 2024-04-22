@@ -1,11 +1,13 @@
 package com.uep.wap.dto;
 
 public class PostDTO {
-    private String name;
-    public String getName() {
-        return name;
+    private String content;
+
+    public String getContent() {
+        return content;
     }
-    public void setName(String name) {
-        this.name = name;
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

@@ -8,10 +8,8 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ReactionService {
-
     @Autowired
     private ReactionRepository reactionRepository;
-
     public Iterable<Reaction> getAllReactions() {
         return reactionRepository.findAll();
     }
