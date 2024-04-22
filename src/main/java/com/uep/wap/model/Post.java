@@ -12,22 +12,14 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "content")
-    private Object content;
+    @Column(name = "content", columnDefinition = "TEXT")
+    private String content;
     @Column(name = "datePosted")
     private Date datePosted;
-    @Column(name = "author")
+
+    @ManyToOne
+    @JoinColumn(name = "author_id")
     private User author;
-
-    @ElementCollection(targetClass = Comment.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "comments", joinColumns = @JoinColumn(name = "comment_id"))
-    @Column(name = "comments", nullable = false)
-    private List<Comment> comments = new ArrayList<>();
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id"))
-    @Column(name = "likes", nullable = false)
-    private List<Like> likes = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -39,21 +31,29 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Reaction> reactionList;
 
+    @ElementCollection(targetClass = Comment.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "comments", joinColumns = @JoinColumn(name = "comment_id"))
+    @Column(name = "comments", nullable = false)
+    private List<Comment> comments = new ArrayList<>();
+
+    @ElementCollection(targetClass = Like.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id"))
+    @Column(name = "likes", nullable = false)
+    private List<Like> likes = new ArrayList<>();
 
     public Post() {
-
     }
 
-    public Post(long id, Object content, Date datePosted, User author, List<Comment> comments, List<Like> likes, User user, List<Comment> commentList, List<Reaction> reactionList) {
+    public Post(long id, String content, Date datePosted, User author, User user, List<Comment> commentList, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
         this.id = id;
         this.content = content;
         this.datePosted = datePosted;
         this.author = author;
-        this.comments = comments;
-        this.likes = likes;
         this.user = user;
         this.commentList = commentList;
         this.reactionList = reactionList;
+        this.comments = comments;
+        this.likes = likes;
     }
 
     public long getId() {
@@ -64,11 +64,11 @@ public class Post {
         this.id = id;
     }
 
-    public Object getContent() {
+    public String getContent() {
         return content;
     }
 
-    public void setContent(Object content) {
+    public void setContent(String content) {
         this.content = content;
     }
 
@@ -86,22 +86,6 @@ public class Post {
 
     public void setAuthor(User author) {
         this.author = author;
-    }
-
-    public List<Comment> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
     }
 
     public User getUser() {
@@ -126,6 +110,22 @@ public class Post {
 
     public void setReactionList(List<Reaction> reactionList) {
         this.reactionList = reactionList;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public List<Like> getLikes() {
+        return likes;
+    }
+
+    public void setLikes(List<Like> likes) {
+        this.likes = likes;
     }
 }
 

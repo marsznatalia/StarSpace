@@ -5,21 +5,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="students")
+@Table(name = "students")
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private long id;
-    @Column(name ="chatName")
+    @Column(name = "chatName")
     private String chatName;
-    @Column(name ="chatType")
+    @Column(name = "chatType")
     private Boolean chatType;
-
-    @ElementCollection(targetClass = User.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "usersInChat", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column jest ok
-    @Column(name = "usersInChat", nullable = false)
-    private List<User> usersInChat = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -28,16 +23,21 @@ public class Chat {
     @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
     private List<Message> messageList;
 
-    public Chat(){
+    @ElementCollection(targetClass = User.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "usersInChat", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "usersInChat", nullable = false)
+    private List<User> usersInChat = new ArrayList<>();
+
+    public Chat() {
     }
 
-    public Chat(long id, String chatName, Boolean chatType, List<User> usersInChat, User user, List<Message> messageList) {
+    public Chat(long id, String chatName, Boolean chatType, User user, List<Message> messageList, List<User> usersInChat) {
         this.id = id;
         this.chatName = chatName;
         this.chatType = chatType;
-        this.usersInChat = usersInChat;
         this.user = user;
         this.messageList = messageList;
+        this.usersInChat = usersInChat;
     }
 
     public long getId() {
@@ -64,14 +64,6 @@ public class Chat {
         this.chatType = chatType;
     }
 
-    public List<User> getUsersInChat() {
-        return usersInChat;
-    }
-
-    public void setUsersInChat(List<User> usersInChat) {
-        this.usersInChat = usersInChat;
-    }
-
     public User getUser() {
         return user;
     }
@@ -86,6 +78,14 @@ public class Chat {
 
     public void setMessageList(List<Message> messageList) {
         this.messageList = messageList;
+    }
+
+    public List<User> getUsersInChat() {
+        return usersInChat;
+    }
+
+    public void setUsersInChat(List<User> usersInChat) {
+        this.usersInChat = usersInChat;
     }
 }
 

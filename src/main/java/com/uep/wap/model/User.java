@@ -18,43 +18,45 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ElementCollection(targetClass = User.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "friendList", joinColumns = @JoinColumn(name = "user_id"))
-    //nie wiem czy Join Column jest ok
-    @Column(name = "friendList", nullable = false)
-    private List<User> friendList = new ArrayList<>();
-
-    @ElementCollection(targetClass = Post.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "postsList", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column jest ok
-    @Column(name = "postsList", nullable = false)
-    private List<Post> postsList = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Post> postList;
-
-    @ElementCollection(targetClass = Comment.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "commentsList", joinColumns = @JoinColumn(name = "user_id"))
-    //nie wiem czy Join Column jest ok
-    @Column(name = "commentsList", nullable = false)
-    private List<Comment> commentsList = new ArrayList<>();
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "likesList", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column jest ok
-    @Column(name = "likesList", nullable = false)
-    private List<Like> likesList = new ArrayList<>();
-
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Theme theme;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     private List<Chat> chatList;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Theme theme;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private UserProfile userProfile;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Newsletter newsletter;
+
+
+    @ElementCollection(targetClass = User.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "friendList", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "friendList", nullable = false)
+    private List<User> friendList = new ArrayList<>();
+
+    @ElementCollection(targetClass = Post.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "postsList", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "postsList", nullable = false)
+    private List<Post> postsList = new ArrayList<>();
+
+    @ElementCollection(targetClass = Comment.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "commentsList", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "commentsList", nullable = false)
+    private List<Comment> commentsList = new ArrayList<>();
+
+    @ElementCollection(targetClass = Like.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "likesList", joinColumns = @JoinColumn(name = "user_id"))
+    @Column(name = "likesList", nullable = false)
+    private List<Like> likesList = new ArrayList<>();
+
 
     public User() {
 

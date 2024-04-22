@@ -1,14 +1,18 @@
 package com.uep.wap.model;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+
 import java.util.List;
 
 @Entity
 @Table(name = "reactions")
 public class Reaction {
-
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
+
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
@@ -18,18 +22,18 @@ public class Reaction {
     private Comment comment;
 
     @OneToMany(mappedBy = "reaction", cascade = CascadeType.ALL)
-    private List<Like> likeList;
+    private List<Like> like;
 
 
     public Reaction() {
 
     }
 
-    public Reaction(long id, Post post, Comment comment, List<Like> likeList) {
+    public Reaction(long id, Post post, Comment comment, List<Like> like) {
         this.id = id;
         this.post = post;
-        this.comment= comment;
-        this.likeList = likeList;
+        this.comment = comment;
+        this.like = like;
     }
 
     public long getId() {
@@ -40,28 +44,28 @@ public class Reaction {
         this.id = id;
     }
 
-    public Post getPostID() {
+    public Post getPost() {
         return post;
     }
 
-    public void setPostID(Post post) {
+    public void setPost(Post post) {
         this.post = post;
     }
 
-    public Comment getCommentID() {
+    public Comment getComment() {
         return comment;
     }
 
-    public void setCommentID(Comment comment) {
+    public void setComment(Comment comment) {
         this.comment = comment;
     }
 
-    public List<Like> getLikeList() {
-        return likeList;
+    public List<Like> getLike() {
+        return like;
     }
 
-    public void setLikeList(List<Like> likeList) {
-        this.likeList = likeList;
+    public void setLike(List<Like> like) {
+        this.like = like;
     }
 }
 

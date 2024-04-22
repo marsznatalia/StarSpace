@@ -12,8 +12,9 @@ public class UserProfile {
     private Long id;
     @Column(name = "bio")
     private String bio;
-    @Column(name = "profilePicture")
-    private Object profilePicture;
+    @Lob
+    @Column(name = "profilePicture", nullable = true)
+    private byte[] profilePicture;
     @Column(name = "status")
     private Integer status;
 
@@ -22,7 +23,7 @@ public class UserProfile {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "links", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column is good
     @Column(name = "links", nullable = false)
     private List<String> links = new ArrayList<>();
@@ -31,7 +32,7 @@ public class UserProfile {
 
     }
 
-    public UserProfile(Long id, String bio, Object profilePicture, Integer status, User user, List<String> links) {
+    public UserProfile(Long id, String bio, byte[] profilePicture, Integer status, User user, List<String> links) {
         this.id = id;
         this.bio = bio;
         this.profilePicture = profilePicture;
@@ -60,7 +61,7 @@ public class UserProfile {
         return profilePicture;
     }
 
-    public void setProfilePicture(Object profilePicture) {
+    public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
     }
 
