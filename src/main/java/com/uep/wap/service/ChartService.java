@@ -15,6 +15,9 @@ public class ChartService {
     public void addChart(ChartDTO chartDTO) {
         Chart chart = new Chart();
         chart.setTitle(chartDTO.getTitle());
+        chart.setUserOwner(chartDTO.getUserOwner());
+        chart.setContent(chartDTO.getContent());
+        chart.setType(chartDTO.getType());
         chartRepository.save(chart);
         System.out.println("Charts added!");
     }

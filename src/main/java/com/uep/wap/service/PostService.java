@@ -15,11 +15,11 @@ public class PostService {
     @Autowired
     private PostRepository postRepository;
 
-    public void addContent(PostDTO postDTO) {
+    public void addPost(PostDTO postDTO) {
         Post post = new Post();
         post.setContent(postDTO.getContent());
         postRepository.save(post);
-        System.out.println("Content added!");
+        System.out.println("Post added!");
     }
 
     public Iterable<Post> getAllPosts() {
