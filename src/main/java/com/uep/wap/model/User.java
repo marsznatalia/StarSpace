@@ -22,8 +22,6 @@ public class User {
     @JoinColumn(name = "user_id")
     private User author;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Post> postList;
     @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
@@ -69,7 +67,6 @@ public class User {
         this.password = password;
         this.friendList = friendList;
         this.postsList = postsList;
-        this.postList = postList;
         this.commentsList = commentsList;
         this.likesList = likesList;
         this.theme = theme;
@@ -125,14 +122,6 @@ public class User {
 
     public void setPostsList(List<Post> postsList) {
         this.postsList = postsList;
-    }
-
-    public List<Post> getPostList() {
-        return postList;
-    }
-
-    public void setPostList(List<Post> postList) {
-        this.postList = postList;
     }
 
     public List<Comment> getCommentsList() {
