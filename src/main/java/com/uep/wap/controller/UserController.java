@@ -13,7 +13,11 @@ public class UserController {
 
     //dodawac znajomych i usuwać znajomych
     //dodawac i usuwac posty
-    //
+    //zmieniac theme -- mikolaj
+    //pobierac charty
+    //pobierac chaty, usuwac chat
+    //tworzyc userProfile (z zastrzerzeniem jeden na usera)
+    //co z newsletter?
 
 
     private final UserService userService;
@@ -49,8 +53,15 @@ public class UserController {
     @PatchMapping("users/{id}")
     public String changeUserName(@RequestBody UserDTO userDTO, @PathVariable Long id){
         userService.changeUserName(userDTO, id);
-        return "OK";
+        return "UserName changed.";
     }
+
+    @PatchMapping("users/friend/{id1}/{id2}")
+    public String makeFriend(@PathVariable Long id1, @PathVariable Long id2){
+        userService.makeFriend(id1, id2);
+        return "Added to friends";
+    }
+
 
     @DeleteMapping("/delete-data")
     //USE WITH CAUTION!!!!!!!!!!!!
