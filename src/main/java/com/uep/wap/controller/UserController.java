@@ -7,11 +7,14 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-
-
 @RestController
 @RequestMapping(path = "/api")
 public class UserController {
+
+    //dodawac znajomych i usuwać znajomych
+    //dodawac i usuwac posty
+    //
+
 
     private final UserService userService;
 
@@ -41,6 +44,12 @@ public class UserController {
 
         userService.deleteById(id);
         return "User deleted successfully";
+    }
+
+    @PatchMapping("users/{id}")
+    public String changeUserName(@RequestBody UserDTO userDTO, @PathVariable Long id){
+        userService.changeUserName(userDTO, id);
+        return "OK";
     }
 
     @DeleteMapping("/delete-data")

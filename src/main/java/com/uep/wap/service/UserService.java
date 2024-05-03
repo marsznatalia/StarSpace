@@ -38,6 +38,13 @@ public class UserService {
         userRepository.deleteById(userId);
     }
 
+    public void changeUserName(UserDTO userDTO, Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        user.setUserName(userDTO.getUserName());
+        userRepository.save(user);
+    }
+
     public void deleteAllData() {
         //USE WITH CAUTION!!!!!!!!!!!!!!!!!!!!!!
         userRepository.deleteAll();
