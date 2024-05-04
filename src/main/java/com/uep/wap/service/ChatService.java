@@ -1,7 +1,7 @@
 package com.uep.wap.service;
 
-import com.uep.wap.controller.ChatNotFoundException;
-import com.uep.wap.controller.UserNotFoundException;
+import com.uep.wap.exception.ChatNotFoundException;
+import com.uep.wap.exception.UserNotFoundException;
 import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.model.Chat;
 import com.uep.wap.model.User;

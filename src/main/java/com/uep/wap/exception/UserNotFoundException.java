@@ -1,4 +1,4 @@
-package com.uep.wap.controller;
+package com.uep.wap.exception;
 
 public class UserNotFoundException extends RuntimeException {
 

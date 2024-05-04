@@ -34,7 +34,7 @@ public class User {
     private List<Chart> chartList;
 
     @ManyToMany(mappedBy = "chatUsersList")
-    private Set<Chat> chatList = new HashSet<>();
+    private Set<Chat> chatList = new HashSet<>(); //lista chatów danego usera
 
     @OneToMany
     @JoinTable(name = "friends")

@@ -1,6 +1,6 @@
 package com.uep.wap.service;
 
-import com.uep.wap.controller.UserNotFoundException;
+import com.uep.wap.exception.UserNotFoundException;
 import com.uep.wap.dto.UserDTO;
 import com.uep.wap.model.User;
 import com.uep.wap.repository.UserRepository;

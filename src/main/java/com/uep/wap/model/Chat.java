@@ -1,8 +1,14 @@
 package com.uep.wap.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.*;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "chats")
 public class Chat {
@@ -17,12 +23,9 @@ public class Chat {
     @Column(name = "chatType")
     private Boolean chatType;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
-    private List<Message> messageList = new ArrayList<>();
+    @OneToMany(mappedBy = "inChat")
+    private Set<Message> messagesList = new HashSet<>();
+    // lista wiadomości w chacie
 
     @ManyToMany
     @JoinTable(
@@ -30,7 +33,7 @@ public class Chat {
             joinColumns = @JoinColumn(name = "chat_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
-    private Set<User> chatUsersList = new HashSet<>();
+    private Set<User> chatUsersList = new HashSet<>(); //lista userów którzy są w danym chacie
 
     public Chat() {
     }
@@ -59,20 +62,12 @@ public class Chat {
         this.chatType = chatType;
     }
 
-    public Optional<User> getUser() {
-        return Optional.ofNullable(user);
+    public Set<Message> getMessagesList() {
+        return messagesList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Message> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
+    public void setMessagesList(Set<Message> messagesList) {
+        this.messagesList = messagesList;
     }
 
     public Set<User> getChatUsersList() {
