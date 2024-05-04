@@ -85,10 +85,15 @@ public class UserController {
         }
     }
 
-    @PatchMapping("user/{userID}/addPost")
-    public String deleteFriend(@PathVariable Long userID,@RequestBody PostDTO postDTO) {
+    @PostMapping("user/{userID}/addPost")
+    public String addPost(@PathVariable Long userID,@RequestBody PostDTO postDTO) {
         userService.addPost(userID, postDTO);
         return "Post added";
+    }
+    @PatchMapping("user/{userID}/deletePost")
+    public String deletePost(@PathVariable Long userID,@PathVariable Long postID) {
+        userService.deletePost(userID, postID);
+        return "Post deleted";
     }
 
 }

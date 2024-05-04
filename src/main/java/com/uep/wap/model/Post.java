@@ -17,9 +17,9 @@ public class Post {
     @Column(name = "datePosted")
     private Date datePosted;
 
-    @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
+//    @ManyToOne
+//    @JoinColumn(name = "author_id")
+//    private User author;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -44,23 +44,12 @@ public class Post {
     public Post() {
     }
 
-    public Post(long id, String content, Date datePosted, User author, User user, List<Comment> commentList, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
+    public Post(long id, String content, Date datePosted, User user, List<Comment> commentList, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
         this.id = id;
         this.content = content;
         this.datePosted = datePosted;
-        this.author = author;
         this.user = user;
         this.commentList = commentList;
-        this.reactionList = reactionList;
-        this.comments = comments;
-        this.likes = likes;
-    }
-
-    public Post(long id, String content, Date datePosted, User author, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
-        this.id = id;
-        this.content = content;
-        this.datePosted = datePosted;
-        this.author = author;
         this.reactionList = reactionList;
         this.comments = comments;
         this.likes = likes;
@@ -90,13 +79,13 @@ public class Post {
         this.datePosted = datePosted;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
+//    public User getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(User author) {
+//        this.author = author;
+//    }
 
     public User getUser() {
         return user;

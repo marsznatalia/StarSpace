@@ -11,9 +11,7 @@ import com.uep.wap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class UserService {
@@ -113,14 +111,33 @@ public class UserService {
             user.setPostsList(new ArrayList<>());
             System.out.println("Was empty, created new ArrayList");
         }
-        Post post = new Post(postDTO.getId(),
-                        postDTO.getContent(),
-                        postDTO.getDatePosted(),
-                        user,
-                        new ArrayList<Reaction>(),
-                        new ArrayList<Comment>(),
-                        new ArrayList<Like>());
+        Post post = new Post();
+        post.setId(postDTO.getId());
+        post.setContent(postDTO.getContent());
+        post.setDatePosted(new Date());
+        post.setUser(user);
+        post.setCommentList(new ArrayList<Comment>());
+        post.setReactionList(new ArrayList<Reaction>());
         user.getPostsList().add(post);
+        userRepository.save(user);
+        postRepository.save(post);
+    }
+
+    public void deletePost(Long userID, Long postID){
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new UserNotFoundException(userID));
+        int index = 0;
+        int postId = postID.intValue();
+        for (int i = 0; i < user.getPostsList().size(); i++) {
+            Post post = user.getPostsList().get(i);
+            if (post.getId() == postId) {
+                index = i;
+            } else{
+                index = -1;
+                System.out.println("Nie ma takiego postu");
+            }
+        }
+        user.getPostsList().remove(index);
         userRepository.save(user);
     }
 
