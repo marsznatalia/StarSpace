@@ -8,9 +8,10 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 @JsonIdentityInfo(
-    generator = ObjectIdGenerators.PropertyGenerator.class,
-    property = "id")
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "users")
 public class User {
@@ -31,13 +32,14 @@ public class User {
 
     @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Chat> chatList;
+
+    @ManyToMany(mappedBy = "chatUsersList")
+    private Set<Chat> chatList = new HashSet<>();
 
     @OneToMany
-    @JoinTable(name="friends")
-    @JoinColumn(name="person_A_id", referencedColumnName="id")
-    @JoinColumn(name="person_B_id", referencedColumnName="id")
+    @JoinTable(name = "friends")
+    @JoinColumn(name = "person_A_id", referencedColumnName = "id")
+    @JoinColumn(name = "person_B_id", referencedColumnName = "id")
     private Set<User> friends = new HashSet<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -148,11 +150,11 @@ public class User {
         this.chartList = chartList;
     }
 
-    public List<Chat> getChatList() {
+    public Set<Chat> getChatList() {
         return chatList;
     }
 
-    public void setChatList(List<Chat> chatList) {
+    public void setChatList(Set<Chat> chatList) {
         this.chatList = chatList;
     }
 
@@ -172,5 +174,3 @@ public class User {
         this.newsletter = newsletter;
     }
 }
-
-
