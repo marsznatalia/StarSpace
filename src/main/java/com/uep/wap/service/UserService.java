@@ -1,12 +1,17 @@
 package com.uep.wap.service;
 
 import com.uep.wap.controller.UserNotFoundException;
+import com.uep.wap.dto.NewsletterDTO;
+import com.uep.wap.dto.PostDTO;
 import com.uep.wap.dto.UserDTO;
-import com.uep.wap.model.User;
+import com.uep.wap.model.*;
+import com.uep.wap.repository.NewsletterRepository;
+import com.uep.wap.repository.PostRepository;
 import com.uep.wap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Optional;
 
@@ -15,7 +20,8 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
-
+//    private NewsletterRepository newsletterRepository;
+    private PostRepository postRepository;
     public void newUser(UserDTO userDTO) {
         User user = new User();
         user.setUserName(userDTO.getUserName());
@@ -92,7 +98,31 @@ public class UserService {
             System.out.println("Already not friends");
         }
     }
+//    public void addNewsletterByID(Long userID, Long newsletterID){
+//        User user = userRepository.findById(userID)
+//                .orElseThrow(() -> new UserNotFoundException(userID));
+//        user.setNewsletter(newsletter);
+//        userRepository.save(user);
+//    }
 
+
+    public void addPost(Long userID, PostDTO postDTO) {
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new UserNotFoundException(userID));
+        if (user.getPostsList() == null) {
+            user.setPostsList(new ArrayList<>());
+            System.out.println("Was empty, created new ArrayList");
+        }
+        Post post = new Post(postDTO.getId(),
+                        postDTO.getContent(),
+                        postDTO.getDatePosted(),
+                        user,
+                        new ArrayList<Reaction>(),
+                        new ArrayList<Comment>(),
+                        new ArrayList<Like>());
+        user.getPostsList().add(post);
+        userRepository.save(user);
+    }
 
     public void deleteAllData() {
         //USE WITH CAUTION!!!!!!!!!!!!!!!!!!!!!!

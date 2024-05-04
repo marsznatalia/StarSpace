@@ -56,6 +56,16 @@ public class Post {
         this.likes = likes;
     }
 
+    public Post(long id, String content, Date datePosted, User author, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
+        this.id = id;
+        this.content = content;
+        this.datePosted = datePosted;
+        this.author = author;
+        this.reactionList = reactionList;
+        this.comments = comments;
+        this.likes = likes;
+    }
+
     public long getId() {
         return id;
     }

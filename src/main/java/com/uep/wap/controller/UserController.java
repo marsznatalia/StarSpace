@@ -1,5 +1,6 @@
 package com.uep.wap.controller;
 
+import com.uep.wap.dto.PostDTO;
 import com.uep.wap.dto.UserDTO;
 import com.uep.wap.model.User;
 import com.uep.wap.service.UserService;
@@ -41,9 +42,14 @@ public class UserController {
         return "User added!";
     }
 
+//    @PostMapping(path = "/user/{userID}/newsletter/{newsletterID}")
+//    public String addNewsletterToUser(@PathVariable Long userID, @PathVariable Long newsletterID) {
+//        userService.addNewsletterByID(userID, newsletterID);
+//        return "Newsletter added";
+//    }
+
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable Long id) {
-
         userService.deleteById(id);
         return "User deleted successfully";
     }
@@ -66,7 +72,6 @@ public class UserController {
         return "Removed from friends";
     }
 
-
     @DeleteMapping("/delete-data")
     //USE WITH CAUTION!!!!!!!!!!!!
     public ResponseEntity<String> deleteData() {
@@ -78,6 +83,12 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Error deleting data: " + e.getMessage());
         }
+    }
+
+    @PatchMapping("user/{userID}/addPost")
+    public String deleteFriend(@PathVariable Long userID,@RequestBody PostDTO postDTO) {
+        userService.addPost(userID, postDTO);
+        return "Post added";
     }
 
 }
