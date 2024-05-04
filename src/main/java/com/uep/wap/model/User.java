@@ -1,9 +1,17 @@
 package com.uep.wap.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "users")
 public class User {
@@ -24,8 +32,16 @@ public class User {
 
     @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Chat> chatList;
+
+    @ManyToMany(mappedBy = "chatUsersList")
+    private Set<Chat> chatList = new HashSet<>();
+
+    @OneToMany
+    @JoinTable(name = "friends")
+    @JoinColumn(name = "person_A_id", referencedColumnName = "id")
+    @JoinColumn(name = "person_B_id", referencedColumnName = "id")
+    private Set<User> friends = new HashSet<>();
+
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Theme theme;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
@@ -33,12 +49,6 @@ public class User {
     private UserProfile userProfile;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Newsletter newsletter;
-
-
-    @ElementCollection(targetClass = User.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "friendList", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "friendList", nullable = false)
-    private List<User> friendList = new ArrayList<>();
 
     @ElementCollection(targetClass = Post.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "postsList", joinColumns = @JoinColumn(name = "user_id"))
@@ -58,22 +68,6 @@ public class User {
 
     public User() {
 
-    }
-
-    public User(long id, String userName, String email, String password, List<User> friendList, List<Post> postsList, List<Post> postList, List<Comment> commentsList, List<Like> likesList, Theme theme, List<Chart> chartList, List<Chat> chatList, UserProfile userProfile, Newsletter newsletter) {
-        this.id = id;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.friendList = friendList;
-        this.postsList = postsList;
-        this.commentsList = commentsList;
-        this.likesList = likesList;
-        this.theme = theme;
-        this.chartList = chartList;
-        this.chatList = chatList;
-        this.userProfile = userProfile;
-        this.newsletter = newsletter;
     }
 
     public long getId() {
@@ -108,12 +102,12 @@ public class User {
         this.password = password;
     }
 
-    public List<User> getFriendList() {
-        return friendList;
+    public Set<User> getFriends() {
+        return friends;
     }
 
-    public void setFriendList(List<User> friendList) {
-        this.friendList = friendList;
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
     }
 
     public List<Post> getPostsList() {
@@ -156,11 +150,11 @@ public class User {
         this.chartList = chartList;
     }
 
-    public List<Chat> getChatList() {
+    public Set<Chat> getChatList() {
         return chatList;
     }
 
-    public void setChatList(List<Chat> chatList) {
+    public void setChatList(Set<Chat> chatList) {
         this.chatList = chatList;
     }
 
@@ -180,5 +174,3 @@ public class User {
         this.newsletter = newsletter;
     }
 }
-
-

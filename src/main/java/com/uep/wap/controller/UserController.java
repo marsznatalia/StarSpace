@@ -11,9 +11,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api")
 public class UserController {
 
-    //dodawac znajomych i usuwać znajomych
     //dodawac i usuwac posty
-    //
+    //pobierac charty
+    //pobierac chaty, usuwac chat
+    //tworzyc userProfile (z zastrzerzeniem jeden na usera)
+    //co z newsletter?
 
 
     private final UserService userService;
@@ -47,15 +49,21 @@ public class UserController {
     }
 
     @PatchMapping("users/{id}")
-    public String changeUserName(@RequestBody UserDTO userDTO, @PathVariable Long id){
+    public String changeUserName(@RequestBody UserDTO userDTO, @PathVariable Long id) {
         userService.changeUserName(userDTO, id);
-        return "OK";
+        return "UserName changed.";
     }
 
-    @PatchMapping("users/{id}")
-    public String changeTheme(@RequestBody UserDTO userDTO, @PathVariable Long id){
-        userService.changeUserName(userDTO, id);
-        return "OK";
+    @PatchMapping("users/make-friend/{id1}/{id2}")
+    public String makeFriend(@PathVariable Long id1, @PathVariable Long id2) {
+        userService.makeFriend(id1, id2);
+        return "Added to friends";
+    }
+
+    @PatchMapping("users/delete-friend/{id1}/{id2}")
+    public String deleteFriend(@PathVariable Long id1, @PathVariable Long id2) {
+        userService.deleteFriend(id1, id2);
+        return "Removed from friends";
     }
 
 
