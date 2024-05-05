@@ -96,6 +96,12 @@ public class UserController {
         return "Post deleted";
     }
 
+    @PatchMapping("user/{userID}/editPost/{postID}")
+    public String editPost(@PathVariable Long userID,@PathVariable Long postID,@RequestBody String editedComment) {
+        userService.editPost(userID, postID, editedComment);
+        return "Post edited";
+    }
+
 }
 
 

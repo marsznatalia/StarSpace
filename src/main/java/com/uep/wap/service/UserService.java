@@ -1,5 +1,6 @@
 package com.uep.wap.service;
 
+import com.uep.wap.controller.PostNotFoundException;
 import com.uep.wap.controller.UserNotFoundException;
 import com.uep.wap.dto.NewsletterDTO;
 import com.uep.wap.dto.PostDTO;
@@ -138,6 +139,30 @@ public class UserService {
             }
         }
         user.getPostsList().remove(index);
+        userRepository.save(user);
+    }
+
+    public void editPost(Long userID, Long postID, String editedComment){
+        // May be wrong. i don't know if a database will automatically update post in user if I change only post In database
+        // Here is the example that covers this variant
+        User user = userRepository.findById(userID)
+                .orElseThrow(() -> new UserNotFoundException(userID));
+        Post post = postRepository.findById(postID)
+                .orElseThrow(() -> new PostNotFoundException(postID));
+        post.setContent(editedComment);
+        postRepository.save(post);
+        int index = 0;
+        int postId = postID.intValue();
+        for (int i = 0; i < user.getPostsList().size(); i++) {
+            Post postSearched = user.getPostsList().get(i);
+            if (postSearched.getId() == postId) {
+                index = i;
+            } else{
+                index = -1;
+                System.out.println("Nie ma takiego posta");
+            }
+        }
+        user.getPostsList().get(index).setContent(editedComment);
         userRepository.save(user);
     }
 
