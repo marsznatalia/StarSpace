@@ -112,15 +112,15 @@ public class UserService {
             System.out.println("Was empty, created new ArrayList");
         }
         Post post = new Post();
-        post.setId(postDTO.getId());
         post.setContent(postDTO.getContent());
         post.setDatePosted(new Date());
         post.setUser(user);
         post.setCommentList(new ArrayList<Comment>());
         post.setReactionList(new ArrayList<Reaction>());
+        postRepository.save(post);
         user.getPostsList().add(post);
         userRepository.save(user);
-        postRepository.save(post);
+
     }
 
     public void deletePost(Long userID, Long postID){
@@ -134,7 +134,7 @@ public class UserService {
                 index = i;
             } else{
                 index = -1;
-                System.out.println("Nie ma takiego postu");
+                System.out.println("Nie ma takiego posta");
             }
         }
         user.getPostsList().remove(index);

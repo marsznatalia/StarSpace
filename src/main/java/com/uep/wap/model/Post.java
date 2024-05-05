@@ -44,16 +44,16 @@ public class Post {
     public Post() {
     }
 
-    public Post(long id, String content, Date datePosted, User user, List<Comment> commentList, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
-        this.id = id;
-        this.content = content;
-        this.datePosted = datePosted;
-        this.user = user;
-        this.commentList = commentList;
-        this.reactionList = reactionList;
-        this.comments = comments;
-        this.likes = likes;
-    }
+//    public Post(long id, String content, Date datePosted, User user, List<Comment> commentList, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
+//        this.id = id;
+//        this.content = content;
+//        this.datePosted = datePosted;
+//        this.user = user;
+//        this.commentList = commentList;
+//        this.reactionList = reactionList;
+//        this.comments = comments;
+//        this.likes = likes;
+//    }
 
     public long getId() {
         return id;
