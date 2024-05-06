@@ -28,7 +28,10 @@ public class User {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User author;
+    private User author;// O co tu chodzi? Nie ma to chyba nigdzie połącznia.
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> listOfPosts;// dodałem z mapowaniem -> teraz chyba bedzie dobrze
 
     @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
@@ -172,5 +175,13 @@ public class User {
 
     public void setNewsletter(Newsletter newsletter) {
         this.newsletter = newsletter;
+    }
+
+    public List<Post> getListOfPosts() {
+        return listOfPosts;
+    }
+
+    public void setListOfPosts(List<Post> listOfPosts) {
+        this.listOfPosts = listOfPosts;
     }
 }
