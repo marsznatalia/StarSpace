@@ -2,9 +2,7 @@ package com.uep.wap.service;
 
 import com.uep.wap.controller.PostNotFoundException;
 import com.uep.wap.controller.UserNotFoundException;
-import com.uep.wap.dto.NewsletterDTO;
-import com.uep.wap.dto.PostDTO;
-import com.uep.wap.dto.UserDTO;
+import com.uep.wap.dto.*;
 import com.uep.wap.model.*;
 import com.uep.wap.repository.NewsletterRepository;
 import com.uep.wap.repository.PostRepository;
@@ -166,6 +164,16 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void  addReaction(Long userID, Long postID, ReactionDTO reactionDTO){
+    }
+    public void  deleteReaction(Long userID, Long postID, Long reactionID){
+    }
+    public void  addComment(Long userID, Long postID, CommentDTO commentDTO){
+    }
+    public void  addComment(Long userID, Long postID, Long commentID, CommentDTO commentDTO){
+    }
+    public void  deleteComment(Long userID, Long postID, Long commentID){
+    }
     public void deleteAllData() {
         //USE WITH CAUTION!!!!!!!!!!!!!!!!!!!!!!
         userRepository.deleteAll();

@@ -1,7 +1,10 @@
 package com.uep.wap.controller;
 
+import com.uep.wap.dto.CommentDTO;
 import com.uep.wap.dto.PostDTO;
+import com.uep.wap.dto.ReactionDTO;
 import com.uep.wap.dto.UserDTO;
+import com.uep.wap.model.Reaction;
 import com.uep.wap.model.User;
 import com.uep.wap.service.UserService;
 import org.springframework.http.HttpStatus;
@@ -102,6 +105,32 @@ public class UserController {
         return "Post edited";
     }
 
+    @PatchMapping("user/{userID}/post/{postID}/addReaction")
+    public String addReaction(@PathVariable Long userID, @PathVariable Long postID, @RequestBody ReactionDTO reactionDTO) {
+        userService.addReaction(userID, postID, reactionDTO);
+        return "Reaction added";
+    }
+    @PatchMapping("user/{userID}/post/{postID}/deleteReaction/{reactionID}")
+    public String deleteReaction(@PathVariable Long userID, @PathVariable Long postID, @PathVariable Long reactionID) {
+        userService.deleteReaction(userID, postID, reactionID);
+        return "Reaction deleted";
+    }
+
+    @PatchMapping("user/{userID}/post/{postID}/addComment")
+    public String addComment(@PathVariable Long userID, @PathVariable Long postID, @RequestBody CommentDTO commentDTO) {
+        userService.addComment(userID, postID, commentDTO);
+        return "Comment added";
+    }
+    @PatchMapping("user/{userID}/post/{postID}/comment/addComment/{commentID}")
+    public String addComment(@PathVariable Long userID, @PathVariable Long postID, @PathVariable Long commentID, @RequestBody CommentDTO commentDTO) {
+        userService.addComment(userID, postID, commentID, commentDTO);
+        return "Comment added";
+    }
+    @PatchMapping("user/{userID}/post/{postID}/comment/deleteComment/{commentID}")
+    public String deleteComment(@PathVariable Long userID, @PathVariable Long postID, @PathVariable Long commentID) {
+        userService.deleteComment(userID, postID, commentID);
+        return "Comment deleted";
+    }
 }
 
 
