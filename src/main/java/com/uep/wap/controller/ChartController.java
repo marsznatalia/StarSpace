@@ -1,12 +1,8 @@
 package com.uep.wap.controller;
 
 import com.uep.wap.dto.ChartDTO;
-import com.uep.wap.dto.StudentDTO;
-import com.uep.wap.dto.StudentsDataDTO;
 import com.uep.wap.model.Chart;
-import com.uep.wap.model.Student;
 import com.uep.wap.service.ChartService;
-import com.uep.wap.service.StudentsService;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

@@ -21,7 +21,8 @@ public class MessageController {
         return messageService.getAllMessages();
     }
 
-//    @GetMapping(path = "/messages/{messageId}") //zmienic to na szukanie po slowie kluczowym
+    //TODO: szukanie wiadomości po słowie kluczowym
+//    @GetMapping(path = "/messages/{messageId}")
 //    public Message findMessageById(@PathVariable Long messageId) {
 //        return messageService.findMessageById(messageId)
 //                .orElseThrow(() -> new MessageNotFoundException(messageId));
