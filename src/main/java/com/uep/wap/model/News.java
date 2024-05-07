@@ -23,23 +23,11 @@ public class News {
     @JoinColumn(name = "newsletter_id")
     private Newsletter newsletter;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "authors", joinColumns = @JoinColumn(name = "news_id"))
-    @Column(name = "author", nullable = false)
-    private List<String> author = new ArrayList<>();
 
     public News() {
 
     }
 
-    public News(long id, String title, String content, Date datePosted, Newsletter newsletter, List<String> author) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.datePosted = datePosted;
-        this.newsletter = newsletter;
-        this.author = author;
-    }
 
     public long getId() {
         return id;
@@ -79,14 +67,6 @@ public class News {
 
     public void setNewsletter(Newsletter newsletter) {
         this.newsletter = newsletter;
-    }
-
-    public List<String> getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(List<String> author) {
-        this.author = author;
     }
 }
 

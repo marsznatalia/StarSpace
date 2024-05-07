@@ -26,9 +26,8 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User author;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Post> postsList;// dodałem z mapowaniem -> teraz chyba bedzie dobrze
 
     @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
@@ -49,22 +48,13 @@ public class User {
     private UserProfile userProfile;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Newsletter newsletter;
-
-    @ElementCollection(targetClass = Post.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "postsList", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "postsList", nullable = false)
-    private List<Post> postsList = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    private Set<Reaction> reactionsList;
 
     @ElementCollection(targetClass = Comment.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "commentsList", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "commentsList", nullable = false)
     private List<Comment> commentsList = new ArrayList<>();
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "likesList", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "likesList", nullable = false)
-    private List<Like> likesList = new ArrayList<>();
-
 
     public User() {
 
@@ -110,11 +100,11 @@ public class User {
         this.friends = friends;
     }
 
-    public List<Post> getPostsList() {
+    public Set<Post> getPostsList() {
         return postsList;
     }
 
-    public void setPostsList(List<Post> postsList) {
+    public void setPostsList(Set<Post> postsList) {
         this.postsList = postsList;
     }
 
@@ -124,14 +114,6 @@ public class User {
 
     public void setCommentsList(List<Comment> commentsList) {
         this.commentsList = commentsList;
-    }
-
-    public List<Like> getLikesList() {
-        return likesList;
-    }
-
-    public void setLikesList(List<Like> likesList) {
-        this.likesList = likesList;
     }
 
     public Theme getTheme() {
@@ -172,5 +154,13 @@ public class User {
 
     public void setNewsletter(Newsletter newsletter) {
         this.newsletter = newsletter;
+    }
+
+    public Set<Reaction> getReactionsList() {
+        return reactionsList;
+    }
+
+    public void setReactionsList(Set<Reaction> reactionsList) {
+        this.reactionsList = reactionsList;
     }
 }

@@ -12,10 +12,9 @@ public class LikeService {
     @Autowired
     private LikeRepository likeRepository;
 
+    //TODO
     public void addLike(LikeDTO likeDTO) {
         Like like = new Like();
-        like.setUser(likeDTO.getUser());
-        likeRepository.save(like);
         System.out.println("Likes added!");
     }
 

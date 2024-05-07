@@ -12,13 +12,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api")
 public class UserController {
 
-    //dodawac i usuwac posty
-    //pobierac charty
-    //pobierac chaty, usuwac chat
-    //tworzyc userProfile (z zastrzerzeniem jeden na usera)
-    //co z newsletter?
-
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -42,9 +35,14 @@ public class UserController {
         return "User added!";
     }
 
+//    @PostMapping(path = "/user/{userID}/newsletter/{newsletterID}")
+//    public String addNewsletterToUser(@PathVariable Long userID, @PathVariable Long newsletterID) {
+//        userService.addNewsletterByID(userID, newsletterID);
+//        return "Newsletter added";
+//    }
+
     @DeleteMapping("/users/{id}")
     public String deleteUser(@PathVariable Long id) {
-
         userService.deleteById(id);
         return "User deleted successfully";
     }
@@ -66,7 +64,6 @@ public class UserController {
         userService.deleteFriend(id1, id2);
         return "Removed from friends";
     }
-
 
     @DeleteMapping("/delete-data")
     //USE WITH CAUTION!!!!!!!!!!!!

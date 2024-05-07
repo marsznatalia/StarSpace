@@ -6,7 +6,6 @@ import com.uep.wap.model.Theme;
 import com.uep.wap.service.ThemeService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Optional;
 
 @RestController
 @RequestMapping(path ="/api")
@@ -34,7 +33,7 @@ public class ThemeController {
         return "Theme created!";
     }
 
-    @PatchMapping(path="/themes/edit-theme/{themeId")
+    @PatchMapping(path="/themes/edit-theme/{themeId}")
     public String editTheme(@PathVariable Long themeId, @RequestBody ThemeDTO themeDTO){
         themeService.editTheme(themeId, themeDTO);
         return "Theme edited!";

@@ -4,6 +4,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "comments")
@@ -18,42 +19,21 @@ public class Comment {
     private Date datePosted;
 
     @ManyToOne
-    @JoinColumn(name = "author_id")
-    private User author;
-
-    @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Comment parent;
+    private Comment children;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<Reaction> reactionList;
+    private Set<Reaction> reactionList; //stonks
 
-    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private List<Comment> children;
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id"))
-    @Column(name = "likes", nullable = false)
-    private List<Like> likes = new ArrayList<>();
+    @OneToMany(mappedBy = "children", cascade = CascadeType.ALL)
+    private Set<Comment> parent;
 
     public Comment() {
 
-    }
-
-    public Comment(long id, String content, Date datePosted, User author, Post post, Comment parent, List<Reaction> reactionList, List<Comment> children, List<Like> likes) {
-        this.id = id;
-        this.content = content;
-        this.datePosted = datePosted;
-        this.author = author;
-        this.post = post;
-        this.parent = parent;
-        this.reactionList = reactionList;
-        this.children = children;
-        this.likes = likes;
     }
 
     public long getId() {
@@ -80,14 +60,6 @@ public class Comment {
         this.datePosted = datePosted;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public Post getPost() {
         return post;
     }
@@ -96,36 +68,28 @@ public class Comment {
         this.post = post;
     }
 
-    public Comment getParent() {
-        return parent;
-    }
-
-    public void setParent(Comment parent) {
-        this.parent = parent;
-    }
-
-    public List<Reaction> getReactionList() {
+    public Set<Reaction> getReactionList() {
         return reactionList;
     }
 
-    public void setReactionList(List<Reaction> reactionList) {
+    public void setReactionList(Set<Reaction> reactionList) {
         this.reactionList = reactionList;
     }
 
-    public List<Comment> getChildren() {
+    public Comment getChildren() {
         return children;
     }
 
-    public void setChildren(List<Comment> children) {
+    public void setChildren(Comment children) {
         this.children = children;
     }
 
-    public List<Like> getLikes() {
-        return likes;
+    public Set<Comment> getParent() {
+        return parent;
     }
 
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setParent(Set<Comment> parent) {
+        this.parent = parent;
     }
 }
 
