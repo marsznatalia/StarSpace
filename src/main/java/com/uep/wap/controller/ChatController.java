@@ -1,6 +1,7 @@
 package com.uep.wap.controller;
 
 import com.uep.wap.dto.ChatDTO;
+import com.uep.wap.exception.ChatNotFoundException;
 import com.uep.wap.model.Chat;
 import com.uep.wap.service.ChatService;
 import org.springframework.web.bind.annotation.*;

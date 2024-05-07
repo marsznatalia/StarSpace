@@ -1,9 +1,7 @@
 package com.uep.wap.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Table(name = "posts")
@@ -17,43 +15,18 @@ public class Post {
     @Column(name = "datePosted")
     private Date datePosted;
 
-//    @ManyToOne
-//    @JoinColumn(name = "author_id")
-//    private User author;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Comment> commentList;
+    private Set<Comment> commentList;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<Reaction> reactionList;
-
-    @ElementCollection(targetClass = Comment.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "comments", joinColumns = @JoinColumn(name = "comment_id"))
-    @Column(name = "comments", nullable = false)
-    private List<Comment> comments = new ArrayList<>();
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id"))
-    @Column(name = "likes", nullable = false)
-    private List<Like> likes = new ArrayList<>();
+    private Set<Reaction> reactionList;
 
     public Post() {
     }
-
-//    public Post(long id, String content, Date datePosted, User user, List<Comment> commentList, List<Reaction> reactionList, List<Comment> comments, List<Like> likes) {
-//        this.id = id;
-//        this.content = content;
-//        this.datePosted = datePosted;
-//        this.user = user;
-//        this.commentList = commentList;
-//        this.reactionList = reactionList;
-//        this.comments = comments;
-//        this.likes = likes;
-//    }
 
     public long getId() {
         return id;
@@ -79,13 +52,6 @@ public class Post {
         this.datePosted = datePosted;
     }
 
-//    public User getAuthor() {
-//        return author;
-//    }
-//
-//    public void setAuthor(User author) {
-//        this.author = author;
-//    }
 
     public User getUser() {
         return user;
@@ -95,36 +61,20 @@ public class Post {
         this.user = user;
     }
 
-    public List<Comment> getCommentList() {
-        return commentList;
-    }
-
-    public void setCommentList(List<Comment> commentList) {
-        this.commentList = commentList;
-    }
-
-    public List<Reaction> getReactionList() {
+    public Set<Reaction> getReactionList() {
         return reactionList;
     }
 
-    public void setReactionList(List<Reaction> reactionList) {
+    public void setReactionList(Set<Reaction> reactionList) {
         this.reactionList = reactionList;
     }
 
-    public List<Comment> getComments() {
-        return comments;
+    public Set<Comment> getCommentList() {
+        return commentList;
     }
 
-    public void setComments(List<Comment> comments) {
-        this.comments = comments;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
+    public void setCommentList(Set<Comment> commentList) {
+        this.commentList = commentList;
     }
 }
 

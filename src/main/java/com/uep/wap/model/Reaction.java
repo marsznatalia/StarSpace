@@ -4,6 +4,7 @@ import javax.persistence.*;
 import javax.persistence.Entity;
 
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "reactions")
@@ -21,19 +22,16 @@ public class Reaction {
     @JoinColumn(name = "comment_id")
     private Comment comment;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User user;
+
     @OneToMany(mappedBy = "reaction", cascade = CascadeType.ALL)
-    private List<Like> like;
+    private Set<Like> likesList;
 
 
     public Reaction() {
 
-    }
-
-    public Reaction(long id, Post post, Comment comment, List<Like> like) {
-        this.id = id;
-        this.post = post;
-        this.comment = comment;
-        this.like = like;
     }
 
     public long getId() {
@@ -60,12 +58,20 @@ public class Reaction {
         this.comment = comment;
     }
 
-    public List<Like> getLike() {
-        return like;
+    public Set<Like> getLikesList() {
+        return likesList;
     }
 
-    public void setLike(List<Like> like) {
-        this.like = like;
+    public void setLikesList(Set<Like> likesList) {
+        this.likesList = likesList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }
 

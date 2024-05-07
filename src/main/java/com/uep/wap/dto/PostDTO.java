@@ -12,6 +12,7 @@ public class PostDTO {
     private long id;
     private String content;
     private Date datePosted;
+    private Long userAuthorId;
     private User user;
     private List<Comment> commentList;
     private List<Reaction> reactionList;
@@ -26,6 +27,14 @@ public class PostDTO {
 
     public Date getDatePosted() {
         return datePosted;
+    }
+
+    public Long getUserAuthorId() {
+        return userAuthorId;
+    }
+
+    public void setUserAuthorId(Long userAuthorId) {
+        this.userAuthorId = userAuthorId;
     }
 
     public void setDatePosted(Date datePosted) {

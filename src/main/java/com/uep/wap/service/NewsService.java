@@ -1,9 +1,7 @@
 package com.uep.wap.service;
 
 import com.uep.wap.dto.NewsDTO;
-import com.uep.wap.dto.StudentDTO;
 import com.uep.wap.model.News;
-import com.uep.wap.model.Student;
 import com.uep.wap.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
