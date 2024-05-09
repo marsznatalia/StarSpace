@@ -24,13 +24,13 @@ public class Comment {
 
     @ManyToOne
     @JoinColumn(name = "parent_id")
-    private Comment children;
+    private Comment parent;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private Set<Reaction> reactionList; //stonks
+    private Set<Reaction> reactionList;
 
-    @OneToMany(mappedBy = "children", cascade = CascadeType.ALL)
-    private Set<Comment> parent;
+    @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
+    private Set<Comment> children;
 
     public Comment() {
 
@@ -76,19 +76,19 @@ public class Comment {
         this.reactionList = reactionList;
     }
 
-    public Comment getChildren() {
+    public Set<Comment> getChildren() {
         return children;
     }
 
-    public void setChildren(Comment children) {
+    public void setChildren(Set<Comment> children) {
         this.children = children;
     }
 
-    public Set<Comment> getParent() {
+    public Comment getParent() {
         return parent;
     }
 
-    public void setParent(Set<Comment> parent) {
+    public void setParent(Comment parent) {
         this.parent = parent;
     }
 }
