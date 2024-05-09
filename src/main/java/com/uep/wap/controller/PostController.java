@@ -35,8 +35,8 @@ public class PostController {
     }
 
     @PatchMapping("/post/edit-post/{postID}")
-    public String editPost(@PathVariable Long postID, @RequestBody String editedComment) {
-        postService.editPost(postID, editedComment);
+    public String editPost(@PathVariable Long postID, @RequestBody String editedContent) {
+        postService.editPost(postID, editedContent);
         return "Post edited";
     }
 
