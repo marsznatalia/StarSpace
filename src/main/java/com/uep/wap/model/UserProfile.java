@@ -2,7 +2,9 @@ package com.uep.wap.model;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "userProfiles")
@@ -16,7 +18,7 @@ public class UserProfile {
     @Column(name = "profilePicture", nullable = true)
     private byte[] profilePicture;
     @Column(name = "status")
-    private Integer status;
+    private Boolean status;
 
     @OneToOne
     @MapsId
@@ -26,20 +28,12 @@ public class UserProfile {
     @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
     @CollectionTable(name = "links", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column is good
     @Column(name = "links", nullable = false)
-    private List<String> links = new ArrayList<>();
+    private Set<String> links = new HashSet<>();
 
     public UserProfile() {
 
     }
 
-    public UserProfile(Long id, String bio, byte[] profilePicture, Integer status, User user, List<String> links) {
-        this.id = id;
-        this.bio = bio;
-        this.profilePicture = profilePicture;
-        this.status = status;
-        this.user = user;
-        this.links = links;
-    }
 
     public Long getId() {
         return id;
@@ -65,11 +59,11 @@ public class UserProfile {
         this.profilePicture = profilePicture;
     }
 
-    public Integer getStatus() {
+    public Boolean getStatus() {
         return status;
     }
 
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -81,11 +75,11 @@ public class UserProfile {
         this.user = user;
     }
 
-    public List<String> getLinks() {
+    public Set<String> getLinks() {
         return links;
     }
 
-    public void setLinks(List<String> links) {
+    public void setLinks(Set<String> links) {
         this.links = links;
     }
 }

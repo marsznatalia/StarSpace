@@ -41,31 +41,31 @@ public class UserController {
 //        return "Newsletter added";
 //    }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping(path = "/users/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return "User deleted successfully";
     }
 
-    @PatchMapping("users/{id}")
+    @PatchMapping(path = "users/{id}")
     public String changeUserName(@RequestBody UserDTO userDTO, @PathVariable Long id) {
         userService.changeUserName(userDTO, id);
         return "UserName changed.";
     }
 
-    @PatchMapping("users/make-friend/{id1}/{id2}")
+    @PatchMapping(path = "users/make-friend/{id1}/{id2}")
     public String makeFriend(@PathVariable Long id1, @PathVariable Long id2) {
         userService.makeFriend(id1, id2);
         return "Added to friends";
     }
 
-    @PatchMapping("users/delete-friend/{id1}/{id2}")
+    @PatchMapping(path = "users/delete-friend/{id1}/{id2}")
     public String deleteFriend(@PathVariable Long id1, @PathVariable Long id2) {
         userService.deleteFriend(id1, id2);
         return "Removed from friends";
     }
 
-    @DeleteMapping("/delete-data")
+    @DeleteMapping(path = "/delete-data")
     //USE WITH CAUTION!!!!!!!!!!!!
     public ResponseEntity<String> deleteData() {
         try {

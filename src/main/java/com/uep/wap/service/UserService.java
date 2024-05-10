@@ -17,9 +17,6 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-//    @Autowired
-//    private NewsletterRepository newsletterRepository;
-
     @Autowired
     private PostRepository postRepository;
 
@@ -99,24 +96,6 @@ public class UserService {
             System.out.println("Already not friends");
         }
     }
-
-
-
-    //    public void addNewsletterByID(Long userID, Long newsletterID){
-//        User user = userRepository.findById(userID)
-//                .orElseThrow(() -> new UserNotFoundException(userID));
-//        user.setNewsletter(newsletter);
-//        userRepository.save(user);
-//    }
-
-
-
-
-
-
-
-
-
 
     public void deleteAllData() {
         //USE WITH CAUTION!!!!!!!!!!!!!!!!!!!!!!
