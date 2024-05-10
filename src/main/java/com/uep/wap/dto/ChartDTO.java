@@ -12,9 +12,6 @@ public class ChartDTO {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
     public byte[] getContent() {
         return content;
     }
@@ -27,15 +24,8 @@ public class ChartDTO {
         return type;
     }
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
     public User getUserOwner() {
         return userOwner;
     }
 
-    public void setUserOwner(User userOwner) {
-        this.userOwner = userOwner;
-    }
 }

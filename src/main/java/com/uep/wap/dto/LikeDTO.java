@@ -1,4 +1,5 @@
 package com.uep.wap.dto;
+
 import com.uep.wap.model.User;
 
 public class LikeDTO {
@@ -7,10 +8,6 @@ public class LikeDTO {
 
     public Long getReactionID() {
         return reactionID;
-    }
-
-    public void setReactionID(Long reactionID) {
-        this.reactionID = reactionID;
     }
 
     public User getUser() {

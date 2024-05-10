@@ -42,7 +42,6 @@ public class MessageService {
         System.out.println("New message sent!");
     }
 
-    // TODO not tested
     public void editMessage(Long messageId, String editedMessage) {
         Message message = messageRepository.findById(messageId)
                 .orElseThrow(() -> new MessageNotFoundException(messageId));

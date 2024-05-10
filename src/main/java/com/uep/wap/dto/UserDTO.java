@@ -32,95 +32,11 @@ public class UserDTO {
         return userName;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public String getPassword() {
         return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public List<User> getFriendList() {
-        return friendList;
-    }
-
-    public void setFriendList(List<User> friendList) {
-        this.friendList = friendList;
-    }
-
-    public List<Post> getPostsList() {
-        return postsList;
-    }
-
-    public void setPostsList(List<Post> postsList) {
-        this.postsList = postsList;
-    }
-
-    public List<Comment> getCommentsList() {
-        return commentsList;
-    }
-
-    public void setCommentsList(List<Comment> commentsList) {
-        this.commentsList = commentsList;
-    }
-
-    public List<Like> getLikesList() {
-        return likesList;
-    }
-
-    public void setLikesList(List<Like> likesList) {
-        this.likesList = likesList;
-    }
-
-    public Theme getTheme() {
-        return theme;
-    }
-
-    public void setTheme(Theme theme) {
-        this.theme = theme;
-    }
-
-    public List<Chart> getChartList() {
-        return chartList;
-    }
-
-    public void setChartList(List<Chart> chartList) {
-        this.chartList = chartList;
-    }
-
-    public List<Chat> getChatList() {
-        return chatList;
-    }
-
-    public void setChatList(List<Chat> chatList) {
-        this.chatList = chatList;
-    }
-
-    public UserProfile getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(UserProfile userProfile) {
-        this.userProfile = userProfile;
-    }
-
-    public Newsletter getNewsletter() {
-        return newsletter;
-    }
-
-    public void setNewsletter(Newsletter newsletter) {
-        this.newsletter = newsletter;
     }
 }

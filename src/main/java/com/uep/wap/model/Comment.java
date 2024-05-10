@@ -1,11 +1,15 @@
 package com.uep.wap.model;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -25,6 +29,10 @@ public class Comment {
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Comment parent;
+
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private User author;
 
     @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
     private Set<Reaction> reactionList;
@@ -90,6 +98,14 @@ public class Comment {
 
     public void setParent(Comment parent) {
         this.parent = parent;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
 

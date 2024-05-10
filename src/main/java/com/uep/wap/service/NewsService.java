@@ -3,7 +3,6 @@ package com.uep.wap.service;
 import com.uep.wap.dto.NewsDTO;
 import com.uep.wap.exception.NewsNotFoundException;
 import com.uep.wap.exception.NewsletterNotFoundException;
-import com.uep.wap.model.Comment;
 import com.uep.wap.model.News;
 import com.uep.wap.model.Newsletter;
 import com.uep.wap.repository.NewsRepository;
@@ -13,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.Optional;
+
 @Service
 public class NewsService {
     @Autowired
@@ -35,7 +35,7 @@ public class NewsService {
         System.out.println("News added!");
     }
 
-    public void editNews(Long newsID, NewsDTO newsDTO){
+    public void editNews(Long newsID, NewsDTO newsDTO) {
         News news = newsRepository.findById(newsID)
                 .orElseThrow(() -> new NewsNotFoundException(newsID));
         news.setTitle(newsDTO.getTitle());

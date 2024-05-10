@@ -29,10 +29,15 @@ public class LikeService {
         reactionRepository.save(reaction);
         System.out.println("Like added!");
     }
-    public void deleteById(Long likeID) {likeRepository.deleteById(likeID);}
+
+    public void deleteById(Long likeID) {
+        likeRepository.deleteById(likeID);
+    }
+
     public Iterable<Like> getAllLikes() {
         return likeRepository.findAll();
     }
+
     public Optional<Like> findLikeById(Long id) {
         return likeRepository.findById(id);
     }

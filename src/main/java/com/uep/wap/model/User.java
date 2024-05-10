@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,11 +25,25 @@ public class User {
     @Column(name = "password")
     private String password;
 
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Theme theme;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private UserProfile userProfile;
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    private Newsletter newsletter;
+
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private Set<Post> postsList;// dodałem z mapowaniem -> teraz chyba bedzie dobrze
+    private Set<Post> postsList;
 
     @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
     private List<Chart> chartList;
+
+    @OneToMany(mappedBy = "author")
+    private Set<Comment> commentList;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Reaction> reactionsList;
 
     @ManyToMany(mappedBy = "chatUsersList")
     private Set<Chat> chatList = new HashSet<>(); //lista chatów danego usera
@@ -41,20 +54,6 @@ public class User {
     @JoinColumn(name = "person_B_id", referencedColumnName = "id")
     private Set<User> friends = new HashSet<>();
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Theme theme;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn
-    private UserProfile userProfile;
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    private Newsletter newsletter;
-    @OneToMany(mappedBy = "user")
-    private Set<Reaction> reactionsList;
-
-    @ElementCollection(targetClass = Comment.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "commentsList", joinColumns = @JoinColumn(name = "user_id"))
-    @Column(name = "commentsList", nullable = false)
-    private List<Comment> commentsList = new ArrayList<>();
 
     public User() {
 
@@ -108,14 +107,6 @@ public class User {
         this.postsList = postsList;
     }
 
-    public List<Comment> getCommentsList() {
-        return commentsList;
-    }
-
-    public void setCommentsList(List<Comment> commentsList) {
-        this.commentsList = commentsList;
-    }
-
     public Theme getTheme() {
         return theme;
     }
@@ -162,5 +153,13 @@ public class User {
 
     public void setReactionsList(Set<Reaction> reactionsList) {
         this.reactionsList = reactionsList;
+    }
+
+    public Set<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setComment(Set<Comment> comment) {
+        this.commentList = comment;
     }
 }

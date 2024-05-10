@@ -15,23 +15,25 @@ public class ReactionController {
     public ReactionController(ReactionService reactionService) {
         this.reactionService = reactionService;
     }
+
     @GetMapping(path = "/reactions/{id}")
     public Optional<Reaction> findReactionById(@PathVariable Long id) {
         return reactionService.findReactionById(id);
     }
 
     @GetMapping(path = "/reactions")
-    public Iterable<Reaction> getAllReactions(){
+    public Iterable<Reaction> getAllReactions() {
         return reactionService.getAllReactions();
     }
 
     @PostMapping(path = "/reaction/add-reaction-to-post")
-    public String addReactionToPost(@RequestBody ReactionDTO reactionDTO){
-        reactionService.addReactiontToPost(reactionDTO);
+    public String addReactionToPost(@RequestBody ReactionDTO reactionDTO) {
+        reactionService.addReactionToPost(reactionDTO);
         return "Reaction added!";
     }
+
     @PostMapping(path = "/reaction/add-reaction-to-comment")
-    public String addReactionToComment(@RequestBody ReactionDTO reactionDTO){
+    public String addReactionToComment(@RequestBody ReactionDTO reactionDTO) {
         reactionService.addReactionToComment(reactionDTO);
         return "Reaction added!";
     }

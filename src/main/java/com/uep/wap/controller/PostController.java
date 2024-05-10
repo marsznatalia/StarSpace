@@ -2,7 +2,6 @@ package com.uep.wap.controller;
 
 import com.uep.wap.dto.PostDTO;
 import com.uep.wap.model.Post;
-import com.uep.wap.model.User;
 import com.uep.wap.service.PostService;
 import org.springframework.web.bind.annotation.*;
 

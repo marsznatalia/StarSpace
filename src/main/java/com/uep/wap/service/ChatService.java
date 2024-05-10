@@ -37,8 +37,8 @@ public class ChatService {
         }
 
         Chat chat = new Chat();
-        chat.setChatName(chatDTO.getChatName()); //co jesli ktos nie poda nazwy albo typu chatu w dto?
-        chat.setChatType(chatDTO.getChatType()); //czy chat type jest w sumie potrzebny?
+        chat.setChatName(chatDTO.getChatName());
+        chat.setChatType(chatDTO.getChatType()); //TODO check czy chat type jest w sumie potrzebny?
         chat.setChatUsersList(new HashSet<>());
 
         for (User user : usersInChat) {
