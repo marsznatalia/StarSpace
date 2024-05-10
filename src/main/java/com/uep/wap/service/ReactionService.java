@@ -24,7 +24,7 @@ public class ReactionService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public void addReactiontToPost(ReactionDTO reactionDTO){
+    public void addReactionToPost(ReactionDTO reactionDTO){
         Post post = postRepository.findById(reactionDTO.getPostID())
                 .orElseThrow(() -> new PostNotFoundException(reactionDTO.getPostID()));
         Reaction reaction = new Reaction();

@@ -27,7 +27,7 @@ public class ReactionController {
 
     @PostMapping(path = "/reaction/add-reaction-to-post")
     public String addReactionToPost(@RequestBody ReactionDTO reactionDTO){
-        reactionService.addReactiontToPost(reactionDTO);
+        reactionService.addReactionToPost(reactionDTO);
         return "Reaction added!";
     }
     @PostMapping(path = "/reaction/add-reaction-to-comment")

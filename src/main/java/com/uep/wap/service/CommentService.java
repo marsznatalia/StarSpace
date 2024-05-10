@@ -1,6 +1,5 @@
 package com.uep.wap.service;
 
-import com.sun.xml.bind.v2.TODO;
 import com.uep.wap.dto.CommentDTO;
 import com.uep.wap.exception.CommentNotFoundException;
 import com.uep.wap.exception.PostNotFoundException;
@@ -30,10 +29,14 @@ public class CommentService {
     private PostRepository postRepository;
 
     public void addCommentToPost(CommentDTO commentDTO) {
-        //TODO Nie ma user w modelu comment, czytaj nie mozna ustawic autora
         Post post = postRepository.findById(commentDTO.getPostID())
                 .orElseThrow(() -> new PostNotFoundException(commentDTO.getPostID()));
         Comment comment = new Comment();
+
+        User user = userRepository.findById(commentDTO.getAuthorID())
+                        .orElseThrow(() -> new UserNotFoundException(commentDTO.getAuthorID()));
+
+        comment.setAuthor(user);
         comment.setPost(post);
         comment.setContent(commentDTO.getContent());
         comment.setDatePosted(new Date());
@@ -49,6 +52,12 @@ public class CommentService {
         Comment parent = commentRepository.findById(commentDTO.getCommentID())
                 .orElseThrow(() -> new CommentNotFoundException(commentDTO.getCommentID()));
         Comment comment = new Comment();
+
+        User user = userRepository.findById(commentDTO.getAuthorID())
+                .orElseThrow(() -> new UserNotFoundException(commentDTO.getAuthorID()));
+
+        comment.setAuthor(user);
+
         comment.setParent(parent);
         comment.setContent(commentDTO.getContent());
         comment.setDatePosted(new Date());
