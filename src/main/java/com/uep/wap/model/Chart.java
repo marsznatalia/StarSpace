@@ -11,30 +11,18 @@ public class Chart {
     private long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "userOwner")
-    private User userOwner;
     @Column(name = "content")
-    private Object content;
+    private byte[] content;
     @Column(name = "type")
     private Integer type;
 
     @ManyToOne(optional = false)
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_owner_id")
+    private User userOwner;
 
     public Chart() {
 
     }
-
-    public Chart(long id, String title, User userOwner, Object content, Integer type, User user) {
-        this.id = id;
-        this.title = title;
-        this.userOwner = userOwner;
-        this.content = content;
-        this.type = type;
-        this.user = user;
-    }
-
     public long getId() {
         return id;
     }
@@ -51,19 +39,11 @@ public class Chart {
         this.title = title;
     }
 
-    public User getUserOwner() {
-        return userOwner;
-    }
-
-    public void setUserOwner(User userOwner) {
-        this.userOwner = userOwner;
-    }
-
-    public Object getContent() {
+    public byte[] getContent() {
         return content;
     }
 
-    public void setContent(Object content) {
+    public void setContent(byte[] content) {
         this.content = content;
     }
 
@@ -75,12 +55,12 @@ public class Chart {
         this.type = type;
     }
 
-    public User getUser() {
-        return user;
+    public User getUserOwner() {
+        return userOwner;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserOwner(User userOwner) {
+        this.userOwner = userOwner;
     }
 }
 

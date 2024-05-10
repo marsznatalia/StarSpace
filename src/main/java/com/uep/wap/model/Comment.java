@@ -1,10 +1,15 @@
 package com.uep.wap.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.*;
+import java.util.Date;
+import java.util.Set;
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "comments")
 public class Comment {
@@ -14,44 +19,29 @@ public class Comment {
     private long id;
     @Column(name = "content")
     private String content;
-    @Column(name = "author")
-    private User author;
     @Column(name = "datePosted")
     private Date datePosted;
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "likes", joinColumns = @JoinColumn(name = "like_id")) //bazuje na przykladzie userProfile
-    @Column(name = "likes", nullable = false)
-    private List<Like> likes = new ArrayList<>();
 
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post post;
 
-    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
-    private List<Reaction> reactionList;
-
     @ManyToOne
     @JoinColumn(name = "parent_id")
     private Comment parent;
 
+    @ManyToOne
+    @JoinColumn(name = "comment_id")
+    private User author;
+
+    @OneToMany(mappedBy = "comment", cascade = CascadeType.ALL)
+    private Set<Reaction> reactionList;
+
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private List<Comment> children;
+    private Set<Comment> children;
 
     public Comment() {
 
-    }
-
-    public Comment(long id, String content, User author, Date datePosted, List<Like> likes, Post post, List<Reaction> reactionList, Comment parent, List<Comment> children) {
-        this.id = id;
-        this.content = content;
-        this.author = author;
-        this.datePosted = datePosted;
-        this.likes = likes;
-        this.post = post;
-        this.reactionList = reactionList;
-        this.parent = parent;
-        this.children = children;
     }
 
     public long getId() {
@@ -70,28 +60,12 @@ public class Comment {
         this.content = content;
     }
 
-    public User getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(User author) {
-        this.author = author;
-    }
-
     public Date getDatePosted() {
         return datePosted;
     }
 
     public void setDatePosted(Date datePosted) {
         this.datePosted = datePosted;
-    }
-
-    public List<Like> getLikes() {
-        return likes;
-    }
-
-    public void setLikes(List<Like> likes) {
-        this.likes = likes;
     }
 
     public Post getPost() {
@@ -102,12 +76,20 @@ public class Comment {
         this.post = post;
     }
 
-    public List<Reaction> getReactionList() {
+    public Set<Reaction> getReactionList() {
         return reactionList;
     }
 
-    public void setReactionList(List<Reaction> reactionList) {
+    public void setReactionList(Set<Reaction> reactionList) {
         this.reactionList = reactionList;
+    }
+
+    public Set<Comment> getChildren() {
+        return children;
+    }
+
+    public void setChildren(Set<Comment> children) {
+        this.children = children;
     }
 
     public Comment getParent() {
@@ -118,12 +100,12 @@ public class Comment {
         this.parent = parent;
     }
 
-    public List<Comment> getChildren() {
-        return children;
+    public User getAuthor() {
+        return author;
     }
 
-    public void setChildren(List<Comment> children) {
-        this.children = children;
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
 

@@ -9,26 +9,18 @@ public class Message {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
-    @Column(name = "whoSent")
-    private User whoSent;
-    @Column(name = "whoReceived")
-    private User whoReceived;
+
     @Column(name = "content")
     private String content;
 
     @ManyToOne
-    @JoinColumn(name = "chat_id")
-    private Chat chat;
+    @JoinColumn(name = "sender_id")
+    private User whoSent;
+
+    @ManyToOne
+    private Chat inChat;
 
     public Message() {
-    }
-
-    public Message(long id, User whoSent, User whoReceived, String content, Chat chat) {
-        this.id = id;
-        this.whoSent = whoSent;
-        this.whoReceived = whoReceived;
-        this.content = content;
-        this.chat = chat;
     }
 
     public long getId() {
@@ -39,22 +31,6 @@ public class Message {
         this.id = id;
     }
 
-    public User getWhoSent() {
-        return whoSent;
-    }
-
-    public void setWhoSent(User whoSent) {
-        this.whoSent = whoSent;
-    }
-
-    public User getWhoReceived() {
-        return whoReceived;
-    }
-
-    public void setWhoReceived(User whoReceived) {
-        this.whoReceived = whoReceived;
-    }
-
     public String getContent() {
         return content;
     }
@@ -63,12 +39,20 @@ public class Message {
         this.content = content;
     }
 
-    public Chat getChat() {
-        return chat;
+    public User getWhoSent() {
+        return whoSent;
     }
 
-    public void setChat(Chat chat) {
-        this.chat = chat;
+    public void setWhoSent(User whoSent) {
+        this.whoSent = whoSent;
+    }
+
+    public Chat getInChat() {
+        return inChat;
+    }
+
+    public void setInChat(Chat inChat) {
+        this.inChat = inChat;
     }
 }
 

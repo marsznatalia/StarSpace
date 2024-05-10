@@ -1,8 +1,8 @@
 package com.uep.wap.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "userProfiles")
@@ -12,33 +12,26 @@ public class UserProfile {
     private Long id;
     @Column(name = "bio")
     private String bio;
-    @Column(name = "profilePicture")
-    private Object profilePicture;
+    @Lob
+    @Column(name = "profilePicture", nullable = true)
+    private byte[] profilePicture;
     @Column(name = "status")
-    private Integer status;
+    private Boolean status;
 
     @OneToOne
     @MapsId
     @JoinColumn(name = "user_id")
     private User user;
 
-    @ElementCollection(targetClass = String.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "links", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column is good
+    @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
+    @CollectionTable(name = "links", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "links", nullable = false)
-    private List<String> links = new ArrayList<>();
+    private Set<String> links = new HashSet<>();
 
     public UserProfile() {
 
     }
 
-    public UserProfile(Long id, String bio, Object profilePicture, Integer status, User user, List<String> links) {
-        this.id = id;
-        this.bio = bio;
-        this.profilePicture = profilePicture;
-        this.status = status;
-        this.user = user;
-        this.links = links;
-    }
 
     public Long getId() {
         return id;
@@ -48,27 +41,15 @@ public class UserProfile {
         this.id = id;
     }
 
-    public String getBio() {
-        return bio;
-    }
-
     public void setBio(String bio) {
         this.bio = bio;
     }
 
-    public Object getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(Object profilePicture) {
+    public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
     }
 
-    public Integer getStatus() {
-        return status;
-    }
-
-    public void setStatus(Integer status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -80,11 +61,7 @@ public class UserProfile {
         this.user = user;
     }
 
-    public List<String> getLinks() {
-        return links;
-    }
-
-    public void setLinks(List<String> links) {
+    public void setLinks(Set<String> links) {
         this.links = links;
     }
 }

@@ -1,9 +1,16 @@
 package com.uep.wap.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.*;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
 @Table(name = "users")
 public class User {
@@ -18,63 +25,38 @@ public class User {
     @Column(name = "password")
     private String password;
 
-    @ElementCollection(targetClass = User.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "friendList", joinColumns = @JoinColumn(name = "user_id"))
-    //nie wiem czy Join Column jest ok
-    @Column(name = "friendList", nullable = false)
-    private List<User> friendList = new ArrayList<>();
-
-    @ElementCollection(targetClass = Post.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "postsList", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column jest ok
-    @Column(name = "postsList", nullable = false)
-    private List<Post> postsList = new ArrayList<>();
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Post> postList;
-
-    @ElementCollection(targetClass = Comment.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "commentsList", joinColumns = @JoinColumn(name = "user_id"))
-    //nie wiem czy Join Column jest ok
-    @Column(name = "commentsList", nullable = false)
-    private List<Comment> commentsList = new ArrayList<>();
-
-    @ElementCollection(targetClass = Like.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "likesList", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column jest ok
-    @Column(name = "likesList", nullable = false)
-    private List<Like> likesList = new ArrayList<>();
-
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Theme theme;
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Chart> chartList;
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Chat> chatList;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     @PrimaryKeyJoinColumn
     private UserProfile userProfile;
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
     private Newsletter newsletter;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private Set<Post> postsList;
+
+    @OneToMany(mappedBy = "userOwner", cascade = CascadeType.ALL)
+    private List<Chart> chartList;
+
+    @OneToMany(mappedBy = "author")
+    private Set<Comment> commentList;
+
+    @OneToMany(mappedBy = "user")
+    private Set<Reaction> reactionsList;
+
+    @ManyToMany(mappedBy = "chatUsersList")
+    private Set<Chat> chatList = new HashSet<>(); //lista chatów danego usera
+
+    @OneToMany
+    @JoinTable(name = "friends")
+    @JoinColumn(name = "person_A_id", referencedColumnName = "id")
+    @JoinColumn(name = "person_B_id", referencedColumnName = "id")
+    private Set<User> friends = new HashSet<>();
+
+
     public User() {
 
-    }
-
-    public User(long id, String userName, String email, String password, List<User> friendList, List<Post> postsList, List<Post> postList, List<Comment> commentsList, List<Like> likesList, Theme theme, List<Chart> chartList, List<Chat> chatList, UserProfile userProfile, Newsletter newsletter) {
-        this.id = id;
-        this.userName = userName;
-        this.email = email;
-        this.password = password;
-        this.friendList = friendList;
-        this.postsList = postsList;
-        this.postList = postList;
-        this.commentsList = commentsList;
-        this.likesList = likesList;
-        this.theme = theme;
-        this.chartList = chartList;
-        this.chatList = chatList;
-        this.userProfile = userProfile;
-        this.newsletter = newsletter;
     }
 
     public long getId() {
@@ -109,44 +91,20 @@ public class User {
         this.password = password;
     }
 
-    public List<User> getFriendList() {
-        return friendList;
+    public Set<User> getFriends() {
+        return friends;
     }
 
-    public void setFriendList(List<User> friendList) {
-        this.friendList = friendList;
+    public void setFriends(Set<User> friends) {
+        this.friends = friends;
     }
 
-    public List<Post> getPostsList() {
+    public Set<Post> getPostsList() {
         return postsList;
     }
 
-    public void setPostsList(List<Post> postsList) {
+    public void setPostsList(Set<Post> postsList) {
         this.postsList = postsList;
-    }
-
-    public List<Post> getPostList() {
-        return postList;
-    }
-
-    public void setPostList(List<Post> postList) {
-        this.postList = postList;
-    }
-
-    public List<Comment> getCommentsList() {
-        return commentsList;
-    }
-
-    public void setCommentsList(List<Comment> commentsList) {
-        this.commentsList = commentsList;
-    }
-
-    public List<Like> getLikesList() {
-        return likesList;
-    }
-
-    public void setLikesList(List<Like> likesList) {
-        this.likesList = likesList;
     }
 
     public Theme getTheme() {
@@ -165,11 +123,11 @@ public class User {
         this.chartList = chartList;
     }
 
-    public List<Chat> getChatList() {
+    public Set<Chat> getChatList() {
         return chatList;
     }
 
-    public void setChatList(List<Chat> chatList) {
+    public void setChatList(Set<Chat> chatList) {
         this.chatList = chatList;
     }
 
@@ -188,6 +146,20 @@ public class User {
     public void setNewsletter(Newsletter newsletter) {
         this.newsletter = newsletter;
     }
+
+    public Set<Reaction> getReactionsList() {
+        return reactionsList;
+    }
+
+    public void setReactionsList(Set<Reaction> reactionsList) {
+        this.reactionsList = reactionsList;
+    }
+
+    public Set<Comment> getCommentList() {
+        return commentList;
+    }
+
+    public void setComment(Set<Comment> comment) {
+        this.commentList = comment;
+    }
 }
-
-

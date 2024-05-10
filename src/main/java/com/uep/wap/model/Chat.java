@@ -1,43 +1,41 @@
 package com.uep.wap.model;
 
-import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import javax.persistence.*;
+import java.util.*;
+
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 @Entity
-@Table(name="students")
+@Table(name = "chats")
 public class Chat {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name ="id")
+    @Column(name = "id")
     private long id;
-    @Column(name ="chatName")
+
+    @Column(name = "chatName")
     private String chatName;
-    @Column(name ="chatType")
+
+    @Column(name = "chatType")
     private Boolean chatType;
 
-    @ElementCollection(targetClass = User.class, fetch = FetchType.EAGER)
-    @CollectionTable(name = "usersInChat", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column jest ok
-    @Column(name = "usersInChat", nullable = false)
-    private List<User> usersInChat = new ArrayList<>();
+    @OneToMany(mappedBy = "inChat")
+    private Set<Message> messagesList = new HashSet<>();
+    // lista wiadomości w chacie
 
-    @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @ManyToMany
+    @JoinTable(
+            name = "chat_users",
+            joinColumns = @JoinColumn(name = "chat_id"),
+            inverseJoinColumns = @JoinColumn(name = "user_id")
+    )
+    private Set<User> chatUsersList = new HashSet<>(); //lista userów którzy są w danym chacie
 
-    @OneToMany(mappedBy = "chat", cascade = CascadeType.ALL)
-    private List<Message> messageList;
-
-    public Chat(){
-    }
-
-    public Chat(long id, String chatName, Boolean chatType, List<User> usersInChat, User user, List<Message> messageList) {
-        this.id = id;
-        this.chatName = chatName;
-        this.chatType = chatType;
-        this.usersInChat = usersInChat;
-        this.user = user;
-        this.messageList = messageList;
+    public Chat() {
     }
 
     public long getId() {
@@ -64,28 +62,20 @@ public class Chat {
         this.chatType = chatType;
     }
 
-    public List<User> getUsersInChat() {
-        return usersInChat;
+    public Set<Message> getMessagesList() {
+        return messagesList;
     }
 
-    public void setUsersInChat(List<User> usersInChat) {
-        this.usersInChat = usersInChat;
+    public void setMessagesList(Set<Message> messagesList) {
+        this.messagesList = messagesList;
     }
 
-    public User getUser() {
-        return user;
+    public Set<User> getChatUsersList() {
+        return chatUsersList;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<Message> getMessageList() {
-        return messageList;
-    }
-
-    public void setMessageList(List<Message> messageList) {
-        this.messageList = messageList;
+    public void setChatUsersList(Set<User> chatUsersList) {
+        this.chatUsersList = chatUsersList;
     }
 }
 
