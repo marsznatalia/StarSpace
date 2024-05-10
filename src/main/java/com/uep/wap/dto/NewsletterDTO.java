@@ -2,15 +2,15 @@ package com.uep.wap.dto;
 
 import com.uep.wap.model.News;
 import com.uep.wap.model.User;
-
-import java.util.List;
+import java.util.Set;
 
 public class NewsletterDTO {
 
     private String title;
     private long id;
-    private List<News> newsList;
+    private Set<News> newsList;
     private User user;
+    private Long userID;
 
     public long getId() {
         return id;
@@ -20,16 +20,24 @@ public class NewsletterDTO {
         this.id = id;
     }
 
-    public List<News> getNewsList() {
+    public Set<News> getNewsList() {
         return newsList;
     }
 
-    public void setNewsList(List<News> newsList) {
+    public void setNewsList(Set<News> newsList) {
         this.newsList = newsList;
     }
 
     public User getUser() {
         return user;
+    }
+
+    public Long getUserID() {
+        return userID;
+    }
+
+    public void setUserID(Long userID) {
+        this.userID = userID;
     }
 
     public void setUser(User user) {
@@ -43,4 +51,5 @@ public class NewsletterDTO {
     public void setTitle(String title) {
         this.title = title;
     }
+
 }

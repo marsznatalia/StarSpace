@@ -2,6 +2,7 @@ package com.uep.wap.model;
 
 import javax.persistence.*;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "newsletters")
@@ -13,7 +14,7 @@ public class Newsletter {
     @Column(name = "title")
     private String title;
     @OneToMany(mappedBy = "newsletter", cascade = CascadeType.ALL)
-    private List<News> newsList;
+    private Set<News> newsList;
 
     @OneToOne(cascade = CascadeType.ALL)
     @JoinTable(name = "newsletter_user",
@@ -27,7 +28,7 @@ public class Newsletter {
 
     }
 
-    public Newsletter(long id, String title, List<News> newsList, User user) {
+    public Newsletter(long id, String title, Set<News> newsList, User user) {
         this.id = id;
         this.title = title;
         this.newsList = newsList;
@@ -50,11 +51,11 @@ public class Newsletter {
         this.title = title;
     }
 
-    public List<News> getNewsList() {
+    public Set<News> getNewsList() {
         return newsList;
     }
 
-    public void setNewsList(List<News> newsList) {
+    public void setNewsList(Set<News> newsList) {
         this.newsList = newsList;
     }
 
