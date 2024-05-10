@@ -23,15 +23,6 @@ public class Chart {
     public Chart() {
 
     }
-
-    public Chart(long id, String title, byte[] content, Integer type, User userOwner) {
-        this.id = id;
-        this.title = title;
-        this.content = content;
-        this.type = type;
-        this.userOwner = userOwner;
-    }
-
     public long getId() {
         return id;
     }

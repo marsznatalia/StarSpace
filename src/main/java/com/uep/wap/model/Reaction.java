@@ -2,8 +2,6 @@ package com.uep.wap.model;
 
 import javax.persistence.*;
 import javax.persistence.Entity;
-
-import java.util.List;
 import java.util.Set;
 
 @Entity

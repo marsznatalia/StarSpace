@@ -30,13 +30,14 @@ public class NewsletterService {
         System.out.println("Newsletter added!");
     }
 
-    public void deleteById(Long newsletterID){
+    public void deleteById(Long newsletterID) {
         newsletterRepository.deleteById(newsletterID);
     }
 
     public Iterable<Newsletter> getAllNewsletters() {
         return newsletterRepository.findAll();
     }
+
     public Optional<Newsletter> findPostById(Long id) {
         return newsletterRepository.findById(id);
     }

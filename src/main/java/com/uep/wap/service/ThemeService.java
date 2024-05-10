@@ -39,7 +39,7 @@ public class ThemeService {
         return themeRepository.findAll();
     }
 
-    public void editTheme(Long themeId, ThemeDTO themeDTO){
+    public void editTheme(Long themeId, ThemeDTO themeDTO) {
 
     }
 }

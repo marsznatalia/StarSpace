@@ -35,12 +35,6 @@ public class UserController {
         return "User added!";
     }
 
-//    @PostMapping(path = "/user/{userID}/newsletter/{newsletterID}")
-//    public String addNewsletterToUser(@PathVariable Long userID, @PathVariable Long newsletterID) {
-//        userService.addNewsletterByID(userID, newsletterID);
-//        return "Newsletter added";
-//    }
-
     @DeleteMapping(path = "/users/{id}")
     public String deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
@@ -69,8 +63,7 @@ public class UserController {
     //USE WITH CAUTION!!!!!!!!!!!!
     public ResponseEntity<String> deleteData() {
         try {
-            // Call a method from your UserService to delete data
-            userService.deleteAllData(); // You need to implement this method
+            userService.deleteAllData();
             return ResponseEntity.ok("Data deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)

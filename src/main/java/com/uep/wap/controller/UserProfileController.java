@@ -57,7 +57,7 @@ public class UserProfileController {
         userProfileService.changeStatus(id, bool);
         return "Status changed!";
     }
-//
+
 //    @PatchMapping(path="/user-profiles/links/{id}")
 //    public editLinks(){
 //

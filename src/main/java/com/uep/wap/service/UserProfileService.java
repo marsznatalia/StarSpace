@@ -21,7 +21,7 @@ public class UserProfileService {
     private UserRepository userRepository;
 
     public void newProfile(UserProfileDTO userProfileDTO) {
-        UserProfile userProfile= new UserProfile();
+        UserProfile userProfile = new UserProfile();
         userProfile.setUser(userRepository.findById(userProfileDTO.getId())
                 .orElseThrow(() -> new UserNotFoundException(userProfileDTO.getId()))
         );
@@ -32,7 +32,7 @@ public class UserProfileService {
         System.out.println("New profile created!");
     }
 
-    public Optional<UserProfile> findUserProfileById(Long id){
+    public Optional<UserProfile> findUserProfileById(Long id) {
         return userProfileRepository.findById(id);
     }
 
@@ -40,25 +40,25 @@ public class UserProfileService {
         return userProfileRepository.findAll();
     }
 
-    public void deleteUserProfile(Long id){
+    public void deleteUserProfile(Long id) {
         userProfileRepository.deleteById(id);
     }
 
-    public void editBio(Long id, String editedBio){
+    public void editBio(Long id, String editedBio) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
         user.getUserProfile().setBio(editedBio);
         userRepository.save(user);
     }
 
-    public void changePFP(Long id, byte[] newPfp){
+    public void changePFP(Long id, byte[] newPfp) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
         user.getUserProfile().setProfilePicture(newPfp);
         userRepository.save(user);
     }
 
-    public void changeStatus(Long id, Boolean bool){
+    public void changeStatus(Long id, Boolean bool) {
         User user = userRepository.findById(id)
                 .orElseThrow(() -> new UserNotFoundException(id));
         user.getUserProfile().setStatus(bool);

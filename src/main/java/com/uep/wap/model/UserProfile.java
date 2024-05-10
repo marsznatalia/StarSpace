@@ -1,9 +1,7 @@
 package com.uep.wap.model;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -26,7 +24,7 @@ public class UserProfile {
     private User user;
 
     @ElementCollection(targetClass = String.class, fetch = FetchType.LAZY)
-    @CollectionTable(name = "links", joinColumns = @JoinColumn(name = "user_id")) //nie wiem czy Join Column is good
+    @CollectionTable(name = "links", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "links", nullable = false)
     private Set<String> links = new HashSet<>();
 
@@ -43,24 +41,12 @@ public class UserProfile {
         this.id = id;
     }
 
-    public String getBio() {
-        return bio;
-    }
-
     public void setBio(String bio) {
         this.bio = bio;
     }
 
-    public Object getProfilePicture() {
-        return profilePicture;
-    }
-
     public void setProfilePicture(byte[] profilePicture) {
         this.profilePicture = profilePicture;
-    }
-
-    public Boolean getStatus() {
-        return status;
     }
 
     public void setStatus(Boolean status) {
@@ -73,10 +59,6 @@ public class UserProfile {
 
     public void setUser(User user) {
         this.user = user;
-    }
-
-    public Set<String> getLinks() {
-        return links;
     }
 
     public void setLinks(Set<String> links) {

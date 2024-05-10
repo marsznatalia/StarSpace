@@ -34,7 +34,7 @@ public class CommentService {
         Comment comment = new Comment();
 
         User user = userRepository.findById(commentDTO.getAuthorID())
-                        .orElseThrow(() -> new UserNotFoundException(commentDTO.getAuthorID()));
+                .orElseThrow(() -> new UserNotFoundException(commentDTO.getAuthorID()));
 
         comment.setAuthor(user);
         comment.setPost(post);
@@ -48,7 +48,8 @@ public class CommentService {
         postRepository.save(post);
         System.out.println("Comment added to post!");
     }
-    public void addCommentToComment(CommentDTO commentDTO){
+
+    public void addCommentToComment(CommentDTO commentDTO) {
         Comment parent = commentRepository.findById(commentDTO.getCommentID())
                 .orElseThrow(() -> new CommentNotFoundException(commentDTO.getCommentID()));
         Comment comment = new Comment();

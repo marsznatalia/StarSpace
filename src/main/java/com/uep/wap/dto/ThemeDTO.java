@@ -9,19 +9,7 @@ public class ThemeDTO {
         return userId;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public boolean isColor() {
-        return color;
-    }
-
     public boolean getColor() {
         return color;
-    }
-
-    public void setColor(boolean color){
-        this.color = color;
     }
 }

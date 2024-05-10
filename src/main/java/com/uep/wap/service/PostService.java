@@ -50,7 +50,6 @@ public class PostService {
         postRepository.save(post);
     }
 
-
     public void deleteById(Long postID) {
         postRepository.deleteById(postID);
     }

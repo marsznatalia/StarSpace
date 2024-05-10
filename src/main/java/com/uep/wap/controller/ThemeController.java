@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @RestController
-@RequestMapping(path ="/api")
+@RequestMapping(path = "/api")
 public class ThemeController {
     private final ThemeService themeService;
 
@@ -16,25 +16,25 @@ public class ThemeController {
         this.themeService = themeService;
     }
 
-    @GetMapping(path ="/themes")
-    public Iterable<Theme> getAllThemes(){
+    @GetMapping(path = "/themes")
+    public Iterable<Theme> getAllThemes() {
         return themeService.getAllThemes();
     }
 
     @GetMapping(path = "/themes/{themeId}")
-    public Theme findThemeById(@PathVariable Long themeId){
+    public Theme findThemeById(@PathVariable Long themeId) {
         return themeService.findThemeById(themeId)
-                .orElseThrow(()-> new ThemeNotFoundException(themeId));
+                .orElseThrow(() -> new ThemeNotFoundException(themeId));
     }
 
-    @PostMapping(path="/themes/new-theme")
-    public String newTheme(@RequestBody ThemeDTO themeDTO){
+    @PostMapping(path = "/themes/new-theme")
+    public String newTheme(@RequestBody ThemeDTO themeDTO) {
         themeService.newTheme(themeDTO);
         return "Theme created!";
     }
 
-    @PatchMapping(path="/themes/edit-theme/{themeId}")
-    public String editTheme(@PathVariable Long themeId, @RequestBody ThemeDTO themeDTO){
+    @PatchMapping(path = "/themes/edit-theme/{themeId}")
+    public String editTheme(@PathVariable Long themeId, @RequestBody ThemeDTO themeDTO) {
         themeService.editTheme(themeId, themeDTO);
         return "Theme edited!";
     }

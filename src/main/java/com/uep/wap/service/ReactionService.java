@@ -24,7 +24,7 @@ public class ReactionService {
     @Autowired
     private CommentRepository commentRepository;
 
-    public void addReactionToPost(ReactionDTO reactionDTO){
+    public void addReactionToPost(ReactionDTO reactionDTO) {
         Post post = postRepository.findById(reactionDTO.getPostID())
                 .orElseThrow(() -> new PostNotFoundException(reactionDTO.getPostID()));
         Reaction reaction = new Reaction();
@@ -35,7 +35,8 @@ public class ReactionService {
         postRepository.save(post);
         System.out.println("Reaction added to post!");
     }
-    public void addReactionToComment(ReactionDTO reactionDTO){
+
+    public void addReactionToComment(ReactionDTO reactionDTO) {
         Comment comment = commentRepository.findById(reactionDTO.getCommentID())
                 .orElseThrow(() -> new PostNotFoundException(reactionDTO.getCommentID()));
         Reaction reaction = new Reaction();
@@ -47,10 +48,14 @@ public class ReactionService {
         System.out.println("Reaction added to comment!");
     }
 
-    public void deleteById(Long reactionID) {reactionRepository.deleteById(reactionID);}
+    public void deleteById(Long reactionID) {
+        reactionRepository.deleteById(reactionID);
+    }
+
     public Iterable<Reaction> getAllReactions() {
         return reactionRepository.findAll();
     }
+
     public Optional<Reaction> findReactionById(Long id) {
         return reactionRepository.findById(id);
     }

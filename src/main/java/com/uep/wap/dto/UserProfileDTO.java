@@ -17,35 +17,15 @@ public class UserProfileDTO {
         this.id = id;
     }
 
-    public byte[] getProfilePicture() {
-        return profilePicture;
-    }
-
-    public void setProfilePicture(byte[] profilePicture) {
-        this.profilePicture = profilePicture;
-    }
-
     public Boolean getStatus() {
         return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
     }
 
     public String getBio() {
         return bio;
     }
 
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
     public Set<String> getLinks() {
         return links;
-    }
-
-    public void setLinks(Set<String> links) {
-        this.links = links;
     }
 }

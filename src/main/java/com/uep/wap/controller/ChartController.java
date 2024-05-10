@@ -9,15 +9,18 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping(path = "/api")
 public class ChartController {
     private final ChartService chartService;
+
     public ChartController(ChartService chartService) {
         this.chartService = chartService;
     }
+
     @GetMapping(path = "/charts")
-    public Iterable<Chart> getAllCharts(){
+    public Iterable<Chart> getAllCharts() {
         return chartService.getAllCharts();
     }
+
     @PostMapping(path = "/charts")
-    public String addCharts(@RequestBody ChartDTO chartDTO){
+    public String addCharts(@RequestBody ChartDTO chartDTO) {
         chartService.addChart(chartDTO);
         return "Charts added!";
     }

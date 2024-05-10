@@ -24,10 +24,6 @@ public class NewsDTO {
         return newsletterID;
     }
 
-    public void setNewsletterID(Long newsletterID) {
-        this.newsletterID = newsletterID;
-    }
-
     public Newsletter getNewsletter() {
         return newsletter;
     }
@@ -42,13 +38,5 @@ public class NewsDTO {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public Date getDatePosted() {
-        return datePosted;
-    }
-
-    public void setDatePosted(Date datePosted) {
-        this.datePosted = datePosted;
     }
 }
