@@ -3,6 +3,7 @@ package com.uep.wap.controller;
 import com.uep.wap.dto.PostDTO;
 import com.uep.wap.model.Post;
 import com.uep.wap.service.PostService;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -17,10 +18,16 @@ public class PostController {
         this.postService = postService;
     }
 
-    @GetMapping(path = "/posts")
-    public Iterable<Post> getAllPosts() {
-        return postService.getAllPosts();
+    @GetMapping("/posts")
+    public String showPosts(Model model) {
+        model.addAttribute("posts", postService.getAllPosts());
+        return "post";
     }
+
+//    @GetMapping(path = "/posts")
+//    public Iterable<Post> getAllPosts() {
+//        return postService.getAllPosts();
+//    }
 
     @GetMapping(path = "/posts/{id}")
     public Optional<Post> findPostById(@PathVariable Long id) {

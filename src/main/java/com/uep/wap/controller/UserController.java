@@ -6,6 +6,7 @@ import com.uep.wap.model.User;
 import com.uep.wap.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -16,6 +17,18 @@ public class UserController {
 
     public UserController(UserService userService) {
         this.userService = userService;
+    }
+
+
+    @PostMapping("/add-user")
+    public String addUser(@ModelAttribute UserDTO userDTO) {
+        userService.newUser(userDTO);
+        return "redirect:/api/add-user";
+    }
+
+    @GetMapping("/add-user")
+    public String showAddUserForm(User user) {
+        return "add-user";
     }
 
     @GetMapping(path = "/users")
