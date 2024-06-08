@@ -15,11 +15,11 @@ public class PostDTO {
     private Long userAuthorId;
     private User user;
 
-    //TODO sprawdzic co autor mial na mysli, troche misz masz
-    private List<Comment> commentList;
-    private List<Reaction> reactionList;
-    private List<Comment> comments;
-    private List<Like> likes;
+//    private Date datePosted;
+//    private List<Comment> commentList;
+//    private List<Reaction> reactionList;
+//    private List<Comment> comments;
+//    private List<Like> likes;
 
     public long getId() {
         return id;
@@ -29,8 +29,20 @@ public class PostDTO {
         this.id = id;
     }
 
+    public Date getDatePosted() {
+        return datePosted;
+    }
+
     public Long getUserAuthorId() {
         return userAuthorId;
+    }
+
+    public void setUserAuthorId(Long userAuthorId) {
+        this.userAuthorId = userAuthorId;
+    }
+
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
     }
 
     public User getUser() {

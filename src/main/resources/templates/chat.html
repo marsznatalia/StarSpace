@@ -2,7 +2,8 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="chat.css"/>
+    <link rel="stylesheet" th:href="@{/chat.css}">
+    <link rel="stylesheet" th:href="@{/styles.css}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
@@ -60,26 +61,6 @@
         </div>
     </div>
 </div>
-<script th:inline="javascript">
-    function sendMessage() {
-        var messageInput = document.getElementById('message-input');
-        var messageContent = messageInput.value;
-
-        fetch('/sendMessage', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({ messageContent: messageContent }),
-        })
-        .then(response => {
-            console.log('Message sent successfully!');
-            messageInput.value = ''; // Clear the input field after sending
-        })
-        .catch(error => {
-            console.error('Error sending message:', error);
-        });
-    }
-</script>
+<script th:src="@{/chat.js}"></script>
 </body>
 </html>
