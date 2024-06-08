@@ -11,6 +11,7 @@ import java.util.List;
 public class PostDTO {
     private long id;
     private String content;
+    private Date datePosted;
     private Long userAuthorId;
     private User user;
 
@@ -28,8 +29,20 @@ public class PostDTO {
         this.id = id;
     }
 
+    public Date getDatePosted() {
+        return datePosted;
+    }
+
     public Long getUserAuthorId() {
         return userAuthorId;
+    }
+
+    public void setUserAuthorId(Long userAuthorId) {
+        this.userAuthorId = userAuthorId;
+    }
+
+    public void setDatePosted(Date datePosted) {
+        this.datePosted = datePosted;
     }
 
     public User getUser() {

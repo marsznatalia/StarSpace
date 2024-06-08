@@ -3,6 +3,8 @@ package com.uep.wap.controller;
 import com.uep.wap.dto.MessageDTO;
 import com.uep.wap.model.Message;
 import com.uep.wap.service.MessageService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -49,6 +51,16 @@ public class MessageController {
     @DeleteMapping("/messages/delete-all")
     public void deleteAll() {
         messageService.deleteAll();
+    }
+
+    @PostMapping("/sendMessage")
+    public ResponseEntity<String> sendMessage(@RequestBody MessageDTO messageDTO) {
+        try {
+            messageService.newMessage(messageDTO);
+            return ResponseEntity.ok("Message sent successfully!");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Failed to send message: " + e.getMessage());
+        }
     }
 
 }

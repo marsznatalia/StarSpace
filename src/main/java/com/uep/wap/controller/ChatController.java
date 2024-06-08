@@ -52,7 +52,7 @@ public class ChatController {
         return "Chat name changed!";
     }
 
-    @DeleteMapping("/chats/{id}")
+    @DeleteMapping("/chats/delete/{id}")
     public String deleteChat(@PathVariable Long id) {
         chatService.deleteById(id);
         return "Chat deleted!";
