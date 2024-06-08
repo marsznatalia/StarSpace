@@ -11,15 +11,14 @@ import java.util.List;
 public class PostDTO {
     private long id;
     private String content;
-    private Date datePosted;
     private Long userAuthorId;
     private User user;
 
-    //TODO sprawdzic co autor mial na mysli, troche misz masz
-    private List<Comment> commentList;
-    private List<Reaction> reactionList;
-    private List<Comment> comments;
-    private List<Like> likes;
+//    private Date datePosted;
+//    private List<Comment> commentList;
+//    private List<Reaction> reactionList;
+//    private List<Comment> comments;
+//    private List<Like> likes;
 
     public long getId() {
         return id;

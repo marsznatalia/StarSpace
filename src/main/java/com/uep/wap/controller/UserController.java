@@ -6,10 +6,13 @@ import com.uep.wap.model.User;
 import com.uep.wap.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-@RestController
+import java.util.List;
+
+@Controller
 @RequestMapping(path = "/api")
 public class UserController {
 
@@ -31,9 +34,16 @@ public class UserController {
         return "add-user";
     }
 
-    @GetMapping(path = "/users")
-    public Iterable<User> getAllUsers() {
-        return userService.getAllUsers();
+//    @GetMapping(path = "/users")
+//    public Iterable<User> getAllUsers() {
+//        return userService.getAllUsers();
+//    }
+
+    @GetMapping("/users")
+    public String getUsers(Model model) {
+        Iterable<User> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "users";
     }
 
     @GetMapping(path = "/users/{id}")
