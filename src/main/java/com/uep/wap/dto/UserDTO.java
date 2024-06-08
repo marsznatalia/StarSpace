@@ -20,6 +20,54 @@ public class UserDTO {
     private UserProfile userProfile;
     private Newsletter newsletter;
 
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setFriendList(List<User> friendList) {
+        this.friendList = friendList;
+    }
+
+    public void setPostsList(List<Post> postsList) {
+        this.postsList = postsList;
+    }
+
+    public void setCommentsList(List<Comment> commentsList) {
+        this.commentsList = commentsList;
+    }
+
+    public void setLikesList(List<Like> likesList) {
+        this.likesList = likesList;
+    }
+
+    public void setTheme(Theme theme) {
+        this.theme = theme;
+    }
+
+    public void setChartList(List<Chart> chartList) {
+        this.chartList = chartList;
+    }
+
+    public void setChatList(List<Chat> chatList) {
+        this.chatList = chatList;
+    }
+
+    public void setUserProfile(UserProfile userProfile) {
+        this.userProfile = userProfile;
+    }
+
+    public void setNewsletter(Newsletter newsletter) {
+        this.newsletter = newsletter;
+    }
+
     public Long getId() {
         return id;
     }

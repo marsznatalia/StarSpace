@@ -1,13 +1,15 @@
-package com.uep.wap.controller;
+package com.uep.wap.restController;
 
 import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.exception.ChatNotFoundException;
 import com.uep.wap.model.Chat;
 import com.uep.wap.service.ChatService;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 
-@RestController
+@Controller
 @RequestMapping(path = "/api")
 public class ChatController {
 
@@ -16,6 +18,12 @@ public class ChatController {
     public ChatController(ChatService chatService) {
         this.chatService = chatService;
     }
+
+    @GetMapping("/chat")
+    public String showChatPage(Model model){
+        return "chat";
+    }
+
 
     @GetMapping(path = "/chats")
     Iterable<Chat> getAllChats() {

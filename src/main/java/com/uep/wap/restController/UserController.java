@@ -1,4 +1,4 @@
-package com.uep.wap.controller;
+package com.uep.wap.restController;
 
 import com.uep.wap.dto.UserDTO;
 import com.uep.wap.exception.UserNotFoundException;
@@ -6,14 +6,9 @@ import com.uep.wap.model.User;
 import com.uep.wap.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-@Controller
+@RestController
 @RequestMapping(path = "/api")
 public class UserController {
 
@@ -23,28 +18,9 @@ public class UserController {
         this.userService = userService;
     }
 
-
-    @PostMapping("/add-user")
-    public String addUser(@ModelAttribute UserDTO userDTO) {
-        userService.newUser(userDTO);
-        return "redirect:/api/add-user";
-    }
-
-    @GetMapping("/add-user")
-    public String showAddUserForm(User user) {
-        return "add-user";
-    }
-
-//    @GetMapping(path = "/users")
-//    public Iterable<User> getAllUsers() {
-//        return userService.getAllUsers();
-//    }
-
-    @GetMapping("/users")
-    public String getUsers(Model model) {
-        Iterable<User> users = userService.getAllUsers();
-        model.addAttribute("users", users);
-        return "users";
+    @GetMapping(path = "/users")
+    public Iterable<User> getAllUsers() {
+        return userService.getAllUsers();
     }
 
     @GetMapping(path = "/users/{id}")
@@ -53,8 +29,8 @@ public class UserController {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @PostMapping(path = "/user")
-    public String newUser(@RequestBody UserDTO userDTO) {
+    @PostMapping(path = "/user", consumes = "application/x-www-form-urlencoded")
+    public String newUser(@ModelAttribute UserDTO userDTO) {
         userService.newUser(userDTO);
         return "User added!";
     }
