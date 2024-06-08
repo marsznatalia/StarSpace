@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" href="@{/chat.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chat.css}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
@@ -13,14 +13,14 @@
             <div class="header">
                 <div class="settings-icon">
                     <button class="icon-button">
-                        <img src="hamburger-icon.png" alt="Menu"/>
+                        <img src="/images/hamburger-icon.png" alt="Menu"/>
                     </button>
                 </div>
                 <div class="title">HelloWorld</div>
                 <div class="return-icon">
-                    <a href="/anotherPage">
+                    <a href="/">
                         <button class="icon-button">
-                            <img src="return-icon.png" alt="Return"/>
+                            <img src="/images/return-icon.png" alt="Return"/>
                         </button>
                     </a>
                 </div>
@@ -44,7 +44,7 @@
                 <div class="chat-icons">
                     <div class="info-icon">
                         <button class="icon-button">
-                            <img src="info-icon.png" alt="Info"/>
+                            <img src="/images/info-icon.png" alt="Info"/>
                         </button>
                     </div>
                 </div>
@@ -59,11 +59,11 @@
             <div class="message-input">
                 <input type="text" id="messageInput" placeholder="Write a message..."/>
                 <button class="send-button" id="sendButton">
-                    <img src="send-button.png" alt="Send"/>
+                    <img src="images/send-button.png" alt="Send"/>
                 </button>
             </div>
         </div>
     </div>
-    <script src="@{/chat.js}"></script>
+    <script th:src="@{/js/chat.js}"></script>
 </body>
 </html>
