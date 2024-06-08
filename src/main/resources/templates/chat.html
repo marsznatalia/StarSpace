@@ -2,24 +2,26 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" th:href="@{/chat.css}">
-    <link rel="stylesheet" th:href="@{/styles.css}">
+    <link rel="stylesheet" type="text/css" href="@{/chat.css}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
 </head>
 <body>
-<div class="container">
-    <div class="sidebar">
+    <div class="container">
         <div class="sidebar">
             <div class="header">
                 <div class="settings-icon">
-                    <img src="hamburger-icon.png" alt="Menu" />
+                    <button class="icon-button">
+                        <img src="hamburger-icon.png" alt="Menu"/>
+                    </button>
                 </div>
                 <div class="title">HelloWorld</div>
                 <div class="return-icon">
-                    <a href="index.html">
-                    <img src="go-back-arrow.png" alt="Return" />
+                    <a href="/anotherPage">
+                        <button class="icon-button">
+                            <img src="return-icon.png" alt="Return"/>
+                        </button>
                     </a>
                 </div>
             </div>
@@ -31,21 +33,23 @@
                     <img th:src="'avatar' + ${user.id} + '.jpg'" alt="Avatar">
                     <div class="contact-info">
                         <div class="contact-name" th:text="${user.userName}">John Doe</div>
-                        <div class="contact-date">Mon</div>
+                        <div class="contact-date"><span th:text="${#dates.format(user.date, 'dd.MM.yyyy')}">Mon</span></div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="chat">
         <div class="chat">
             <div class="chat-header">
                 <div class="chat-title">Name</div>
                 <div class="chat-icons">
-                    <div class="icon">ℹ️</div>
+                    <div class="info-icon">
+                        <button class="icon-button">
+                            <img src="info-icon.png" alt="Info"/>
+                        </button>
+                    </div>
                 </div>
             </div>
-            <div class="messages">
+            <div class="messages" id="messages">
                 <div class="message" th:class="${message.senderId == currentUser.id} ? 'sent' : 'received'"
                      th:each="message : ${messages}">
                     <img th:src="'avatar' + ${message.senderId} + '.jpg'" alt="Avatar">
@@ -53,14 +57,13 @@
                 </div>
             </div>
             <div class="message-input">
-                <input type="text" placeholder="Write a message..."/>
-                <button class="send-button">
+                <input type="text" id="messageInput" placeholder="Write a message..."/>
+                <button class="send-button" id="sendButton">
                     <img src="send-button.png" alt="Send"/>
                 </button>
             </div>
         </div>
     </div>
-</div>
-<script th:src="@{/chat.js}"></script>
+    <script src="@{/chat.js}"></script>
 </body>
 </html>
