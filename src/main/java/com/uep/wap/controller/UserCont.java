@@ -21,6 +21,9 @@ public class UserCont {
         return "add-user";
     }
 
+    @GetMapping("/login")
+    public String showLoginPage(){return "logIn";}
+
     @GetMapping("/get-users")
     public String getUsers(Model model) {
         Iterable<User> users = userService.getAllUsers();
