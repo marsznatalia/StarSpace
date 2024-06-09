@@ -19,11 +19,6 @@ public class ChatController {
         this.chatService = chatService;
     }
 
-    @GetMapping("/chat")
-    public String showChatPage(Model model){
-        return "chat";
-    }
-
 
     @GetMapping(path = "/chats")
     Iterable<Chat> getAllChats() {

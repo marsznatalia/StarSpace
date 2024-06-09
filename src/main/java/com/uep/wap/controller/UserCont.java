@@ -21,6 +21,7 @@ public class UserCont {
         return "add-user";
     }
 
+
     @GetMapping("/get-users")
     public String getUsers(Model model) {
         Iterable<User> users = userService.getAllUsers();
