@@ -8,62 +8,68 @@
     <title>Chat</title>
 </head>
 <body>
-    <div class="container">
-        <div class="sidebar">
-            <div class="header">
-                <div class="settings-icon">
+<div class="container">
+    <div class="sidebar">
+        <div class="header">
+            <div class="settings-icon">
+                <button id="btn" class="icon-button">
+                    <img src="hamburger-icon.png" alt="Menu"/>
+                </button>
+            </div>
+            <div class="title">HelloWorld</div>
+            <div class="return-icon">
+                <a href="/home">
                     <button class="icon-button">
-                        <img src="/images/hamburger-icon.png" alt="Menu"/>
+                        <img src="return-icon.png" alt="Return"/>
                     </button>
-                </div>
-                <div class="title">HelloWorld</div>
-                <div class="return-icon">
-                    <a href="/">
-                        <button class="icon-button">
-                            <img src="/images/return-icon.png" alt="Return"/>
-                        </button>
-                    </a>
-                </div>
-            </div>
-            <div class="search">
-                <input type="text" placeholder="Search people and groups"/>
-            </div>
-            <div class="contacts">
-                <div class="contact" th:each="user : ${chatUsers}">
-                    <img th:src="'avatar' + ${user.id} + '.jpg'" alt="Avatar">
-                    <div class="contact-info">
-                        <div class="contact-name" th:text="${user.userName}">John Doe</div>
-                        <div class="contact-date"><span th:text="${#dates.format(user.date, 'dd.MM.yyyy')}">Mon</span></div>
-                    </div>
-                </div>
+                </a>
             </div>
         </div>
-        <div class="chat">
-            <div class="chat-header">
-                <div class="chat-title">Name</div>
-                <div class="chat-icons">
-                    <div class="info-icon">
-                        <button class="icon-button">
-                            <img src="/images/info-icon.png" alt="Info"/>
-                        </button>
-                    </div>
+        <div class="search">
+            <input type="text" placeholder="Search people and groups"/>
+        </div>
+        <div class="contacts">
+            <div class="contact" th:each="user : ${chatUsers}">
+                <img th:src="'avatar' + ${user.id} + '.jpg'" alt="Avatar">
+                <div class="contact-info">
+                    <div class="contact-name" th:text="${user.userName}">John Doe</div>
+                    <div class="contact-date"><span th:text="${#dates.format(user.date, 'dd.MM.yyyy')}">Mon</span></div>
                 </div>
-            </div>
-            <div class="messages" id="messages">
-                <div class="message" th:class="${message.senderId == currentUser.id} ? 'sent' : 'received'"
-                     th:each="message : ${messages}">
-                    <img th:src="'avatar' + ${message.senderId} + '.jpg'" alt="Avatar">
-                    <div class="message-content" th:text="${message.content}">Message content</div>
-                </div>
-            </div>
-            <div class="message-input">
-                <input type="text" id="messageInput" placeholder="Write a message..."/>
-                <button class="send-button" id="sendButton">
-                    <img src="images/send-button.png" alt="Send"/>
-                </button>
             </div>
         </div>
     </div>
+    <div class="chat">
+        <div class="chat-header">
+            <div class="chat-title">Name</div>
+            <div class="chat-icons">
+                <div class="info-icon">
+                    <button class="icon-button">
+                        <img src="info-icon.png" alt="Info"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="messages" id="messages">
+            <div class="message" th:class="${message.senderId == currentUser.id} ? 'sent' : 'received'"
+                 th:each="message : ${messages}">
+                <img th:src="'avatar' + ${message.senderId} + '.jpg'" alt="Avatar">
+                <div class="message-content" th:text="${message.content}">Message content</div>
+            </div>
+        </div>
+        <div class="message-input">
+            <input type="text" id="messageInput" placeholder="Write a message..."/>
+            <button class="send-button" id="sendButton">
+                <img src="send-button.png" alt="Send"/>
+            </button>
+        </div>
+    </div>
+    <div class="profile-container">
+        <div class="profile-container">
+            <img src="profile-picture.jpg" alt="Profile Picture" class="profile-picture">
+            <div class="user-name">John Doe</div>
+        </div>
+    </div>
+</div>
     <script th:src="@{/js/chat.js}"></script>
 </body>
 </html>

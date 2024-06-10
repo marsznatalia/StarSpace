@@ -22,16 +22,12 @@ public class PostCont {
         return "redirect:/api/add-post";
     }
 
-    @GetMapping("/post")
-    public String showAddPostForm(Post post) {
-        return "add-post";
-    }
 
-    @GetMapping("/get-posts")
+    @GetMapping("/posts")
     public String getPosts(Model model) {
-        Iterable<Post> posts = postService.getAllPosts();
+        Iterable<PostDTO> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
-        return "posts";
+        return "home";
     }
 }
 
