@@ -65,6 +65,16 @@ public class MessageService {
         messageRepository.deleteById(id);
     }
 
+    public Iterable<MessageDTO> getMessagesByChatId(Long chatId) {
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new ChatNotFoundException(chatId));
+        Iterable<Message> messages = chat.getMessagesList();
+        return StreamSupport.stream(messages.spliterator(), false)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+
     public void deleteAll() {
         messageRepository.deleteAll();
     }

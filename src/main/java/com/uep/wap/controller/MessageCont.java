@@ -5,7 +5,7 @@ import com.uep.wap.dto.MessageDTO;
 import com.uep.wap.service.MessageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class MessageCont {
@@ -22,6 +22,19 @@ public class MessageCont {
         model.addAttribute("message", messages);
         return "chat";
     }
+
+    @GetMapping("/messages/{chatId}")
+    public String getMessagesByChatId(Model model, @PathVariable Long chatId){
+        Iterable<MessageDTO> messages = messageService.getMessagesByChatId(chatId);
+        model.addAttribute("messages", messages);
+        return "chat";
+    }
+//
+//    @PostMapping
+////    @ResponseBody
+//    public void newMessage(@RequestBody MessageDTO messageDTO){
+//        messageService.newMessage(messageDTO);
+//    }
 
 
 
