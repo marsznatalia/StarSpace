@@ -1,9 +1,11 @@
 package com.uep.wap.service;
 
+import com.uep.wap.dto.PostDTO;
 import com.uep.wap.exception.ChatNotFoundException;
 import com.uep.wap.exception.UserNotFoundException;
 import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.model.Chat;
+import com.uep.wap.model.Post;
 import com.uep.wap.model.User;
 import com.uep.wap.repository.ChatRepository;
 import com.uep.wap.repository.UserRepository;
@@ -11,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ChatService {
@@ -106,9 +110,12 @@ public class ChatService {
         chatRepository.save(chat);
     }
 
-    public Iterable<Chat> getAllChats() {
-        return chatRepository.findAll();
+    public Iterable<ChatDTO> getAllChats() {
+        Iterable<Chat> chats = chatRepository.findAll();
+        return StreamSupport.stream(chats.spliterator(), false).map(this::convertToDTO).collect(Collectors.toList());
+
     }
+
 
     public Optional<Chat> findChatById(Long chatId) {
         return chatRepository.findById(chatId);
@@ -118,6 +125,13 @@ public class ChatService {
         Chat chat = chatRepository.findById(id)
                 .orElseThrow(() -> new ChatNotFoundException(id));
         chatRepository.deleteById(id);
+    }
+
+    private ChatDTO convertToDTO(Chat chat) {
+        ChatDTO chatDTO = new ChatDTO();
+        chatDTO.setChatName(chatDTO.getChatName());
+        chatDTO.setUsersInChat(chatDTO.getUsersInChat());
+        return chatDTO;
     }
 
 }

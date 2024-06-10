@@ -29,11 +29,12 @@
             <input type="text" placeholder="Search people and groups"/>
         </div>
         <div class="contacts">
-            <div class="contact" th:each="user : ${chatUsers}">
-                <img th:src="'avatar' + ${user.id} + '.jpg'" alt="Avatar">
+            <div class="contact" th:each="chat : ${chat}">
+<!--                <img th:src="'avatar' + ${user.id} + '.jpg'" alt="Avatar" class="avatar">-->
                 <div class="contact-info">
-                    <div class="contact-name" th:text="${user.userName}">John Doe</div>
-                    <div class="contact-date"><span th:text="${#dates.format(user.date, 'dd.MM.yyyy')}">Mon</span></div>
+                    <div class="contact-name" th:text="${chat.chatName}"></div>
+                    <!--                    <div class="contact-date"><span th:text="${#dates.format(user.date, 'dd.MM.yyyy')}">Mon</span></div>-->
+                    -->
                 </div>
             </div>
         </div>
@@ -70,6 +71,6 @@
         </div>
     </div>
 </div>
-    <script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/chat.js}"></script>
 </body>
 </html>

@@ -4,6 +4,7 @@ import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.exception.ChatNotFoundException;
 import com.uep.wap.model.Chat;
 import com.uep.wap.service.ChatService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -21,8 +22,9 @@ public class ChatController {
 
 
     @GetMapping(path = "/chats")
-    Iterable<Chat> getAllChats() {
-        return chatService.getAllChats();
+    Iterable<ChatDTO> getAllChats() {
+        Iterable<ChatDTO> chats = chatService.getAllChats();
+        return ResponseEntity.ok(chats).getBody();
     }
 
     @GetMapping(path = "/chats/{chatId}")

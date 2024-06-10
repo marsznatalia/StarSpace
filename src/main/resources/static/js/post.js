@@ -7,7 +7,8 @@
         fetch('/api/posts')
             .then(response => response.json())
             .then(posts => {
-                const postsList = document.getElementById('posts-list');
+                const postsList = document.getElementsByClassName('posts-list')[0];
+
                 postsList.innerHTML = '';
 
                 posts.forEach(post => {

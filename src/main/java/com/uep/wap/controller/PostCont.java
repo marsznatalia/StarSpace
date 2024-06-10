@@ -1,7 +1,6 @@
 package com.uep.wap.controller;
 
 import com.uep.wap.dto.PostDTO;
-import com.uep.wap.model.Post;
 import com.uep.wap.service.PostService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -21,7 +20,6 @@ public class PostCont {
         postService.addPost(postDTO);
         return "redirect:/api/add-post";
     }
-
 
     @GetMapping("/posts")
     public String getPosts(Model model) {
