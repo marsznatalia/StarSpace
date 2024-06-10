@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
@@ -44,7 +43,6 @@ public class PostService {
         userRepository.save(user);
         System.out.println("Post added!");
     }
-
 
     public void editPost(Long postId, String editedContent) {
         Post post = postRepository.findById(postId)

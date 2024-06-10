@@ -6,11 +6,20 @@ import java.util.List;
 
 public class ChatDTO {
 
+    private Long id;
     private String chatName;
     private Boolean chatType;
     private List<Long> helpListIds;
     private List<Long> usersInChatIds;
     private List<User> usersInChat;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getChatName() {
         return chatName;
@@ -50,5 +59,16 @@ public class ChatDTO {
 
     public void setUsersInChat(List<User> usersInChat) {
         this.usersInChat = usersInChat;
+    }
+
+    @Override
+    public String toString() {
+        return "ChatDTO{" +
+                "chatName='" + chatName + '\'' +
+                ", chatType=" + chatType +
+                ", helpListIds=" + helpListIds +
+                ", usersInChatIds=" + usersInChatIds +
+                ", usersInChat=" + usersInChat +
+                '}';
     }
 }

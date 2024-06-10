@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function() {
-    const messageInput = document.getElementById('messageInput');
-    const sendButton = document.getElementById('sendButton');
-    const messagesContainer = document.getElementById('messages');
+    const messageInput = document.getElementsByClassName('messageInput')[0];
+    const sendButton = document.getElementsByClassName('sendButton')[0];
+    const messagesContainer = document.getElementsByClassName('messages')[0];
 
     // Fetch chats when the DOM is loaded
     fetchChats();
@@ -13,16 +13,16 @@ document.addEventListener('DOMContentLoaded', function() {
             const messageElement = document.createElement('div');
             messageElement.classList.add('message', 'sent');
 
-            const avatar = document.createElement('img');
-            avatar.src = 'avatar-currentUser.jpg';
-            avatar.alt = 'Avatar';
-            avatar.classList.add('message-avatar');
+//            const avatar = document.createElement('img');
+//            avatar.src = 'avatar-currentUser.jpg';
+//            avatar.alt = 'Avatar';
+//            avatar.classList.add('message-avatar');
 
             const messageContent = document.createElement('div');
             messageContent.classList.add('message-content');
             messageContent.textContent = messageText;
 
-            messageElement.appendChild(avatar);
+//            messageElement.appendChild(avatar);
             messageElement.appendChild(messageContent);
 
             messagesContainer.appendChild(messageElement);
@@ -41,12 +41,12 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
-// Function to fetch chats from the API
 function fetchChats() {
     fetch('/api/chats')
         .then(response => response.json())
         .then(chats => {
             const chatsList = document.getElementsByClassName('contacts')[0];
+            chatsList.innerHTML = '';
 
             chats.forEach(chat => {
                 const contact = document.createElement('div');
@@ -62,7 +62,7 @@ function fetchChats() {
 
                 const contactName = document.createElement('div');
                 contactName.className = 'contact-name';
-                contactName.textContent = chat.ChatName;
+                contactName.textContent = chat.chatName;
 
                 contactInfo.appendChild(contactName);
 

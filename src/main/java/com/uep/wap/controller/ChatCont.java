@@ -16,10 +16,10 @@ public class ChatCont {
     }
 
 
-    @GetMapping("/chats")
+    @GetMapping("/chat")
     public String getChats(Model model) {
         Iterable<ChatDTO> chats = chatService.getAllChats();
-        model.addAttribute("chats", chats);
+        model.addAttribute("chat", chats);
         return "chat";
     }
 }
