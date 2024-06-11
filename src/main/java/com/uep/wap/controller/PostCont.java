@@ -1,7 +1,6 @@
 package com.uep.wap.controller;
 
 import com.uep.wap.dto.PostDTO;
-import com.uep.wap.model.Post;
 import com.uep.wap.service.PostService;
 import org.springframework.ui.Model;
 import org.springframework.stereotype.Controller;
@@ -22,16 +21,11 @@ public class PostCont {
         return "redirect:/api/add-post";
     }
 
-    @GetMapping("/post")
-    public String showAddPostForm(Post post) {
-        return "add-post";
-    }
-
-    @GetMapping("/get-posts")
+    @GetMapping("/posts")
     public String getPosts(Model model) {
-        Iterable<Post> posts = postService.getAllPosts();
+        Iterable<PostDTO> posts = postService.getAllPosts();
         model.addAttribute("posts", posts);
-        return "posts";
+        return "home";
     }
 }
 

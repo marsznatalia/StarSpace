@@ -13,6 +13,9 @@ import com.uep.wap.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
+
 @Service
 public class MessageService {
 
@@ -49,8 +52,11 @@ public class MessageService {
         messageRepository.save(message);
     }
 
-    public Iterable<Message> getAllMessages() {
-        return messageRepository.findAll();
+    public Iterable<MessageDTO> getAllMessages() {
+        Iterable<Message> messages = messageRepository.findAll();
+        return StreamSupport.stream(messages.spliterator(), false)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {
@@ -59,7 +65,28 @@ public class MessageService {
         messageRepository.deleteById(id);
     }
 
+    public Iterable<MessageDTO> getMessagesByChatId(Long chatId) {
+        Chat chat = chatRepository.findById(chatId)
+                .orElseThrow(() -> new ChatNotFoundException(chatId));
+        Iterable<Message> messages = chat.getMessagesList();
+        return StreamSupport.stream(messages.spliterator(), false)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+
     public void deleteAll() {
         messageRepository.deleteAll();
     }
+
+    private MessageDTO convertToDTO(Message message){
+        MessageDTO messageDTO = new MessageDTO();
+        messageDTO.setId(message.getId());
+        messageDTO.setSenderId(message.getWhoSent().getId());
+        messageDTO.setMessageContent(message.getContent());
+        messageDTO.setChatId(message.getInChat().getId());
+        return messageDTO;
+    }
+
+
 }

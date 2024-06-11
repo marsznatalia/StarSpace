@@ -1,7 +1,6 @@
 package com.uep.wap.restController;
 
 import com.uep.wap.dto.MessageDTO;
-import com.uep.wap.model.Message;
 import com.uep.wap.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,16 +18,16 @@ public class MessageController {
     }
 
     @GetMapping(path = "/messages")
-    Iterable<Message> getAllMessages() {
+    Iterable<MessageDTO> getAllMessages() {
         return messageService.getAllMessages();
     }
 
+    @GetMapping("/messages/{chatId}")
+    public Iterable<MessageDTO> getMessagesByChatId(@PathVariable Long chatId){
+        return messageService.getMessagesByChatId(chatId);
+    }
+
     //TODO: szukanie wiadomości po słowie kluczowym
-//    @GetMapping(path = "/messages/{messageId}")
-//    public Message findMessageById(@PathVariable Long messageId) {
-//        return messageService.findMessageById(messageId)
-//                .orElseThrow(() -> new MessageNotFoundException(messageId));
-//    }
 
     @PostMapping(path = "/messages/new-message")
     public String newMessage(@RequestBody MessageDTO messageDTO) {

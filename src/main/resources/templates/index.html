@@ -9,20 +9,34 @@
     <title>Log in</title>
 </head>
 <body>
-    <div id="logIn" class="shadow rounded">
-        <div class="logo-container">
-            <img src="/images/logoNew.png" alt="Logo">
-        </div>
-        <h1 class="welcome-message">Witaj w StarSpace, eksploruj wszechświat z nami</h1>
-        <form th:action="@{/home}" method="post">
-            <input type="text" id="username" name="username" placeholder="Email" class="shadow rounded">
+<div id="logIn" class="shadow rounded">
+    <div class="logo-container">
+        <img src="/images/logoNew.png" alt="Logo">
+    </div>
+    <h1 class="welcome-message">Witaj w StarSpace, eksploruj wszechświat z nami</h1>
+    <div class="user-selection">
+        <h2>Choose a User:</h2>
+        <form th:action="@{/login}" method="post" id="loginForm">
+            <select id="userSelect" name="username" class="shadow rounded">
+                <option value="" disabled selected>Select a user</option>
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.userName}"></option>
+            </select>
+            <input type="hidden" id="userId" name="userId">
             <input type="password" id="password" name="password" placeholder="Hasło" class="shadow rounded">
             <div class="button-container">
-                <input type="submit" value="Zaloguj się" class="shadow rounded">  <!--trzeba zrobic backend-->
-                <p>Nie masz konta?<br><a href="create">Stwórz już teraz!</a></p>  <!--wstawic link lub nie-->
+                <input type="submit" value="Zaloguj się" class="shadow rounded">
+                <p>Nie masz konta?<br><a href="create">Stwórz już teraz!</a></p>
             </div>
-            <a href="forgot-password">Zapomniałeś hasła?</a> <!--wstawic link lub nie-->
+            <a href="forgot-password">Zapomniałeś hasła?</a>
         </form>
     </div>
+</div>
 </body>
+<script>
+    document.getElementById('userSelect').addEventListener('change', function () {
+        var selectedUserId = this.value;
+        document.getElementById('userId').value = selectedUserId;
+        document.getElementById('loginForm').submit();
+    });
+</script>
 </html>

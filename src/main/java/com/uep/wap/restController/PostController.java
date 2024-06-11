@@ -3,6 +3,7 @@ package com.uep.wap.restController;
 import com.uep.wap.dto.PostDTO;
 import com.uep.wap.model.Post;
 import com.uep.wap.service.PostService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -19,8 +20,9 @@ public class PostController {
 
 
     @GetMapping(path = "/posts")
-    public Iterable<Post> getAllPosts() {
-        return postService.getAllPosts();
+    public Iterable<PostDTO> getAllPosts() {
+        Iterable<PostDTO> posts = postService.getAllPosts();
+        return ResponseEntity.ok(posts).getBody();
     }
 
     @GetMapping(path = "/posts/{id}")

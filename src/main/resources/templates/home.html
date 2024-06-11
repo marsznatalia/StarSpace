@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,8 +9,17 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/side-nav-bar.css}">
-
 </head>
+<header>
+    <div class="user-info">
+        <form th:action="@{/}" method="get">
+            <select name="userId" onchange="this.form.submit()">
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"
+                        th:selected="${user.id} == ${currentUser?.id}">Username</option>
+            </select>
+        </form>
+    </div>
+</header>
 <body>
 
 <div class="sidebar">
@@ -33,7 +42,7 @@
             <span class="tooltip">Dashboard</span>
         </li>
         <li>
-            <a href="/user">
+            <a href="/userProfile">
                 <i class="bx bx-user"></i>
                 <span class="link_name">User</span>
             </a>
@@ -53,27 +62,6 @@
             </a>
             <span class="tooltip">Analytics</span>
         </li>
-<!--        <li>-->
-<!--            <a href="#">-->
-<!--                <i class="bx bx-folder"></i>-->
-<!--                <span class="link_name">File Manger</span>-->
-<!--            </a>-->
-<!--            <span class="tooltip">File Manger</span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <a href="#">-->
-<!--                <i class="bx bx-cart-alt"></i>-->
-<!--                <span class="link_name">Order</span>-->
-<!--            </a>-->
-<!--            <span class="tooltip">Order</span>-->
-<!--        </li>-->
-<!--        <li>-->
-<!--            <a href="#">-->
-<!--                <i class="bx bx-cog"></i>-->
-<!--                <span class="link_name">Settings</span>-->
-<!--            </a>-->
-<!--            <span class="tooltip">Settings</span>-->
-<!--        </li>-->
         <li class="profile">
             <div class="profile_details">
                 <img src="/images/profile.jpeg" alt="profile image">
@@ -90,47 +78,37 @@
 <!-- Main content -->
 <main class="main-content">
     <div class="container">
-        <!-- User list -->
-        <h2>Lista użytkowników</h2>
-        <ul>
-            <li th:each="user : ${users}">
-                <span th:text="${user.name}">User Name</span>
-            </li>
-            <li th:if="${#lists.isEmpty(users)}">Brak użytkowników do wyświetlenia</li>
-        </ul>
-    </div>
-    <div class="post-container">
-        <div class="post-header">
-            <img src="avatar.jpg" alt="Avatar" class="post-avatar">
-            <div class="post-username">Username</div>
+        <div class="add-post-container">
+            <input type="text" class="add-post-input" placeholder="What's on your mind?">
+            <button class="add-post-button">Post</button>
         </div>
-        <div class="post-content">
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante
-            dapibus diam.
-        </div>
-        <img src="post-image.jpg" alt="Post Image" class="post-image">
-        <div class="post-actions">
-            <button class="post-action">Like</button>
-            <button class="post-action">Comment</button>
-            <button class="post-action">Share</button>
+        <div class="posts-list">
+            <div  th:each="post : ${post}" class="post-container">
+                <div class="post-header">
+<!--                    <img src="@{${post.user.profilePicture}}" alt="Avatar" class="post-avatar">-->
+<!--                    <div class="post-username" th:text="${post.user.userName}">User Name</div>-->
+                </div>
+                <div class="post-content" th:text="${post.content}"></div>
+<!--                <img src="/images/post1.jpg" alt="Post Image" class="post-image">-->
+<!--                <div th:if="${post.image != null}">-->
+<!--                    <img th:src="@{${post.image}}" alt="Post Image" class="post-image">-->
+<!--                </div>-->
+                <div class="post-actions">
+                    <button class="post-action"><i class='bx bx-like'></i> Like</button>
+                    <button class="post-action"><i class='bx bx-comment'></i> Comment</button>
+                    <button class="post-action"><i class='bx bx-share'></i> Share</button>
+                </div>
+            </div>
         </div>
     </div>
 </main>
 
-<!-- Explore Section -->
-<aside class="explore-section">
-    <h2>Explore More</h2>
-    <ul>
-        <li>People you might know</li>
-        <!-- Add more explore items here -->
-    </ul>
-</aside>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 <script th:src="@{/js/side-nav-bar.js}"></script>
+<script th:src="@{/js/post.js}"></script>
 
 </body>
-
 </html>

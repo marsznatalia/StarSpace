@@ -15,12 +15,6 @@ public class PostDTO {
     private Long userAuthorId;
     private User user;
 
-//    private Date datePosted;
-//    private List<Comment> commentList;
-//    private List<Reaction> reactionList;
-//    private List<Comment> comments;
-//    private List<Like> likes;
-
     public long getId() {
         return id;
     }

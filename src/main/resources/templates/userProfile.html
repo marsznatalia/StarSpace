@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Page</title>
+    <link rel="stylesheet" th:href="@{/css/userProfile.css}">
+    <link rel="stylesheet" th:href="@{/css/side-nav-bar.css}">
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo_details">
+        <img th:src="@{/images/logoNew.png}" alt="Hello World Logo" class="logo-image">
+        <div class="logo_name">Hello World</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search...">
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home">
+                <i class="bx bx-user"></i>
+                <span class="link_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/login">
+                <i class="bx bx-grid-alt"></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+        <li>
+            <a href="/chat">
+                <i class="bx bx-chat"></i>
+                <span class="link_name">Chats</span>
+            </a>
+            <span class="tooltip">Chats</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="link_name">Analytics</span>
+            </a>
+            <span class="tooltip">Analytics</span>
+        </li>
+    </ul>
+</div>
+<div class="profile-section">
+    <div class="profile-header">
+        <img src="path/to/cover-photo.jpg" alt="Cover Photo" class="cover-photo">
+        <div class="profile-info">
+            <div class="profile-picture-container">
+                <img src="path/to/profile-picture.jpg" alt="Profile Picture" class="profile-picture">
+            </div>
+            <div class="user-info-container">
+                <h1>Simon Darcy</h1>
+                <p>I love oranges and rockets.</p>
+                <button class="follow-button">Follow</button>
+            </div>
+        </div>
+    </div>
+    <div class="post-section">
+        <div class="add-post">
+            <textarea placeholder="What's on your mind?"></textarea>
+            <button class="post-button">Post</button>
+        </div>
+        <div class="user-posts">
+            <div class="post">
+                <p>This is a user post.</p>
+            </div>
+            <!-- Add more user posts as needed -->
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script th:src="@{/js/side-nav-bar.js}"></script>
+</body>
+</html>
