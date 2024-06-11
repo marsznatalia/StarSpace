@@ -38,7 +38,6 @@ public class UserCont {
 
     @PostMapping("/login")
     public String login(@RequestParam("username") String username,
-                        @RequestParam("password") String password,
                         @RequestParam("userId") Long userId,
                         RedirectAttributes redirectAttributes) {
         // Logic to authenticate the user and handle the login process
@@ -48,7 +47,7 @@ public class UserCont {
         // Replace "15" with the actual ID of the selected user
         redirectAttributes.addAttribute("userId", userId);
 
-        return "redirect:/home";
+        return "redirect:/index";
     }
 
 
