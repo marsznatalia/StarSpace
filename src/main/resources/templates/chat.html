@@ -18,7 +18,7 @@
             </div>
             <div class="title">HelloWorld</div>
             <div class="return-icon">
-                <a href="/home">
+                <a th:href="@{/home(userId=${userId})}">
                     <button class="icon-button">
                         <img src="return-icon.png" alt="Return"/>
                     </button>
@@ -30,14 +30,13 @@
         </div>
         <div class="contacts">
             <div th:each="chat : ${chat}">
-                <a href="#" class="contact" th:attr="data-chat-id=${chat.id}" onclick="selectChat(this)">
+                <a th:href="@{/chat(userId=${userId}, chatId=${chat.id})}" class="contact" onclick="selectChat(this)">
                     <div class="contact-info">
                         <div class="contact-name" th:text="${chat.chatName}"></div>
                     </div>
                 </a>
             </div>
         </div>
-
     </div>
     <div class="chat">
         <div class="chat-header">
@@ -51,26 +50,18 @@
             </div>
         </div>
         <div class="messages" id="messages">
-            <!-- Check if messages object is not null -->
             <div th:if="${messages != null}">
-                <!-- Check if messages list is empty -->
                 <div th:if="${messages.isEmpty()}">
                     <p>No messages available.</p>
                 </div>
-                <!-- Iterate over messages if list is not empty -->
                 <div th:each="message : ${messages}" class="message"
-                     th:class="${message.senderId == currentUser.id} ? 'sent' : 'received'">
-                    <!-- Display message content -->
+                     th:classappend="${message.senderId == currentUser.id} ? ' sent' : ' received'">
                     <div class="message-content" th:text="${message.content}"></div>
                 </div>
             </div>
-            <!-- Handle case where messages object is null -->
             <div th:else>
                 <p>No messages available.</p>
             </div>
-        </div>
-
-
         </div>
         <div class="message-input">
             <input type="text" id="messageInput" placeholder="Write a message..."/>
@@ -80,10 +71,8 @@
         </div>
     </div>
     <div class="profile-container">
-        <div class="profile-container">
-            <img src="@{/images/profile-stock.jpg}" alt="Profile Picture" class="profile-picture">
-            <div class="user-name">John Doe</div>
-        </div>
+        <img th:src="@{/images/profile-stock.jpg}" alt="Profile Picture" class="profile-picture">
+        <div class="user-name">John Doe</div>
     </div>
 </div>
 <script th:src="@{/js/chat.js}"></script>

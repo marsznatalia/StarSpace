@@ -137,4 +137,18 @@ public class ChatService {
         return chatDTO;
     }
 
+    public List<ChatDTO> findChatsByUserId(Long userId) {
+        Iterable<Chat> chats = chatRepository.findAll();
+        ArrayList<Chat> chatList = null;
+
+        for (Chat chat : chats) {
+            if (chat.getChatUsersList().contains(userId)) {
+                chatList.add(chat);
+            }
+        }
+        return StreamSupport.stream(chats.spliterator(), false)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
 }
