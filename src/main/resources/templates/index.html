@@ -9,14 +9,22 @@
     <title>Log in</title>
 </head>
 <body>
-    <div id="logIn" class="shadow rounded">
-        <div class="logo-container">
-            <img src="/images/logoNew.png" alt="Logo">
-        </div>
-        <h1 class="welcome-message">Witaj w StarSpace, eksploruj wszechświat z nami</h1>
+<div id="logIn" class="shadow rounded">
+    <div class="logo-container">
+        <img src="/images/logoNew.png" alt="Logo">
+    </div>
+    <h1 class="welcome-message">Witaj w StarSpace, eksploruj wszechświat z nami</h1>
+    <div class="user-selection">
+        <h2>Choose a User:</h2>
         <form th:action="@{/home}" method="post">
-            <input type="text" id="username" name="username" placeholder="Email" class="shadow rounded">
+            <select id="userSelect" name="username" class="shadow rounded">
+                <option value="" disabled selected>Select a user</option>
+                <option th:each="user : ${users}" th:value="${user.userName}" th:text="${user.userName}"></option>
+            </select>
+            <!--        <form th:action="@{/home}" method="post">-->
+            <!--            <input type="text" id="username" name="username" placeholder="Email" class="shadow rounded">-->
             <input type="password" id="password" name="password" placeholder="Hasło" class="shadow rounded">
+            <input type="hidden" id="userId" name="userId" th:value="${userId}">
             <div class="button-container">
                 <input type="submit" value="Zaloguj się" class="shadow rounded">  <!--trzeba zrobic backend-->
                 <p>Nie masz konta?<br><a href="create">Stwórz już teraz!</a></p>  <!--wstawic link lub nie-->
@@ -24,5 +32,14 @@
             <a href="forgot-password">Zapomniałeś hasła?</a> <!--wstawic link lub nie-->
         </form>
     </div>
+</div>
 </body>
+<script>
+    document.getElementById('userSelect').addEventListener('change', function() {
+        var selectedUserId = this.value; // Get the selected user's ID
+        document.getElementById('userId').value = selectedUserId; // Update the hidden input field
+    });
+</script>
+
+
 </html>

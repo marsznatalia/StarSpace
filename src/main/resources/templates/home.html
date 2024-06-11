@@ -10,6 +10,16 @@
     <link rel="stylesheet" th:href="@{/css/styles.css}">
     <link rel="stylesheet" th:href="@{/css/side-nav-bar.css}">
 </head>
+<header>
+    <div class="user-info">
+        <form th:action="@{/}" method="get">
+            <select name="userId" onchange="this.form.submit()">
+                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"
+                        th:selected="${user.id} == ${currentUser?.id}">Username</option>
+            </select>
+        </form>
+    </div>
+</header>
 <body>
 
 <div class="sidebar">
@@ -32,7 +42,7 @@
             <span class="tooltip">Dashboard</span>
         </li>
         <li>
-            <a href="/user">
+            <a href="/userProfile">
                 <i class="bx bx-user"></i>
                 <span class="link_name">User</span>
             </a>

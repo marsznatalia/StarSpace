@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
-  const messageInput = document.getElementsByClassName('messageInput')[0];
-  const sendButton = document.getElementsByClassName('sendButton')[0];
-  const messagesContainer = document.getElementsByClassName('messages')[0];
+  const messageInput = document.getElementById('messageInput');
+  const sendButton = document.getElementById('sendButton');
+  const messagesContainer = document.getElementById('messages');
   const chatsList = document.getElementsByClassName('contacts')[0];
 
   // Fetch chats when the DOM is loaded
