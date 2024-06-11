@@ -8,6 +8,7 @@ body {
 }
 
 .container {
+    position: relative;
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -21,7 +22,6 @@ body {
     flex-direction: column;
     margin-right: 10px;
 }
-
 
 .header {
     display: flex;
@@ -99,6 +99,7 @@ body {
     border-radius: 20px;
     overflow: hidden;
     margin-right: 5px;
+    position: relative; /* Added */
 }
 
 .chat-header {
@@ -170,11 +171,16 @@ body {
 }
 
 .message-input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     display: flex;
     align-items: center;
     padding: 10px;
     border-top: 1px solid #dee2e6;
     background-color: #ffffff;
+    width: 98%;
 }
 
 .message-input input {
@@ -183,12 +189,14 @@ body {
     border: 1px solid #dee2e6;
     border-radius: 20px;
     margin-right: 10px;
+    width: 80%;
 }
 
 .send-button {
     background: none;
     border: none;
     cursor: pointer;
+    margin: 0;
 }
 
 .send-button img {
@@ -206,13 +214,6 @@ body {
 
 .icon-button img {
     display: block;
-}
-
-.message-avatar {
-    width: 30px;
-    height: 30px;
-    border-radius: 50%;
-    margin-right: 10px;
 }
 
 .profile-container {
@@ -239,5 +240,3 @@ body {
     font-weight: bold;
     margin-top: 10px;
 }
-
-
