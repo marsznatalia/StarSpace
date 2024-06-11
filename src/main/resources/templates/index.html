@@ -15,6 +15,7 @@
     </div>
     <h1 class="welcome-message">Witaj w StarSpace, eksploruj wszechświat z nami</h1>
     <div class="user-selection">
+        <h2>Choose a User:</h2>
         <form th:action="@{/login}" method="post" id="loginForm">
             <div class="input-group">
                 <select id="userSelect" name="username" class="shadow rounded common-style">
@@ -37,6 +38,7 @@
     document.getElementById('userSelect').addEventListener('change', function () {
         var selectedUserId = this.value;
         document.getElementById('userId').value = selectedUserId;
+        document.getElementById('loginForm').submit();
     });
 </script>
 </html>
