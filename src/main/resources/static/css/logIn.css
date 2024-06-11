@@ -47,20 +47,52 @@ label {
     display: none;
 }
 
-#username, #password {
+.common-style {
     display: block;
-    width: calc(100% - 20px);
-    margin: 10px auto;
-    padding: 15px;
+    padding: 10px;
+    font-size: 14px;
+    color: #333;
+    background-color: #fff;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
     outline: none;
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s, box-shadow 0.3s;
 }
 
-#username::placeholder, #password::placeholder {
+.common-style:hover {
+    border-color: #007bff;
+}
+
+.common-style:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+
+#userSelect {
+    width: 30%;
+    appearance: none;
+    background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg xmlns%3D%27http://www.w3.org/2000/svg%27 viewBox%3D%270 0 140 140%27%3E%3Cpolygon fill%3D%27%23ccc%27 points%3D%270,0 70,70 140,0%27/%3E%3C/svg%3E'); /* Custom arrow */
+    background-repeat: no-repeat;
+    background-position: right 10px top 50%;
+    background-size: 10px 10px;
+}
+
+#userSelect option[disabled] {
     color: #999;
+}
+
+#userSelect option {
+    padding: 5px;
+}
+
+input::placeholder {
+    color: #999;
+}
+
+.password-input {
+    width: 50%;
+    margin-left: 10px;
 }
 
 p {
@@ -149,4 +181,10 @@ input[type="submit"]:hover {
     p {
         font-size: 14px;
     }
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

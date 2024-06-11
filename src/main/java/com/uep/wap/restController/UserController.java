@@ -19,6 +19,18 @@ public class UserController {
         this.userService = userService;
     }
 
+
+    @PostMapping("/add-user")
+    public String addUser(@ModelAttribute UserDTO userDTO) {
+        userService.newUser(userDTO);
+        return "redirect:/api/add-user";
+    }
+
+    @GetMapping("/add-user")
+    public String showAddUserForm(User user) {
+        return "add-user";
+    }
+
     @GetMapping(path = "/users")
     public Iterable<User> getAllUsers() {
         return userService.getAllUsers();
