@@ -40,14 +40,9 @@ public class UserCont {
     public String login(@RequestParam("username") String username,
                         @RequestParam("userId") Long userId,
                         RedirectAttributes redirectAttributes) {
-        // Logic to authenticate the user and handle the login process
-
-        // For demonstration purposes, let's assume we have authenticated the user successfully
-        // Now we want to redirect to the home page with the selected user's ID as a query parameter
-        // Replace "15" with the actual ID of the selected user
         redirectAttributes.addAttribute("userId", userId);
 
-        return "redirect:/index";
+        return "redirect:/home";
     }
 
 
