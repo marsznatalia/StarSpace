@@ -8,6 +8,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
     fetchChats(userId);
 
+    document.getElementById('sendButton').addEventListener('click', function () {
+        const messageContent = document.getElementById('messageInput').value;
+        const chatId = getCurrentChatId();
+
+        if (messageContent && chatId) {
+            sendMessage(chatId, userId, messageContent);
+        }
+    });
+
 });
 
 function fetchChats(userId) {
@@ -33,9 +42,9 @@ function fetchChats(userId) {
                 console.log('Processing chat: ', chat.chatName);
                 const contact = document.createElement('a');
                 contact.className = 'contact';
-                contact.href = '#';
+                contact.href = `#chat-${chat.id}`;
                 contact.setAttribute('data-chat-id', chat.id);
-
+                contact.onclick = () => fetchMessagesInChat(chat.id, userId);
 
                 const contactInfo = document.createElement('div');
                 contactInfo.className = 'contact-info';
@@ -47,7 +56,6 @@ function fetchChats(userId) {
                 contact.appendChild(contactInfo);
                 chatsList.appendChild(contact);
 
-                fetchMessagesInChat(chat.id);
 
             })
 
@@ -55,8 +63,34 @@ function fetchChats(userId) {
         .catch(error => console.error('Error fetching chats:', error));
 }
 
-function fetchMessagesInChat(chatId){
-    console.log('Fetching chats for chat ID:', chatId);
+function fetchMessagesInChat(chatId, userId) {
+    console.log('Fetching messages for chat ID:', chatId);
+    fetch(`/api/messages/${chatId}`)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(messages => {
+            console.log("Fetch successfull!");
+            const messagesContainer = document.getElementById('messages'); // Get the messages container
+            messagesContainer.innerHTML = ''; // Clear existing messages
 
-    const messagesContainer = document.getElementsByClassName('messages')[0];
+            messages.forEach(message => {
+                const messageContainer = document.createElement('div');
+                messageContainer.className = 'message';
+                if (message.senderId === userId) {
+                    console.log("Message", message.messageContent, "added as the ids are the same.", message.senderId, userId);
+                    messageContainer.className = 'message.sent';
+                }
+                const messageContent = document.createTextNode(message.messageContent);
+                messageContent.className = 'message-content';
+                messageContainer.appendChild(messageContent);
+                messagesContainer.appendChild(messageContainer);
+            });
+        })
+        .catch(error => console.error('Error fetching messages:', error));
 }
+
+
