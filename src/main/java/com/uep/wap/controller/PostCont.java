@@ -15,22 +15,12 @@ public class PostCont {
         this.postService = postService;
     }
 
-//    @PostMapping("/add-post")
-//    public String addPost(@ModelAttribute PostDTO postDTO, Model model) {
-//        postService.addPost(postDTO);
-//        model.addAttribute("post", postDTO);
-//        return "home";
-//    }
-
-
     @PostMapping("/add-post")
     public String addPost(@RequestParam("userId") Long userId, @ModelAttribute PostDTO postDTO, Model model) {
         postService.addPost(postDTO);
         model.addAttribute("post", postDTO);
         return "redirect:/posts";
     }
-
-
 
     @GetMapping("/posts")
     public String getPosts(Model model) {
