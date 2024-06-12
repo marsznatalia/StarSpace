@@ -42,13 +42,6 @@ public class PostController {
         }
     }
 
-//    @PatchMapping("/post/edit-post/{postID}")
-//    public String editPost(@PathVariable Long postID, @RequestBody String editedContent) {
-//        postService.editPost(postID, editedContent);
-//        return "Post edited";
-//    }
-
-
     @PatchMapping("/post/edit-post/{postID}")
     public ResponseEntity<String> editPost(@PathVariable Long postID, @RequestBody PostDTO postDTO) {
         try {

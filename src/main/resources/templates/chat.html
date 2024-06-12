@@ -29,6 +29,7 @@
             <input type="text" placeholder="Search people and groups"/>
         </div>
         <div class="contacts">
+            <input type="hidden" id="userId" value="">
             <div th:each="chat : ${chat}">
                 <a th:href="@{/chat(userId=${userId}, chatId=${chat.id})}" class="contact" onclick="selectChat(this)">
                     <div class="contact-info">
@@ -50,17 +51,6 @@
             </div>
         </div>
         <div class="messages" id="messages">
-            <div th:if="${messages != null}">
-                <div th:if="${messages.isEmpty()}">
-                    <p>No messages available.</p>
-                </div>
-                <div th:each="message : ${messages}" class="message"
-                     th:classappend="${message.senderId == currentUser.id} ? ' sent' : ' received'">
-                    <div class="message-content" th:text="${message.content}"></div>
-                </div>
-            </div>
-            <div th:else>
-                <p>No messages available.</p>
             </div>
             <div class="message-input">
                 <input type="text" id="messageInput" placeholder="Write a message..."/>
@@ -78,6 +68,6 @@
         </div>
     </div>
 </div>
-<script th:src="@{/js/chat.js}"></script>
+<script th:src="@{/js/chat-page.js}"></script>
 </body>
 </html>

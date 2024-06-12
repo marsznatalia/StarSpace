@@ -27,8 +27,6 @@ public class MessageController {
         return messageService.getMessagesByChatId(chatId);
     }
 
-    //TODO: szukanie wiadomości po słowie kluczowym
-
     @PostMapping(path = "/messages/new-message")
     public String newMessage(@RequestBody MessageDTO messageDTO) {
         messageService.newMessage(messageDTO);
