@@ -3,6 +3,7 @@ package com.uep.wap.restController;
 import com.uep.wap.dto.PostDTO;
 import com.uep.wap.model.Post;
 import com.uep.wap.service.PostService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,10 +32,18 @@ public class PostController {
     }
 
     @PostMapping("/post/add-post")
-    public String addPost(@RequestBody PostDTO postDTO) {
-        postService.addPost(postDTO);
-        return "Post added";
+    public ResponseEntity<String> addPost(@RequestBody PostDTO postDTO) {
+        try {
+            postService.addPost(postDTO);
+            return ResponseEntity.ok("Post added successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error adding post: " + e.getMessage());
+        }
     }
+
+
+
 
     @PatchMapping("/post/edit-post/{postID}")
     public String editPost(@PathVariable Long postID, @RequestBody String editedContent) {

@@ -1,73 +1,110 @@
+document.addEventListener("DOMContentLoaded", function () {
+    fetchPosts();
+    const urlParams = new URLSearchParams(window.location.search);
 
-    document.addEventListener("DOMContentLoaded", function() {
-        fetchPosts();
+    const userAuthorId = parseInt(urlParams.get('userId')); // Correct variable name
+    if (!isNaN(userAuthorId)) { // Check if it's a valid number
+        document.getElementById('userAuthorId').value = userAuthorId;
+    }
+    console.log('UserAuthorID:', userAuthorId); // Check if userId is retrieved correctly
+
+    document.getElementById('addPostForm').addEventListener('submit', function (event) {
+        event.preventDefault();
+        addPost(userAuthorId);
     });
 
-    function fetchPosts() {
-        fetch('/api/posts')
-            .then(response => response.json())
-            .then(posts => {
-                const postsList = document.getElementsByClassName('posts-list')[0];
 
-                postsList.innerHTML = '';
+});
 
-                posts.forEach(post => {
-                    const postContainer = document.createElement('div');
-                    postContainer.className = 'post-container';
+function fetchPosts() {
+    fetch('/api/posts')
+        .then(response => response.json())
+        .then(posts => {
+            const postsList = document.getElementsByClassName('posts-list')[0];
 
-                    const postHeader = document.createElement('div');
-                    postHeader.className = 'post-header';
+            postsList.innerHTML = '';
 
-                    const postAvatar = document.createElement('img');
-                    postAvatar.className = 'post-avatar';
-                    postAvatar.src = post.user.profilePicture;
-                    postAvatar.alt = 'Avatar';
+            posts.forEach(post => {
+                const postContainer = document.createElement('div');
+                postContainer.className = 'post-container';
 
-                    const postUsername = document.createElement('div');
-                    postUsername.className = 'post-username';
-                    postUsername.textContent = post.user.userName;
+                const postHeader = document.createElement('div');
+                postHeader.className = 'post-header';
 
-                    postHeader.appendChild(postAvatar);
-                    postHeader.appendChild(postUsername);
+                const postAvatar = document.createElement('img');
+                postAvatar.className = 'post-avatar';
+                postAvatar.src = post.user.profilePicture;
+                postAvatar.alt = 'Avatar';
 
-                    const postContent = document.createElement('div');
-                    postContent.className = 'post-content';
-                    postContent.textContent = post.content;
+                const postUsername = document.createElement('div');
+                postUsername.className = 'post-username';
+                postUsername.textContent = post.user.userName;
 
-                    postContainer.appendChild(postHeader);
-                    postContainer.appendChild(postContent);
+                postHeader.appendChild(postAvatar);
+                postHeader.appendChild(postUsername);
 
-                    if (post.image) {
-                        const postImage = document.createElement('img');
-                        postImage.className = 'post-image';
-                        postImage.src = post.image;
-                        postImage.alt = 'Post Image';
-                        postContainer.appendChild(postImage);
-                    }
+                const postContent = document.createElement('div');
+                postContent.className = 'post-content';
+                postContent.textContent = post.content;
 
-                    const postActions = document.createElement('div');
-                    postActions.className = 'post-actions';
+                postContainer.appendChild(postHeader);
+                postContainer.appendChild(postContent);
 
-                    const likeButton = document.createElement('button');
-                    likeButton.className = 'post-action';
-                    likeButton.innerHTML = "<i class='bx bx-like'></i> Like";
+                if (post.image) {
+                    const postImage = document.createElement('img');
+                    postImage.className = 'post-image';
+                    postImage.src = post.image;
+                    postImage.alt = 'Post Image';
+                    postContainer.appendChild(postImage);
+                }
 
-                    const commentButton = document.createElement('button');
-                    commentButton.className = 'post-action';
-                    commentButton.innerHTML = "<i class='bx bx-comment'></i> Comment";
+                const postActions = document.createElement('div');
+                postActions.className = 'post-actions';
 
-                    const shareButton = document.createElement('button');
-                    shareButton.className = 'post-action';
-                    shareButton.innerHTML = "<i class='bx bx-share'></i> Share";
+                const likeButton = document.createElement('button');
+                likeButton.className = 'post-action';
+                likeButton.innerHTML = "<i class='bx bx-like'></i> Like";
 
-                    postActions.appendChild(likeButton);
-                    postActions.appendChild(commentButton);
-                    postActions.appendChild(shareButton);
+                const commentButton = document.createElement('button');
+                commentButton.className = 'post-action';
+                commentButton.innerHTML = "<i class='bx bx-comment'></i> Comment";
 
-                    postContainer.appendChild(postActions);
+                const shareButton = document.createElement('button');
+                shareButton.className = 'post-action';
+                shareButton.innerHTML = "<i class='bx bx-share'></i> Share";
 
-                    postsList.appendChild(postContainer);
-                });
-            })
-            .catch(error => console.error('Error fetching posts:', error));
-    }
+                postActions.appendChild(likeButton);
+                postActions.appendChild(commentButton);
+                postActions.appendChild(shareButton);
+
+                postContainer.appendChild(postActions);
+
+                postsList.appendChild(postContainer);
+            });
+        })
+        .catch(error => console.error('Error fetching posts:', error));
+}
+
+function addPost(userAuthorId) {
+
+    const content = document.getElementById('postContent').value;
+    console.log('UserAuthorId:', userAuthorId);  // Debugging line
+    console.log('Content:', content);  // Debugging line
+    parseInt(userAuthorId);
+    fetch('/api/post/add-post', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({userAuthorId, content}),
+    })
+        .then(response => {
+            if (response.ok) {
+                fetchPosts();
+                document.getElementById('postContent').value = '';
+            } else {
+                console.error('Error adding post');
+            }
+        })
+        .catch(error => console.error('Error adding post:', error));
+}
