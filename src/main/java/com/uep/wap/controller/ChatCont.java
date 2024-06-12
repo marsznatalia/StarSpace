@@ -17,7 +17,6 @@ public class ChatCont {
     }
 
 
-
     @GetMapping("/chat")
     public String getChats(@RequestParam("userId") Long userId, Model model) {
         Iterable<ChatDTO> chats = chatService.findChatsByUserId(userId);

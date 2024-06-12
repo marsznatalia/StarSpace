@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/chat.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chat-format.css}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
@@ -13,14 +13,14 @@
         <div class="header">
             <div class="settings-icon">
                 <button id="btn" class="icon-button">
-                    <img src="hamburger-icon.png" alt="Menu"/>
+                    <img th:src="@{/images/hamburger-icon.png}" alt="Menu"/>
                 </button>
             </div>
             <div class="title">HelloWorld</div>
             <div class="return-icon">
                 <a th:href="@{/home(userId=${userId})}">
                     <button class="icon-button">
-                        <img src="return-icon.png" alt="Return"/>
+                        <img th:src="@{/images/return-icon.png}" alt="Return"/>
                     </button>
                 </a>
             </div>
@@ -44,7 +44,7 @@
             <div class="chat-icons">
                 <div class="info-icon">
                     <button class="icon-button">
-                        <img src="info-icon.png" alt="Info"/>
+                        <img th:src="@{/images/info-icon.png}" alt="Info"/>
                     </button>
                 </div>
             </div>
@@ -62,17 +62,20 @@
             <div th:else>
                 <p>No messages available.</p>
             </div>
+            <div class="message-input">
+                <input type="text" id="messageInput" placeholder="Write a message..."/>
+                <button class="send-button" id="sendButton" onclick="sendMessage()">
+                    <img th:src="@{/images/send-button.png}" alt="Send"/>
+                </button>
+            </div>
         </div>
-        <div class="message-input">
-            <input type="text" id="messageInput" placeholder="Write a message..."/>
-            <button class="send-button" id="sendButton" onclick="sendMessage()">
-                <img src="send-button.png" alt="Send"/>
-            </button>
         </div>
     </div>
     <div class="profile-container">
-        <img th:src="@{/images/profile-stock.jpg}" alt="Profile Picture" class="profile-picture">
-        <div class="user-name">John Doe</div>
+        <div class="profile-container">
+            <img th:src="@{/images/profile-stock.jpg}" alt="Profile Picture" class="profile-picture">
+            <div class="user-name">John Doe</div>
+        </div>
     </div>
 </div>
 <script th:src="@{/js/chat.js}"></script>

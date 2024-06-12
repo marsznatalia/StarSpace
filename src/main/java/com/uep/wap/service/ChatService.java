@@ -7,8 +7,6 @@ import com.uep.wap.model.Chat;
 import com.uep.wap.model.User;
 import com.uep.wap.repository.ChatRepository;
 import com.uep.wap.repository.UserRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -110,11 +108,8 @@ public class ChatService {
         chatRepository.save(chat);
     }
 
-    public Iterable<ChatDTO> getAllChats() {
-        Iterable<Chat> chats = chatRepository.findAll();
-        return StreamSupport.stream(chats.spliterator(), false)
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public Iterable<Chat> getAllChats() {
+        return chatRepository.findAll();
     }
 
     public Optional<Chat> findChatById(Long chatId) {
