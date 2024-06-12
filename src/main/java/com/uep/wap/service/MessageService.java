@@ -35,6 +35,7 @@ public class MessageService {
 
         Message message = new Message();
         message.setWhoSent(user);
+
         message.setInChat(chat);
         message.setContent(messageDTO.getMessageContent());
         messageRepository.save(message);
@@ -44,6 +45,8 @@ public class MessageService {
 
         System.out.println("New message sent!");
     }
+
+
 
     public void editMessage(Long messageId, String editedMessage) {
         Message message = messageRepository.findById(messageId)

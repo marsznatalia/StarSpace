@@ -31,8 +31,8 @@ public class MessageController {
 //    }
 
 
-    @GetMapping(path= "/messages/{chatId}", produces = "application/json")
-    public ArrayList<MessageDTO> getMessagesByChatId(@PathVariable Long chatId){
+    @GetMapping(path = "/messages/{chatId}", produces = "application/json")
+    public ArrayList<MessageDTO> getMessagesByChatId(@PathVariable Long chatId) {
         Iterable<MessageDTO> messages = messageService.getMessagesByChatId(chatId);
         ArrayList<MessageDTO> messageDTOs = new ArrayList<>();
         messages.forEach(message -> {
@@ -46,12 +46,20 @@ public class MessageController {
     }
 
 
+//    @PostMapping(path = "/messages/new-message")
+//    public String newMessage(@RequestBody MessageDTO messageDTO) {
+//        messageService.newMessage(messageDTO);
+//        return "Message created!";
+//    }
 
-    @PostMapping(path = "/messages/new-message")
-    public String newMessage(@RequestBody MessageDTO messageDTO) {
+
+    @PostMapping(path = "/messages/new-message", produces = "application/json")
+    public ResponseEntity<MessageDTO> newMessage(@RequestBody MessageDTO messageDTO) {
+
         messageService.newMessage(messageDTO);
-        return "Message created!";
+        return ResponseEntity.ok(messageDTO);
     }
+
 
     @PatchMapping(path = "/messages/edit-message/{messageId}")
     public String editMessage(@PathVariable Long messageId, @RequestBody String editedMessage) {

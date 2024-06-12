@@ -10,11 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.getElementById('sendButton').addEventListener('click', function () {
         const messageContent = document.getElementById('messageInput').value;
-        const chatId = getCurrentChatId();
-
-        if (messageContent && chatId) {
-            sendMessage(chatId, userId, messageContent);
-        }
+        sendMessage(getCurrentChatId(), userId, messageContent);
     });
 
 });
@@ -92,5 +88,51 @@ function fetchMessagesInChat(chatId, userId) {
         })
         .catch(error => console.error('Error fetching messages:', error));
 }
+function getCurrentChatId() {
+    const hash = window.location.hash;
+    const match = hash.match(/#chat-(\d+)/);
+    return match ? parseInt(match[1]) : null;
+}
 
+function sendMessage(chatId, userId, messageContent) {
+    console.log('Sending message:', messageContent, 'to chat ID:', chatId, 'from user ID:', userId);
 
+    fetch(`/api/messages/new-message`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            chatId: chatId,
+            senderId: userId,
+            messageContent: messageContent
+        })
+    })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
+        .then(message => {
+            console.log('Message sent successfully:', message);
+            document.getElementById('messageInput').value = '';
+
+            const messagesContainer = document.getElementById('messages');
+            appendMessageToContainer(message, messagesContainer, userId);
+        })
+        .catch(error => console.error('Error sending message:', error));
+}
+
+function appendMessageToContainer(message, container, userId) {
+    const messageContainer = document.createElement('div');
+    messageContainer.className = 'message';
+
+    if (message.senderId === userId) {
+        messageContainer.classList.add('message-sent');
+    }
+
+    const messageContent = document.createTextNode(message.messageContent);
+    messageContainer.appendChild(messageContent);
+    container.appendChild(messageContainer);
+}
