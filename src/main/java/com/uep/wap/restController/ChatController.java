@@ -20,8 +20,8 @@ public class ChatController {
 
 
     @GetMapping(path = "/chats")
-    public Iterable<ChatDTO> getAllChats() {
-        Iterable<ChatDTO> chats = chatService.getAllChats();
+    public Iterable<Chat> getAllChats() {
+        Iterable<Chat> chats = chatService.getAllChats();
         return ResponseEntity.ok(chats).getBody();
     }
 
