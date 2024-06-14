@@ -4,8 +4,13 @@ import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.exception.ChatNotFoundException;
 import com.uep.wap.model.Chat;
 import com.uep.wap.service.ChatService;
+import com.uep.wap.service.UserService;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 
 @RestController
@@ -13,15 +18,29 @@ import org.springframework.web.bind.annotation.*;
 public class ChatController {
 
     private final ChatService chatService;
+    private final UserService userService;
 
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, UserService userService) {
         this.chatService = chatService;
+        this.userService = userService;
     }
 
+    @GetMapping("/chat/{userId}")
+    public ResponseEntity<String> getChatsById(@PathVariable("userId") Long userId, Model model) {
+        try {
+            Set<Chat> chats = userService.getUserChats(userId);
+            model.addAttribute("chat", chats);
+            model.addAttribute("userId", userId);
+            return ResponseEntity.ok("Chats retrieved successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving chats: " + e.getMessage());
+        }
+    }
 
     @GetMapping(path = "/chats")
-    public Iterable<ChatDTO> getAllChats() {
-        Iterable<ChatDTO> chats = chatService.getAllChats();
+    public Iterable<Chat> getAllChats() {
+        Iterable<Chat> chats = chatService.getAllChats();
         return ResponseEntity.ok(chats).getBody();
     }
 

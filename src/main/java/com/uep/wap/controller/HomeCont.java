@@ -29,9 +29,9 @@ public class HomeCont {
     public String homePage(@RequestParam(name = "userId", required = false) Long userId, Model model) {
         Optional<User> user = userService.findUserById(userId);
         if (userId != null) {
-            model.addAttribute("selectedUserId", userId);
+            model.addAttribute("userId", userId);
         } else {
-            return "userNotFound";
+            model.addAttribute("userId", 7);
         }
         return "home";
     }

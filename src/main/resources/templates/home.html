@@ -10,18 +10,7 @@
     <link rel="stylesheet" th:href="@{/css/home-format.css}">
     <link rel="stylesheet" th:href="@{/css/side-nav-bar.css}">
 </head>
-<header>
-    <div class="user-info">
-        <form th:action="@{/}" method="get">
-            <select name="userId" onchange="this.form.submit()">
-                <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.username}"
-                        th:selected="${user.id} == ${currentUser?.id}">Username</option>
-            </select>
-        </form>
-    </div>
-</header>
 <body>
-
 <div class="sidebar">
     <div class="logo_details">
         <img src="/images/logoNew.png" alt="Hello World Logo" class="logo-image">
@@ -49,7 +38,7 @@
             <span class="tooltip">User</span>
         </li>
         <li>
-            <a href="/chat">
+            <a th:href="@{'/chat?userId=' + ${userId}}">
                 <i class="bx bx-chat"></i>
                 <span class="link_name">Chats</span>
             </a>
@@ -77,30 +66,15 @@
 <main class="main-content">
     <div class="container">
         <div class="add-post-container">
-            <input type="text" class="add-post-input" placeholder="What's on your mind?">
-            <button class="add-post-button">Post</button>
+            <form id="addPostForm">
+                <input type="hidden" id="userAuthorId" name="userAuthorId" value="">
+                <input type="text" id="postContent" name="content" class="add-post-input" placeholder="What's on your mind?">
+                <button type="submit" class="add-post-button">Post</button>
+            </form>
         </div>
-        <div class="posts-list">
-            <div  th:each="post : ${post}" class="post-container">
-                <div class="post-header">
-<!--                    <img src="@{${post.user.profilePicture}}" alt="Avatar" class="post-avatar">-->
-<!--                    <div class="post-username" th:text="${post.user.userName}">User Name</div>-->
-                </div>
-                <div class="post-content" th:text="${post.content}"></div>
-<!--                <img src="/images/post1.jpg" alt="Post Image" class="post-image">-->
-<!--                <div th:if="${post.image != null}">-->
-<!--                    <img th:src="@{${post.image}}" alt="Post Image" class="post-image">-->
-<!--                </div>-->
-                <div class="post-actions">
-                    <button class="post-action"><i class='bx bx-like'></i> Like</button>
-                    <button class="post-action"><i class='bx bx-comment'></i> Comment</button>
-                    <button class="post-action"><i class='bx bx-share'></i> Share</button>
-                </div>
-            </div>
-        </div>
+        <div class="posts-list"></div>
     </div>
 </main>
-
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

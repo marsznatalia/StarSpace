@@ -16,9 +16,10 @@ public class PostCont {
     }
 
     @PostMapping("/add-post")
-    public String addPost(@ModelAttribute PostDTO postDTO) {
+    public String addPost(@RequestParam("userId") Long userId, @ModelAttribute PostDTO postDTO, Model model) {
         postService.addPost(postDTO);
-        return "redirect:/api/add-post";
+        model.addAttribute("post", postDTO);
+        return "redirect:/posts";
     }
 
     @GetMapping("/posts")

@@ -37,12 +37,18 @@ public class UserCont {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("username") String username,
-                        @RequestParam("userId") Long userId,
+    public String login(@RequestParam("userId") Long userId,
                         RedirectAttributes redirectAttributes) {
         redirectAttributes.addAttribute("userId", userId);
 
         return "redirect:/home";
+    }
+
+    @GetMapping("/chat")
+    public String chat(@RequestParam("userId") Long userId,
+                       RedirectAttributes redirectAttributes){
+        redirectAttributes.addAttribute("userId", userId);
+        return "chat";
     }
 
 

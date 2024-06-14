@@ -1,10 +1,13 @@
 package com.uep.wap.restController;
 
 import com.uep.wap.dto.MessageDTO;
+import com.uep.wap.model.Message;
 import com.uep.wap.service.MessageService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 
 @RestController
@@ -22,18 +25,41 @@ public class MessageController {
         return messageService.getAllMessages();
     }
 
-    @GetMapping("/messages/{chatId}")
-    public Iterable<MessageDTO> getMessagesByChatId(@PathVariable Long chatId){
-        return messageService.getMessagesByChatId(chatId);
+//    @GetMapping("/messages/{chatId}")
+//    public Iterable<MessageDTO> getMessagesByChatId(@PathVariable Long chatId){
+//        return messageService.getMessagesByChatId(chatId);
+//    }
+
+
+    @GetMapping(path = "/messages/{chatId}", produces = "application/json")
+    public ArrayList<MessageDTO> getMessagesByChatId(@PathVariable Long chatId) {
+        Iterable<MessageDTO> messages = messageService.getMessagesByChatId(chatId);
+        ArrayList<MessageDTO> messageDTOs = new ArrayList<>();
+        messages.forEach(message -> {
+            MessageDTO messageDTO = new MessageDTO();
+            messageDTO.setId(message.getId());
+            messageDTO.setMessageContent(message.getMessageContent());
+            messageDTO.setSenderId(message.getSenderId());
+            messageDTOs.add(messageDTO);
+        });
+        return ResponseEntity.ok(messageDTOs).getBody();
     }
 
-    //TODO: szukanie wiadomości po słowie kluczowym
 
-    @PostMapping(path = "/messages/new-message")
-    public String newMessage(@RequestBody MessageDTO messageDTO) {
+//    @PostMapping(path = "/messages/new-message")
+//    public String newMessage(@RequestBody MessageDTO messageDTO) {
+//        messageService.newMessage(messageDTO);
+//        return "Message created!";
+//    }
+
+
+    @PostMapping(path = "/messages/new-message", produces = "application/json")
+    public ResponseEntity<MessageDTO> newMessage(@RequestBody MessageDTO messageDTO) {
+
         messageService.newMessage(messageDTO);
-        return "Message created!";
+        return ResponseEntity.ok(messageDTO);
     }
+
 
     @PatchMapping(path = "/messages/edit-message/{messageId}")
     public String editMessage(@PathVariable Long messageId, @RequestBody String editedMessage) {

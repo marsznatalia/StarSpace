@@ -23,12 +23,6 @@ public class MessageCont {
         return "chat";
     }
 
-    @GetMapping("/messages/{chatId}")
-    public String getMessagesByChatId(Model model, @PathVariable Long chatId){
-        Iterable<MessageDTO> messages = messageService.getMessagesByChatId(chatId);
-        model.addAttribute("messages", messages);
-        return "chat";
-    }
 //
 //    @PostMapping
 ////    @ResponseBody

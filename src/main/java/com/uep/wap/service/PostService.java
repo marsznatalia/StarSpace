@@ -30,7 +30,7 @@ public class PostService {
     public void addPost(PostDTO postDTO) {
         User user = userRepository.findById(postDTO.getUserAuthorId())
                 .orElseThrow(() -> new UserNotFoundException(postDTO.getUserAuthorId()));
-
+        System.out.println("Received PostDTO: " + postDTO);
         Post post = new Post();
         post.setUser(user);
         post.setContent(postDTO.getContent());
