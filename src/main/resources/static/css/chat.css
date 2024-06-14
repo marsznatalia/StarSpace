@@ -1,3 +1,4 @@
+/* Reset and base styles */
 body {
     font-family: Arial, sans-serif;
     margin: 10px 0;
@@ -8,12 +9,12 @@ body {
 }
 
 .container {
-    position: relative;
     display: flex;
     width: 100%;
     justify-content: space-between;
 }
 
+/* Sidebar styles */
 .sidebar {
     width: 25%;
     background-color: #ffffff;
@@ -21,16 +22,16 @@ body {
     display: flex;
     flex-direction: column;
     margin-right: 10px;
+    padding-right: 10px;
 }
 
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px;
     background-color: #ffffff;
     border-bottom: 1px solid #dee2e6;
-    height: 45px;
 }
 
 .settings-icon img,
@@ -54,7 +55,7 @@ body {
 
 .search input {
     width: calc(100% - 20px);
-    padding: 5px;
+    padding: 8px;
     border: 1px solid #dee2e6;
     border-radius: 5px;
     margin: 0 10px;
@@ -68,15 +69,25 @@ body {
 .contact {
     display: flex;
     align-items: center;
-    padding: 10px;
-    border-bottom: 1px solid #dee2e6;
+    padding: 12px;
+    transition: background-color 0.3s ease;
+    border-bottom: 1px solid #dee2e6; /* Separator line */
+}
+
+.contact:last-child {
+    border-bottom: none; /* Remove border-bottom from last contact */
+}
+
+.contact:hover {
+    background-color: #f0f0f0;
 }
 
 .contact img {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    margin-right: 10px;
+    margin-right: 12px;
+    object-fit: cover;
 }
 
 .contact-info {
@@ -85,6 +96,11 @@ body {
 
 .contact-name {
     font-weight: bold;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    margin-right: 10px;
+    text-decoration: none; /* Remove underline */
 }
 
 .contact-date {
@@ -92,25 +108,24 @@ body {
     color: gray;
 }
 
+/* Chat styles */
 .chat {
     flex: 1;
     display: flex;
     flex-direction: column;
     border-radius: 20px;
     overflow: hidden;
-    margin-right: 5px;
-    position: relative; /* Added */
+    margin-right: 10px;
+    padding-bottom: 10px;
 }
 
 .chat-header {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 5px 10px;
+    padding: 10px;
     background-color: #ffffff;
     border-bottom: 1px solid #dee2e6;
-    height: 45px;
-    position: relative;
 }
 
 .chat-title {
@@ -125,12 +140,6 @@ body {
     right: 10px;
 }
 
-.icon {
-    margin-left: 10px;
-    font-size: 20px;
-    padding-right: 10px;
-}
-
 .messages {
     flex: 1;
     padding: 10px;
@@ -139,24 +148,25 @@ body {
 }
 
 .message {
-    display: block;
+    display: flex;
     align-items: flex-start;
     margin-bottom: 10px;
-    background-color: #a0139c;
 }
 
-.message img {
+.message img.message-avatar {
     width: 30px;
     height: 30px;
     border-radius: 50%;
     margin-right: 10px;
+    object-fit: cover;
 }
 
 .message-content {
-    background-color: #ffffff;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 60%;
+    padding: 12px;
+    max-width: 70%;
+    word-wrap: break-word;
+    line-height: 1.4;
+    border-radius: 20px;
 }
 
 .message.sent {
@@ -168,20 +178,17 @@ body {
     background-color: #007bff;
     color: #ffffff;
     margin-left: auto;
-    margin-right: 10px;
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 20px;
 }
 
 .message-input {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
     display: flex;
     align-items: center;
     padding: 10px;
     border-top: 1px solid #dee2e6;
     background-color: #ffffff;
-    width: 98%;
 }
 
 .message-input input {
@@ -190,14 +197,12 @@ body {
     border: 1px solid #dee2e6;
     border-radius: 20px;
     margin-right: 10px;
-    width: 80%;
 }
 
 .send-button {
     background: none;
     border: none;
     cursor: pointer;
-    margin: 0;
 }
 
 .send-button img {
@@ -217,6 +222,7 @@ body {
     display: block;
 }
 
+/* Profile container styles */
 .profile-container {
     width: 25%;
     display: flex;
@@ -240,4 +246,13 @@ body {
     text-align: center;
     font-weight: bold;
     margin-top: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.contact:hover .contact-name {
+    text-decoration: none;
 }

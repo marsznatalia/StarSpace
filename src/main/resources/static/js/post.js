@@ -12,8 +12,6 @@ document.addEventListener("DOMContentLoaded", function () {
         event.preventDefault();
         addPost(userAuthorId);
     });
-
-
 });
 
 function fetchPosts() {
@@ -32,7 +30,6 @@ function fetchPosts() {
 
                 const postAvatar = document.createElement('img');
                 postAvatar.className = 'post-avatar';
-                // postAvatar.src = post.user.profilePicture;
                 postAvatar.alt = 'Avatar';
 
                 const postUsername = document.createElement('div');
@@ -47,18 +44,33 @@ function fetchPosts() {
                 postContent.textContent = post.content;
                 postContent.id = `post-content-${post.id}`;
 
-                const postEditForm = document.createElement('div');
-                postEditForm.className = 'post-edit-form';
-                postEditForm.innerHTML = `
-                    <input type="text" id="editContent-${post.id}" class="edit-post-input" value="${post.content}">
-                    <button onclick="submitEditPost(${post.id})" class="edit-post-button">Save</button>
-                `;
-                postEditForm.style.display = 'block';
-                postEditForm.id = `post-edit-form-${post.id}`;
+                const postActions = document.createElement('div');
+                postActions.className = 'post-actions';
+
+                const likeButton = createActionButton('bx-like', 'Like');
+                likeButton.addEventListener('click', () => console.log('Like clicked'));
+
+                const commentButton = createActionButton('bx-comment', 'Comment');
+                commentButton.addEventListener('click', () => console.log('Comment clicked'));
+
+                const shareButton = createActionButton('bx-share', 'Share');
+                shareButton.addEventListener('click', () => console.log('Share clicked'));
+
+                const deleteButton = createActionButton('bx-trash', 'Delete');
+                deleteButton.addEventListener('click', () => deletePost(post.id));
+
+                const modifyButton = createActionButton('bx-edit', 'Modify');
+                modifyButton.addEventListener('click', () => toggleEditForm(post.id));
+
+                postActions.appendChild(likeButton);
+                postActions.appendChild(commentButton);
+                postActions.appendChild(shareButton);
+                postActions.appendChild(deleteButton);
+                postActions.appendChild(modifyButton);
 
                 postContainer.appendChild(postHeader);
                 postContainer.appendChild(postContent);
-                postContainer.appendChild(postEditForm);
+                postContainer.appendChild(postActions);
 
                 if (post.image) {
                     const postImage = document.createElement('img');
@@ -68,35 +80,8 @@ function fetchPosts() {
                     postContainer.appendChild(postImage);
                 }
 
-                const postActions = document.createElement('div');
-                postActions.className = 'post-actions';
-
-                const likeButton = document.createElement('button');
-                likeButton.className = 'post-action';
-                likeButton.innerHTML = "<i class='bx bx-like'></i> Like";
-
-
-                const deleteButton = document.createElement('button');
-                deleteButton.className = 'post-action';
-                deleteButton.innerHTML = "<i class='bx bx-trash'></i> Delete";
-                deleteButton.addEventListener('click', function() {
-                    deletePost(post.id);
-                });
-
-                const commentButton = document.createElement('button');
-                commentButton.className = 'post-action';
-                commentButton.innerHTML = "<i class='bx bx-comment'></i> Comment";
-
-                const shareButton = document.createElement('button');
-                shareButton.className = 'post-action';
-                shareButton.innerHTML = "<i class='bx bx-share'></i> Share";
-
-                postActions.appendChild(likeButton);
-                postActions.appendChild(commentButton);
-                postActions.appendChild(shareButton);
-                postActions.appendChild(deleteButton);
-
-                postContainer.appendChild(postActions);
+                const postEditForm = createEditForm(post.id, post.content);
+                postContainer.appendChild(postEditForm);
 
                 postsList.appendChild(postContainer);
             });
@@ -104,18 +89,42 @@ function fetchPosts() {
         .catch(error => console.error('Error fetching posts:', error));
 }
 
-function addPost(userAuthorId) {
+function createActionButton(iconClass, tooltip) {
+    const button = document.createElement('button');
+    button.className = 'post-action';
+    button.innerHTML = `<i class='bx ${iconClass}'></i> ${tooltip}`;
+    return button;
+}
 
+function createEditForm(postId, currentContent) {
+    const editFormContainer = document.createElement('div');
+    editFormContainer.className = 'post-edit-form-container';
+
+    const editForm = document.createElement('div');
+    editForm.className = 'post-edit-form';
+    editForm.innerHTML = `
+        <input type="text" id="editContent-${postId}" class="edit-post-input" value="${currentContent}">
+        <button onclick="submitEditPost(${postId})" class="edit-post-button">Save</button>
+    `;
+    editForm.style.display = 'none'; // Initially hidden
+    editForm.id = `post-edit-form-${postId}`;
+
+    editFormContainer.appendChild(editForm);
+
+    return editFormContainer;
+}
+
+function addPost(userAuthorId) {
     const content = document.getElementById('postContent').value;
     console.log('UserAuthorId:', userAuthorId);  // Debugging line
     console.log('Content:', content);  // Debugging line
-    parseInt(userAuthorId);
+
     fetch('/api/post/add-post', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body: JSON.stringify({userAuthorId, content}),
+        body: JSON.stringify({ userAuthorId, content }),
     })
         .then(response => {
             if (response.ok) {
@@ -144,16 +153,12 @@ function deletePost(postId) {
         .catch(error => console.error('Error deleting post:', error));
 }
 
-
 function toggleEditForm(postId) {
-    const postContent = document.getElementById(`post-content-${postId}`);
-    const postEditForm = document.getElementById(`post-edit-form-${postId}`);
-    if (postEditForm.style.display === 'none') {
-        postEditForm.style.display = 'block';
-        postContent.style.display = 'none';
+    const editForm = document.getElementById(`post-edit-form-${postId}`);
+    if (editForm.style.display === 'none') {
+        editForm.style.display = 'block';
     } else {
-        postEditForm.style.display = 'none';
-        postContent.style.display = 'block';
+        editForm.style.display = 'none';
     }
 }
 
