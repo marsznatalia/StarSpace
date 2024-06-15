@@ -70,8 +70,8 @@ function fetchMessagesInChat(chatId, userId) {
         })
         .then(messages => {
             console.log("Fetch successfull!");
-            const messagesContainer = document.getElementById('messages'); // Get the messages container
-            messagesContainer.innerHTML = ''; // Clear existing messages
+            const messagesContainer = document.getElementById('messages');
+            messagesContainer.innerHTML = '';
 
             messages.forEach(message => {
                 const messageContainer = document.createElement('div');

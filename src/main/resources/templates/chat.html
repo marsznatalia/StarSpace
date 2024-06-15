@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <link rel="stylesheet" type="text/css" th:href="@{/css/chat.css}"/>
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chat-format.css}"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chat</title>
@@ -51,14 +51,13 @@
             </div>
         </div>
         <div class="messages" id="messages">
-            </div>
-            <div class="message-input">
-                <input type="text" id="messageInput" placeholder="Write a message..."/>
-                <button class="send-button" id="sendButton" onclick="sendMessage()">
-                    <img th:src="@{/images/send-button.png}" alt="Send"/>
-                </button>
-            </div>
+            <!-- Messages will be dynamically appended here -->
         </div>
+        <div class="message-input">
+            <input type="text" id="messageInput" placeholder="Write a message..."/>
+            <button class="send-button" id="sendButton" onclick="sendMessage()">
+                <img th:src="@{/images/send-button.png}" alt="Send"/>
+            </button>
         </div>
     </div>
     <div class="profile-container">

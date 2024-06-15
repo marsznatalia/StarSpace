@@ -183,6 +183,14 @@ body {
     border-bottom-right-radius: 20px;
 }
 
+.message.received .message-content {
+    background-color: #f1f0f0;
+    color: #000000;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 20px;
+}
+
 .message-input {
     display: flex;
     align-items: center;
