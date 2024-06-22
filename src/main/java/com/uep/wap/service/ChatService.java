@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class ChatService {
@@ -119,5 +121,16 @@ public class ChatService {
                 .orElseThrow(() -> new ChatNotFoundException(id));
         chatRepository.deleteById(id);
     }
+
+    private ChatDTO convertToDTO(Chat chat) {
+        ChatDTO chatDTO = new ChatDTO();
+        chatDTO.setId(chat.getId());
+        chatDTO.setChatName(chat.getChatName());
+        chatDTO.setChatType(chat.getChatType());
+        chatDTO.setUsersInChatIds(chat.getChatUsersList().stream().map(User::getId).collect(Collectors.toList()));
+        chatDTO.setUsersInChat(new ArrayList<>(chat.getChatUsersList()));
+        return chatDTO;
+    }
+
 
 }

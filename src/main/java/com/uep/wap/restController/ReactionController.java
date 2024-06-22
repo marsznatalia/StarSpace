@@ -1,4 +1,4 @@
-package com.uep.wap.controller;
+package com.uep.wap.restController;
 
 import com.uep.wap.dto.ReactionDTO;
 import com.uep.wap.model.Reaction;

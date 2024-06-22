@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 public class PostService {
@@ -28,7 +30,7 @@ public class PostService {
     public void addPost(PostDTO postDTO) {
         User user = userRepository.findById(postDTO.getUserAuthorId())
                 .orElseThrow(() -> new UserNotFoundException(postDTO.getUserAuthorId()));
-
+        System.out.println("Received PostDTO: " + postDTO);
         Post post = new Post();
         post.setUser(user);
         post.setContent(postDTO.getContent());
@@ -42,7 +44,6 @@ public class PostService {
         System.out.println("Post added!");
     }
 
-
     public void editPost(Long postId, String editedContent) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new PostNotFoundException(postId));
@@ -54,9 +55,24 @@ public class PostService {
         postRepository.deleteById(postID);
     }
 
-    public Iterable<Post> getAllPosts() {
-        return postRepository.findAll();
+    public Iterable<PostDTO> getAllPosts() {
+        Iterable<Post> posts = postRepository.findAll();
+        return StreamSupport.stream(posts.spliterator(), false)
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
     }
+
+
+    private PostDTO convertToDTO(Post post) {
+        PostDTO postDTO = new PostDTO();
+        postDTO.setId(post.getId());
+        postDTO.setContent(post.getContent());
+        postDTO.setDatePosted(post.getDatePosted());
+        postDTO.setUser(post.getUser());
+        postDTO.setUserAuthorId(post.getUser().getId());
+        return postDTO;
+    }
+
 
     public Optional<Post> findPostById(Long id) {
         return postRepository.findById(id);

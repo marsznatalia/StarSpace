@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/chat-format.css}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat</title>
+</head>
+<body>
+<div class="container">
+    <div class="sidebar">
+        <div class="header">
+            <div class="settings-icon">
+                <button id="btn" class="icon-button">
+                    <img th:src="@{/images/hamburger-icon.png}" alt="Menu"/>
+                </button>
+            </div>
+            <div class="title">HelloWorld</div>
+            <div class="return-icon">
+                <a th:href="@{/home(userId=${userId})}">
+                    <button class="icon-button">
+                        <img th:src="@{/images/return-icon.png}" alt="Return"/>
+                    </button>
+                </a>
+            </div>
+        </div>
+        <div class="search">
+            <input type="text" placeholder="Search people and groups"/>
+        </div>
+        <div class="contacts">
+            <input type="hidden" id="userId" value="">
+            <div th:each="chat : ${chat}">
+                <a th:href="@{/chat(userId=${userId}, chatId=${chat.id})}" class="contact">
+                    <div class="contact-info">
+                        <div class="contact-name" th:text="${chat.chatName}"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="chat">
+        <div class="chat-header">
+            <div class="chat-title">Name</div>
+            <div class="chat-icons">
+                <div class="info-icon">
+                    <button class="icon-button">
+                        <img th:src="@{/images/info-icon.png}" alt="Info"/>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="messages" id="messages">
+            <!-- Messages will be dynamically appended here -->
+        </div>
+        <div class="message-input">
+            <input type="text" id="messageInput" placeholder="Write a message..."/>
+            <button class="send-button" id="sendButton" onclick="sendMessage()">
+                <img th:src="@{/images/send-button.png}" alt="Send"/>
+            </button>
+        </div>
+    </div>
+    <div class="profile-container">
+        <div class="profile-container">
+            <img th:src="@{/images/profile-stock.jpg}" alt="Profile Picture" class="profile-picture">
+            <div class="user-name">John Doe</div>
+        </div>
+    </div>
+</div>
+<script th:src="@{/js/chat-page.js}"></script>
+</body>
+</html>

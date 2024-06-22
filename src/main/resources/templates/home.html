@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hello World</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-P7n/WJwX5fzlCFOW4Zs4J3wV9HRFyjOV+JbRPyjZzP9c+8KLs4+tsZcOmi/lJr5B"
+          crossorigin="anonymous">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="/css/side-nav-bar-format.css">
+</head>
+<body>
+<div class="sidebar">
+    <div class="logo_details">
+        <img src="/images/logoNew.png" alt="Hello World Logo" class="logo-image">
+        <div class="logo_name">Hello World</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search...">
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/login">
+                <i class="bx bx-grid-alt"></i>
+                <span class="link_name">Dashboard</span>
+            </a>
+            <span class="tooltip">Dashboard</span>
+        </li>
+        <li>
+            <a href="/userProfile">
+                <i class="bx bx-user"></i>
+                <span class="link_name">User</span>
+            </a>
+            <span class="tooltip">User</span>
+        </li>
+        <li>
+            <a th:href="@{'/chat?userId=' + ${userId}}">
+                <i class="bx bx-chat"></i>
+                <span class="link_name">Chats</span>
+            </a>
+            <span class="tooltip">Chats</span>
+        </li>
+        <li>
+            <a href="#">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="link_name">Analytics</span>
+            </a>
+            <span class="tooltip">Analytics</span>
+        </li>
+        <li class="profile">
+            <div class="profile_details">
+                <img src="/images/profile.jpeg" alt="profile image">
+                <div class="profile_content">
+                    <div class="name">John Locke</div>
+                    <div class="designation">Admin</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="log_out"></i>
+        </li>
+    </ul>
+</div>
+
+<main class="main-content">
+    <div class="container">
+        <div class="add-post-container">
+            <form id="addPostForm">
+                <input type="hidden" id="userAuthorId" name="userAuthorId" value="">
+                <input type="text" id="postContent" name="content" class="add-post-input"
+                       placeholder="What's on your mind?">
+                <button type="submit" class="add-post-button">Post</button>
+            </form>
+        </div>
+
+        <div class="posts-list"></div>
+    </div>
+</main>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="/js/side-nav-bar.js"></script>
+<script src="/js/post.js"></script>
+</body>
+</html>

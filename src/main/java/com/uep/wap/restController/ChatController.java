@@ -1,10 +1,16 @@
-package com.uep.wap.controller;
+package com.uep.wap.restController;
 
 import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.exception.ChatNotFoundException;
 import com.uep.wap.model.Chat;
 import com.uep.wap.service.ChatService;
+import com.uep.wap.service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Set;
 
 
 @RestController
@@ -12,14 +18,30 @@ import org.springframework.web.bind.annotation.*;
 public class ChatController {
 
     private final ChatService chatService;
+    private final UserService userService;
 
-    public ChatController(ChatService chatService) {
+    public ChatController(ChatService chatService, UserService userService) {
         this.chatService = chatService;
+        this.userService = userService;
+    }
+
+    @GetMapping("/chat/{userId}")
+    public ResponseEntity<String> getChatsById(@PathVariable("userId") Long userId, Model model) {
+        try {
+            Set<Chat> chats = userService.getUserChats(userId);
+            model.addAttribute("chat", chats);
+            model.addAttribute("userId", userId);
+            return ResponseEntity.ok("Chats retrieved successfully");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error retrieving chats: " + e.getMessage());
+        }
     }
 
     @GetMapping(path = "/chats")
-    Iterable<Chat> getAllChats() {
-        return chatService.getAllChats();
+    public Iterable<Chat> getAllChats() {
+        Iterable<Chat> chats = chatService.getAllChats();
+        return ResponseEntity.ok(chats).getBody();
     }
 
     @GetMapping(path = "/chats/{chatId}")
@@ -52,7 +74,7 @@ public class ChatController {
         return "Chat name changed!";
     }
 
-    @DeleteMapping("/chats/{id}")
+    @DeleteMapping("/chats/delete/{id}")
     public String deleteChat(@PathVariable Long id) {
         chatService.deleteById(id);
         return "Chat deleted!";

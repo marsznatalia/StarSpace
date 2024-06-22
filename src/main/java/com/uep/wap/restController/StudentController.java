@@ -1,7 +1,6 @@
-package com.uep.wap.controller;
+package com.uep.wap.restController;
 
 import com.uep.wap.dto.StudentDTO;
-import com.uep.wap.dto.StudentsDataDTO;
 import com.uep.wap.model.Student;
 import com.uep.wap.service.StudentsService;
 import org.springframework.web.bind.annotation.*;

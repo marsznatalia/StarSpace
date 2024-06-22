@@ -1,86 +1,43 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/logIn-format.css}"/>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hello World</title>
-
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom CSS for responsive styling -->
-    <style>
-        /* Add your custom CSS styles for responsiveness here */
-        body {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        .main-content {
-            flex: 1;
-            margin-left: 20%; /* Margin to accommodate the sidebar */
-            margin-top: 56px; /* Adjust based on the height of the navbar */
-        }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            bottom: 0;
-            width: 20%;
-            background-color: #f8f9fa;
-            border-right: 1px solid #dee2e6;
-            overflow-y: auto; /* Add scrollbar if content exceeds the sidebar height */
-        }
-        .navbar {
-            margin-bottom: 20px; /* Additional margin between the header and content */
-            width: calc(100% - 20%); /* Set navbar width to take the remaining space */
-            float: right; /* Float the navbar to the right */
-            z-index: 1000; /* Ensure the navbar is above the sidebar */
-        }
-        .sidebar-logo {
-            text-align: center;
-            padding: 20px 0;
-        }
-        .sidebar-logo img {
-            max-width: 80%; /* Adjust the logo size as needed */
-        }
-    </style>
+    <link rel="icon" href="ikona.ico" type="image/x-icon">
+    <title>Log in</title>
 </head>
 <body>
-<!-- Sidebar menu -->
-<div class="sidebar">
-    <div class="sidebar-logo">
-        <img src="/images/logo.png" alt="Hello World Logo">
+<div id="logIn" class="shadow rounded">
+    <div class="logo-container">
+        <img th:src="@{/images/logoNew.png}" alt="Logo">
     </div>
-    <ul class="nav flex-column">
-        <li class="nav-item">
-            <a class="nav-link" href="#">Chaty</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="#">Eksploruj</a>
-        </li>
-        <li class="nav-item">
-            <a class="nav-link" href="/api/add-user">New User</a>
-        </li>
-        <!-- Add more menu items here -->
-    </ul>
+    <h1 class="welcome-message">Witaj w StarSpace, eksploruj wszechświat z nami</h1>
+    <div class="user-selection">
+        <form th:action="@{/login}" method="post" id="loginForm">
+            <div class="input-group">
+                <select id="userSelect" name="username" class="shadow rounded common-style">
+                    <option value="" disabled selected>Select a user</option>
+                    <option th:each="user : ${users}" th:value="${user.id}" th:text="${user.userName}"></option>
+                </select>
+                <input type="password" id="password" name="password" placeholder="Hasło" class="shadow rounded common-style password-input">
+            </div>
+            <input type="hidden" id="userId" name="userId">
+            <div class="button-container">
+                <input type="submit" value="Zaloguj się" class="shadow rounded">
+                <p>Nie masz konta?<br><a href="create">Stwórz już teraz!</a></p>
+            </div>
+            <a href="forgot-password">Zapomniałeś hasła?</a>
+        </form>
+    </div>
 </div>
-
-<!-- Main content -->
-<main class="main-content">
-    <div class="container">
-        <!-- Add your main content here -->
-        <ul>
-            Troche tekstu
-            <li> Jeden</li>
-            <li> Dwa </li>
-        </ul>
-    </div>
-</main>
-
-<!-- Bootstrap JS (optional, if you're using Bootstrap components) -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
+<script>
+    document.getElementById('userSelect').addEventListener('change', function () {
+        var selectedUserId = this.value;
+        document.getElementById('userId').value = selectedUserId;
+        document.getElementById('loginForm').submit();
+    });
+</script>
 </html>

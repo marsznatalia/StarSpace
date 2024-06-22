@@ -2,6 +2,7 @@ package com.uep.wap.service;
 
 import com.uep.wap.exception.UserNotFoundException;
 import com.uep.wap.dto.UserDTO;
+import com.uep.wap.model.Chat;
 import com.uep.wap.model.User;
 import com.uep.wap.repository.PostRepository;
 import com.uep.wap.repository.UserRepository;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class UserService {
@@ -41,6 +43,12 @@ public class UserService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new UserNotFoundException(userId));
         userRepository.deleteById(userId);
+    }
+
+    public Set<Chat> getUserChats(Long userId){
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new UserNotFoundException(userId));
+        return user.getChatList();
     }
 
     public void changeUserName(UserDTO userDTO, Long userId) {

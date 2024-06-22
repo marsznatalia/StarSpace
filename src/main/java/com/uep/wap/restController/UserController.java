@@ -1,34 +1,35 @@
-package com.uep.wap.controller;
+package com.uep.wap.restController;
 
+import com.uep.wap.dto.ChatDTO;
 import com.uep.wap.dto.UserDTO;
 import com.uep.wap.exception.UserNotFoundException;
+import com.uep.wap.model.Chat;
 import com.uep.wap.model.User;
+import com.uep.wap.repository.UserRepository;
 import com.uep.wap.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+
 @RestController
 @RequestMapping(path = "/api")
 public class UserController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
 
-    public UserController(UserService userService) {
+    public UserController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
+        this.userRepository = userRepository;
     }
-
 
     @PostMapping("/add-user")
     public String addUser(@ModelAttribute UserDTO userDTO) {
         userService.newUser(userDTO);
         return "redirect:/api/add-user";
-    }
-
-    @GetMapping("/add-user")
-    public String showAddUserForm(User user) {
-        return "add-user";
     }
 
     @GetMapping(path = "/users")
@@ -42,8 +43,23 @@ public class UserController {
                 .orElseThrow(() -> new UserNotFoundException(id));
     }
 
-    @PostMapping(path = "/user")
-    public String newUser(@RequestBody UserDTO userDTO) {
+    @GetMapping(path="/users/{id}/chats", produces = "application/json")
+    public ArrayList<ChatDTO> getAllUserChatsDTO(@PathVariable Long id) {
+        Iterable<Chat> chats = userService.getUserChats(id);
+        ArrayList<ChatDTO> chatDTOs = new ArrayList<>();
+        chats.forEach(chat -> {
+            ChatDTO chatDTO = new ChatDTO();
+            chatDTO.setId(chat.getId());
+            chatDTO.setChatName(chat.getChatName());
+            chatDTOs.add(chatDTO);
+        });
+        return ResponseEntity.ok(chatDTOs).getBody();
+    }
+
+
+
+    @PostMapping(path = "/user", consumes = "application/x-www-form-urlencoded")
+    public String newUser(@ModelAttribute UserDTO userDTO) {
         userService.newUser(userDTO);
         return "User added!";
     }
