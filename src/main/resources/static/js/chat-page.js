@@ -51,10 +51,7 @@ function fetchChats(userId) {
                 contactInfo.appendChild(contactName);
                 contact.appendChild(contactInfo);
                 chatsList.appendChild(contact);
-
-
             })
-
         })
         .catch(error => console.error('Error fetching chats:', error));
 }
@@ -69,7 +66,7 @@ function fetchMessagesInChat(chatId, userId) {
             return response.json();
         })
         .then(messages => {
-            console.log("Fetch successfull!");
+            console.log("Fetch successful!");
             const messagesContainer = document.getElementById('messages');
             messagesContainer.innerHTML = '';
 
@@ -77,17 +74,20 @@ function fetchMessagesInChat(chatId, userId) {
                 const messageContainer = document.createElement('div');
                 messageContainer.className = 'message';
                 if (message.senderId === userId) {
-                    console.log("Message", message.messageContent, "added as the ids are the same.", message.senderId, userId);
-                    messageContainer.className = 'message.sent';
+                    messageContainer.classList.add('sent');
+                } else {
+                    messageContainer.classList.add('received');
                 }
-                const messageContent = document.createTextNode(message.messageContent);
+                const messageContent = document.createElement('div');
                 messageContent.className = 'message-content';
+                messageContent.textContent = message.messageContent;
                 messageContainer.appendChild(messageContent);
                 messagesContainer.appendChild(messageContainer);
             });
         })
         .catch(error => console.error('Error fetching messages:', error));
 }
+
 function getCurrentChatId() {
     const hash = window.location.hash;
     const match = hash.match(/#chat-(\d+)/);
@@ -129,10 +129,15 @@ function appendMessageToContainer(message, container, userId) {
     messageContainer.className = 'message';
 
     if (message.senderId === userId) {
-        messageContainer.classList.add('message-sent');
+        messageContainer.classList.add('sent');
+    } else {
+        messageContainer.classList.add('received');
     }
 
-    const messageContent = document.createTextNode(message.messageContent);
+    const messageContent = document.createElement('div');
+    messageContent.className = 'message-content';
+    messageContent.textContent = message.messageContent;
+
     messageContainer.appendChild(messageContent);
     container.appendChild(messageContainer);
 }
